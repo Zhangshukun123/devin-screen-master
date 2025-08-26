@@ -1,0 +1,72 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 31
+    defaultConfig {
+        multiDexEnabled true
+        applicationId "com.diwen.liliao"
+        minSdkVersion 19
+        targetSdkVersion 30
+        versionCode 1
+        versionName "1.0"
+        manifestPlaceholders = [
+                JPUSH_PKGNAME: applicationId,
+                DESIN_WIGHT  : "640", //640    
+                DESIN_HEIGHT : "400", //400     
+        ]
+
+    }
+    buildFeatures {
+        viewBinding true
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.aar'])
+    implementation 'io.netty:netty-all:4.1.23.Final'
+    implementation 'org.greenrobot:eventbus:3.0.0'
+
+    implementation 'androidx.annotation:annotation:1.1.0'
+    implementation 'androidx.databinding:library:3.2.0-alpha11'
+    implementation 'org.jetbrains:annotations:15.0'
+    implementation 'androidx.work:work-runtime:2.5.0'
+    implementation files('libs\\fastjson-1.2.7.jar')
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
+    implementation 'androidx.appcompat:appcompat:1.0.0'
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'com.google.android.material:material:1.0.0'
+    implementation 'androidx.viewpager2:viewpager2:1.0.0'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+
+    //适配界面
+    implementation 'me.jessyan:autosize:1.2.1'
+    //    约束布局
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.50'
+    implementation 'com.airbnb.android:lottie:3.4.0'
+
+    //腾讯mmkv
+    implementation 'com.tencent:mmkv-static:1.2.6'
+    // lombok: 插件
+    implementation 'org.projectlombok:lombok:1.18.16'
+    annotationProcessor 'org.projectlombok:lombok:1.18.16'
+    implementation "com.bytedance.tools.codelocator:codelocator-core:2.0.3"
+    implementation 'com.contrarywind:wheelview:4.1.0'
+    // Shape 框架：https://github.com/getActivity/ShapeView
+    implementation 'com.github.getActivity:ShapeView:6.0'
+    implementation 'com.github.getActivity:ToastUtils:9.5'
+    implementation 'com.gyf.immersionbar:immersionbar:3.0.0'
+    // 标题栏框架：https://github.com/getActivity/TitleBar
+    implementation 'com.github.getActivity:TitleBar:9.3'
+
+    implementation project(path: ':blurview')
+}

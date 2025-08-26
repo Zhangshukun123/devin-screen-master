@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+    
+    <color name="black">#000000</color>
+    <color name="themeColor">#3F73FE</color>
+    <color name="white">#FFFFFF</color>
+    <color name="bg_black30">#303030</color>
+    <color name="bg00">#00000000</color>
+    <color name="black50">#80000000</color>
+    <color name="color99">#999999</color>
+    <color name="title_color">#735A74F9</color>
+    <color name="wight_color">#4DF2F6FF</color>
+    <color name="wight20">#33F2F6FF</color>
+    <color name="wight66">#A8FFFFFF</color>
+    <color name="pressedColor">#1A000000</color>
+    <color name="bg_color">#fff1f3f6</color>
+</resources>

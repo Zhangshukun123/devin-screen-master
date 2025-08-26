@@ -1,0 +1,388 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
+    android:background="@mipmap/icon_pagebg"
+    android:orientation="vertical"
+    tools:ignore="MissingConstraints">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+        android:background="@color/title_color">
+
+        <ImageView
+            android:id="@+id/ivFinish"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:paddingVertical="12dp"
+            android:paddingLeft="32dp"
+            android:src="@mipmap/icon_w_finish" />
+
+        <TextView
+            android:id="@+id/tvName"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:gravity="center_vertical"
+            android:paddingRight="32dp"
+            android:text=""
+            android:textColor="@color/white"
+            android:textSize="12dp" />   <ImageView
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:src="@mipmap/pic_titlelogo" />
+    </RelativeLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:animateLayoutChanges="true">
+        <net.center.blurview.ShapeBlurView
+            android:id="@+id/shapeBlur"
+            android:layout_width="320dp"
+            android:layout_height="264dp"
+            android:layout_marginLeft="20dp"
+            app:blur_corner_radius="11dp"
+            app:blur_overlay_color="#29FFFFFF"
+            app:blur_radius="5dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:scaleType="fitXY"
+            android:layout_width="160dp"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:src="@mipmap/icon_timesettings"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/llNian"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:orientation="vertical"
+            app:layout_constraintLeft_toLeftOf="@+id/shapeBlur"
+            app:layout_constraintTop_toTopOf="@+id/shapeBlur">
+
+            <com.hjq.shape.layout.ShapeLinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingHorizontal="10dp"
+                app:shape_endColor="#D691FD"
+                app:shape_radius="5dp"
+                app:shape_startColor="#948CFE">
+
+                <TextView
+                    android:id="@+id/tvYear"
+                    android:layout_width="63dp"
+                    android:layout_height="wrap_content"
+                    android:text="Years："
+                    android:textColor="@color/white"
+                    android:textSize="15dp" />
+
+                <TextView
+                    android:id="@+id/evYear"
+                    android:layout_width="54dp"
+                    android:layout_height="27dp"
+                    android:background="@drawable/shape_wight_5"
+                    android:gravity="center"
+                    android:inputType="numberSigned"
+                    android:text="0"
+                    android:textColor="@color/black"
+                    android:textSize="20dp" />
+            </com.hjq.shape.layout.ShapeLinearLayout>
+
+            <com.hjq.shape.layout.ShapeLinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginTop="25dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingHorizontal="10dp"
+                app:shape_endColor="#D691FD"
+                app:shape_radius="5dp"
+                app:shape_startColor="#948CFE">
+
+                <TextView
+                    android:id="@+id/tvMoth"
+                    android:layout_width="63dp"
+                    android:layout_height="wrap_content"
+                    android:text="Month："
+                    android:textColor="@color/white"
+                    android:textSize="15dp" />
+
+                <TextView
+                    android:id="@+id/evMoth"
+                    android:layout_width="54dp"
+                    android:layout_height="27dp"
+                    android:background="@drawable/shape_wight_5"
+                    android:gravity="center"
+                    android:inputType="numberSigned"
+                    android:text="0"
+                    android:textColor="@color/black"
+                    android:textSize="20dp" />
+            </com.hjq.shape.layout.ShapeLinearLayout>
+
+            <com.hjq.shape.layout.ShapeLinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginTop="25dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingHorizontal="10dp"
+                app:shape_endColor="#D691FD"
+                app:shape_radius="5dp"
+                app:shape_startColor="#948CFE">
+
+                <TextView
+                    android:id="@+id/tvDay"
+                    android:layout_width="63dp"
+                    android:layout_height="wrap_content"
+                    android:text="Day："
+                    android:textColor="@color/white"
+                    android:textSize="15dp" />
+
+                <TextView
+                    android:id="@+id/evDay"
+                    android:layout_width="54dp"
+                    android:layout_height="27dp"
+                    android:background="@drawable/shape_wight_5"
+                    android:gravity="center"
+                    android:inputType="numberSigned"
+                    android:text="0"
+                    android:textColor="@color/black"
+                    android:textSize="20dp" />
+            </com.hjq.shape.layout.ShapeLinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llhour"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="15dp"
+            android:orientation="vertical"
+            app:layout_constraintRight_toRightOf="@+id/shapeBlur"
+            app:layout_constraintTop_toTopOf="@id/llNian">
+
+            <com.hjq.shape.layout.ShapeLinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingHorizontal="10dp"
+                app:shape_endColor="#D691FD"
+                app:shape_radius="5dp"
+                app:shape_startColor="#948CFE">
+
+                <TextView
+                    android:id="@+id/tvHour"
+                    android:layout_width="63dp"
+                    android:layout_height="wrap_content"
+                    android:text="Hour："
+                    android:textColor="@color/white"
+                    android:textSize="15dp" />
+
+                <TextView
+                    android:id="@+id/evHour"
+                    android:layout_width="54dp"
+                    android:layout_height="27dp"
+                    android:background="@drawable/shape_wight_5"
+                    android:gravity="center"
+                    android:inputType="numberSigned"
+                    android:text="0"
+                    android:textColor="@color/black"
+                    android:textSize="20dp" />
+            </com.hjq.shape.layout.ShapeLinearLayout>
+
+            <com.hjq.shape.layout.ShapeLinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginTop="25dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingHorizontal="10dp"
+                app:shape_endColor="#D691FD"
+                app:shape_radius="5dp"
+                app:shape_startColor="#948CFE">
+
+                <TextView
+                    android:id="@+id/tvFen"
+                    android:layout_width="63dp"
+                    android:layout_height="wrap_content"
+                    android:text="Min："
+                    android:textColor="@color/white"
+                    android:textSize="15dp" />
+
+                <TextView
+                    android:id="@+id/evFen"
+                    android:layout_width="54dp"
+                    android:layout_height="27dp"
+                    android:background="@drawable/shape_wight_5"
+                    android:gravity="center"
+                    android:inputType="numberSigned"
+                    android:text="0"
+                    android:textColor="@color/black"
+                    android:textSize="20dp" />
+            </com.hjq.shape.layout.ShapeLinearLayout>
+
+            <com.hjq.shape.layout.ShapeLinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginTop="25dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingHorizontal="10dp"
+                app:shape_endColor="#D691FD"
+                app:shape_radius="5dp"
+                app:shape_startColor="#948CFE">
+
+                <TextView
+                    android:id="@+id/tvMiao"
+                    android:layout_width="63dp"
+                    android:layout_height="wrap_content"
+                    android:text="Sec："
+                    android:textColor="@color/white"
+                    android:textSize="15dp" />
+
+                <TextView
+                    android:id="@+id/evMiao"
+                    android:layout_width="54dp"
+                    android:layout_height="27dp"
+                    android:background="@drawable/shape_wight_5"
+                    android:gravity="center"
+                    android:inputType="numberSigned"
+                    android:text="0"
+                    android:textColor="@color/black"
+                    android:textSize="20dp" />
+            </com.hjq.shape.layout.ShapeLinearLayout>
+        </LinearLayout>
+
+        <com.hjq.shape.view.ShapeTextView
+            android:id="@+id/tvSave"
+            android:layout_width="wrap_content"
+            android:layout_height="34dp"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:paddingHorizontal="33dp"
+            android:text="保存"
+            app:layout_constraintTop_toBottomOf="@+id/llNian"
+            app:layout_constraintLeft_toLeftOf="@+id/shapeBlur"
+            app:layout_constraintRight_toRightOf="@+id/shapeBlur"
+            app:shape_radius="5dp"
+            app:shape_solidColor="@color/white"
+            app:shape_solidPressedColor="@color/bg_color" />
+
+        <View
+            android:id="@+id/center"
+            android:layout_width="1dp"
+            android:layout_height="1dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+
+        <FrameLayout
+            android:id="@+id/llYangli"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="30dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@+id/center"
+            app:layout_constraintRight_toRightOf="parent">
+
+            <com.hjq.shape.layout.ShapeLinearLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="10dp"
+                android:orientation="horizontal"
+                android:padding="10dp"
+                app:shape_radius="@dimen/dp_10"
+                app:shape_solidColor="@color/white">
+
+                <com.contrarywind.view.WheelView
+                    android:id="@+id/wheel_view_y"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:wheelview_dividerColor="@color/themeColor"
+                    app:wheelview_gravity="center"
+                    app:wheelview_textColorCenter="@color/themeColor"
+                    app:wheelview_textSize="14dp" />
+
+                <com.contrarywind.view.WheelView
+                    android:id="@+id/wheel_view_moth"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:wheelview_dividerColor="@color/themeColor"
+                    app:wheelview_gravity="center"
+                    app:wheelview_textColorCenter="@color/themeColor"
+                    app:wheelview_textSize="14dp" />
+
+                <com.contrarywind.view.WheelView
+                    android:id="@+id/wheel_view_day"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:wheelview_dividerColor="@color/themeColor"
+                    app:wheelview_gravity="center"
+                    app:wheelview_textColorCenter="@color/themeColor"
+                    app:wheelview_textSize="14dp" />
+
+                <com.contrarywind.view.WheelView
+                    android:id="@+id/wheel_view_H"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:wheelview_dividerColor="@color/themeColor"
+                    app:wheelview_gravity="center"
+                    app:wheelview_textColorCenter="@color/themeColor"
+                    app:wheelview_textSize="14dp" />
+
+                <com.contrarywind.view.WheelView
+                    android:id="@+id/wheel_view_M"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:wheelview_dividerColor="@color/themeColor"
+                    app:wheelview_gravity="center"
+                    app:wheelview_textColorCenter="@color/themeColor"
+                    app:wheelview_textSize="14dp" />
+
+                <com.contrarywind.view.WheelView
+                    android:id="@+id/wheel_view_s"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:wheelview_dividerColor="@color/themeColor"
+                    app:wheelview_gravity="center"
+                    app:wheelview_textColorCenter="@color/themeColor"
+                    app:wheelview_textSize="14dp" />
+            </com.hjq.shape.layout.ShapeLinearLayout>
+
+            <ImageView
+                android:id="@+id/ivDismis"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="right"
+                android:padding="5dp"
+                android:src="@mipmap/ic_delete_menu" />
+        </FrameLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>

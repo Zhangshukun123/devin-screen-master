@@ -1,0 +1,461 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/icon_pagebg"
+    android:orientation="vertical"
+    tools:ignore="MissingConstraints">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="42dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:background="@color/title_color"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/ivFinish"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:paddingVertical="12dp"
+                android:paddingRight="10dp"
+                android:paddingLeft="20dp"
+                android:src="@mipmap/icon_w_finish" />
+
+            <LinearLayout
+                android:id="@+id/llDeviceName"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingRight="10dp">
+
+                <TextView
+                    android:layout_marginLeft="10dp"
+                    android:id="@+id/tvDeviceName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:paddingRight="5dp"
+                    android:text=""
+                    android:textColor="@color/white"
+                    android:textSize="14dp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/ivDeviceName"
+                    android:layout_width="11dp"
+                    android:layout_height="6dp"
+                    android:src="@mipmap/icon_sanjiao" />
+
+            </LinearLayout>
+      
+          
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+            <ImageView
+                android:id="@+id/ivBl"
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:layout_marginRight="20dp"
+                android:src="@mipmap/icon_lanta" />
+
+            <ImageView
+                android:id="@+id/ivPhone"
+                android:layout_width="24dp"
+                android:layout_height="match_parent"
+                android:layout_marginRight="20dp"
+                android:src="@mipmap/icon_phoneline" />
+
+            <ImageView
+                android:id="@+id/ivSetting"
+                android:layout_width="20dp"
+                android:layout_height="match_parent"
+                android:layout_marginRight="32dp"
+                android:src="@mipmap/icon_setting" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/modelName"
+            android:layout_width="wrap_content"
+            android:layout_height="42dp"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="14dp" />
+        <ImageView
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@mipmap/pic_titlelogo" />
+    </FrameLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <net.center.blurview.ShapeBlurView
+            android:layout_width="match_parent"
+            android:layout_height="147dp"
+            app:blur_radius="15dp"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="147dp"
+            android:background="@mipmap/icon_devicenewbg"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="27dp"
+            android:layout_marginBottom="129dp"
+            android:background="@mipmap/icon_devicenewbg1"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+
+        <ImageView
+            android:id="@+id/fenshan"
+            android:layout_width="94dp"
+            android:layout_height="94dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginBottom="18dp"
+            android:src="@mipmap/icon_fenshan"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent" />
+
+        <TextView
+            android:id="@+id/tvAirBlower"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="3"
+            android:textColor="@color/white"
+            android:textSize="16dp"
+            app:layout_constraintBottom_toBottomOf="@+id/fenshan"
+            app:layout_constraintLeft_toLeftOf="@+id/fenshan"
+            app:layout_constraintRight_toRightOf="@+id/fenshan"
+            app:layout_constraintTop_toTopOf="@id/fenshan" />
+
+
+        <com.hjq.shape.layout.ShapeLinearLayout
+            android:id="@+id/llVolume4"
+            android:layout_width="0dp"
+            android:layout_height="82dp"
+            android:layout_marginHorizontal="20dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="@id/fenshan"
+            app:layout_constraintLeft_toRightOf="@+id/fenshan"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/fenshan"
+            app:shape_radius="100dp"
+            app:shape_solidColor="#1A480170">
+
+            <com.diwen.liliao.utils.ReplaceSelectorImageView
+                android:id="@+id/ivSong1"
+                android:layout_width="33dp"
+                android:layout_height="33dp"
+                android:layout_marginLeft="120dp"
+                android:src="@mipmap/icon_song1" />
+
+            <com.diwen.liliao.utils.ReplaceSelectorImageView
+                android:id="@+id/ivSong2"
+                android:layout_width="38dp"
+                android:layout_height="38dp"
+                android:layout_marginLeft="20dp"
+                android:src="@mipmap/icon_song2" />
+
+            <com.diwen.liliao.utils.ReplaceSelectorImageView
+                android:id="@+id/ivSong3"
+                android:layout_width="33dp"
+                android:layout_height="33dp"
+                android:layout_marginLeft="20dp"
+                android:src="@mipmap/icon_song3" />
+
+
+            <com.hjq.shape.layout.ShapeLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="25dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                app:shape_radius="5dp"
+                app:shape_solidColor="#29FFFFFF">
+
+                <com.hjq.shape.layout.ShapeLinearLayout
+                    android:id="@+id/llVolume1"
+                    android:layout_width="22dp"
+                    android:layout_height="19dp"
+                    android:layout_marginLeft="3dp"
+                    android:gravity="center"
+                    app:shape_radius="3dp"
+                    app:shape_solidColor="#52540E7C">
+
+                    <ImageView
+                        android:layout_width="10dp"
+                        android:layout_height="10dp"
+                        android:src="@mipmap/icon_laba1" />
+
+                </com.hjq.shape.layout.ShapeLinearLayout>
+
+                <com.hjq.shape.layout.ShapeFrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="19dp"
+                    android:layout_marginHorizontal="5dp"
+                    android:layout_weight="1"
+                    app:shape_radius="3dp"
+                    app:shape_solidColor="#52540E7C">
+
+                    <SeekBar
+                        android:id="@+id/seekbar"
+                        style="@android:style/Widget.SeekBar"
+                        android:layout_width="match_parent"
+                        android:layout_height="13dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginHorizontal="3dp"
+                        android:background="@null"
+                        android:max="31"
+                        android:min="0"
+                        android:paddingStart="0dp"
+                        android:paddingEnd="0dp"
+                        android:progress="50"
+                        android:progressDrawable="@drawable/layer_list_progress_drawable_1"
+                        android:thumb="@drawable/shape_progressbar_thumb"
+                        app:layout_constraintTop_toBottomOf="@+id/lampDimming"
+                        tools:ignore="MissingConstraints" />
+
+                    <com.hjq.shape.view.ShapeView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:shape="line"
+                        app:shape_dashGap="1dp"
+                        app:shape_dashWidth="1dp" />
+
+                </com.hjq.shape.layout.ShapeFrameLayout>
+
+                <com.hjq.shape.layout.ShapeLinearLayout
+                    android:id="@+id/llVolume2"
+                    android:layout_width="22dp"
+                    android:layout_height="19dp"
+                    android:layout_marginRight="3dp"
+                    android:gravity="center"
+                    app:shape_radius="3dp"
+                    app:shape_solidColor="#52540E7C">
+
+                    <ImageView
+                        android:layout_width="12dp"
+                        android:layout_height="10dp"
+                        android:src="@mipmap/icon_laba2" />
+                </com.hjq.shape.layout.ShapeLinearLayout>
+
+
+            </com.hjq.shape.layout.ShapeLinearLayout>
+
+
+        </com.hjq.shape.layout.ShapeLinearLayout>
+
+        <ImageView
+            android:layout_width="94dp"
+            android:layout_height="94dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginBottom="18dp"
+            android:src="@mipmap/icon_yinyue"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@+id/fenshan"
+            app:layout_goneMarginLeft="20dp" />
+
+
+        <com.hjq.shape.layout.ShapeConstraintLayout
+            android:id="@+id/shapeMine"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:layout_marginRight="15dp"
+            android:padding="7dp"
+            app:layout_constraintRight_toLeftOf="@+id/shapeMao"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shape_endColor="#FEE3F9"
+            app:shape_radius="5dp"
+            app:shape_startColor="#DFB6FD">
+
+            <com.hjq.shape.view.ShapeImageView
+                android:id="@+id/ivAdd"
+                android:layout_width="wrap_content"
+                android:layout_height="22dp"
+                android:paddingHorizontal="7dp"
+                android:paddingVertical="2dp"
+                android:src="@mipmap/icon_add"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shape_radius="3dp"
+                app:shape_solidColor="@color/white"
+                app:shape_solidPressedColor="@color/pressedColor" />
+
+            <com.hjq.shape.view.ShapeImageView
+                android:id="@+id/ivmiue"
+                android:layout_width="wrap_content"
+                android:layout_height="22dp"
+                android:layout_marginTop="3dp"
+                android:paddingHorizontal="7dp"
+                android:paddingVertical="2dp"
+                android:src="@mipmap/icon_jian"
+                app:layout_constraintBottom_toBottomOf="@+id/tvMine"
+                app:layout_constraintLeft_toLeftOf="@+id/ivAdd"
+                app:shape_radius="3dp"
+                app:shape_solidColor="@color/white"
+                app:shape_solidPressedColor="@color/pressedColor" />
+
+            <com.hjq.shape.view.ShapeTextView
+                android:id="@+id/tvMine"
+                android:layout_width="90dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="3dp"
+                android:gravity="center"
+                android:paddingVertical="5dp"
+                android:text="10"
+                android:textSize="30dp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toRightOf="@+id/ivAdd"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shape="rectangle"
+                app:shape_radius="5dp"
+                app:shape_shadowColor="#A8A1FD"
+                app:shape_shadowSize="2dp"
+                app:shape_solidColor="#CFC3FD" />
+
+        </com.hjq.shape.layout.ShapeConstraintLayout>
+
+        <LinearLayout
+            android:id="@+id/shapeMao"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="@+id/shapeMine"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/shapeMine">
+
+            <com.hjq.shape.view.ShapeView
+                android:layout_width="6dp"
+                android:layout_height="6dp"
+                app:shape_radius="10dp"
+                app:shape_solidColor="@color/black" />
+
+            <com.hjq.shape.view.ShapeView
+                android:layout_width="6dp"
+                android:layout_height="6dp"
+                android:layout_marginTop="10dp"
+                app:shape_radius="10dp"
+                app:shape_solidColor="@color/black" />
+        </LinearLayout>
+
+        <com.hjq.shape.layout.ShapeConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:padding="7dp"
+            app:layout_constraintBottom_toBottomOf="@+id/shapeMine"
+            app:layout_constraintLeft_toRightOf="@+id/shapeMao"
+            app:layout_constraintTop_toTopOf="@+id/shapeMine"
+            app:shape_endColor="#FEE3F9"
+            app:shape_radius="5dp"
+            app:shape_startColor="#DFB6FD">
+
+            <com.hjq.shape.view.ShapeImageView
+                android:id="@+id/ivAdd1"
+                android:layout_width="wrap_content"
+                android:layout_height="22dp"
+                android:paddingHorizontal="7dp"
+                android:paddingVertical="2dp"
+                android:src="@mipmap/icon_add"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shape_radius="3dp"
+                app:shape_solidColor="@color/white"
+                app:shape_solidPressedColor="@color/pressedColor" />
+
+            <com.hjq.shape.view.ShapeImageView
+                android:id="@+id/ivmiue1"
+                android:layout_width="wrap_content"
+                android:layout_height="22dp"
+                android:layout_marginTop="3dp"
+                android:paddingHorizontal="7dp"
+                android:paddingVertical="2dp"
+                android:src="@mipmap/icon_jian"
+                app:layout_constraintBottom_toBottomOf="@+id/tvSeconds"
+                app:layout_constraintLeft_toLeftOf="@+id/ivAdd1"
+                app:shape_radius="3dp"
+                app:shape_solidColor="@color/white"
+                app:shape_solidPressedColor="@color/pressedColor" />
+
+            <com.hjq.shape.view.ShapeTextView
+                android:id="@+id/tvSeconds"
+                android:layout_width="90dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="3dp"
+                android:gravity="center"
+                android:paddingVertical="5dp"
+                android:text="00"
+                android:textSize="30dp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toLeftOf="@+id/ivAdd1"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shape="rectangle"
+                app:shape_radius="5dp"
+                app:shape_shadowColor="#A8A1FD"
+                app:shape_shadowSize="2dp"
+                app:shape_solidColor="#CFC3FD" />
+
+        </com.hjq.shape.layout.ShapeConstraintLayout>
+
+        <com.hjq.shape.view.ShapeTextView
+            android:id="@+id/tvStart"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginTop="35dp"
+            android:gravity="center"
+            android:paddingHorizontal="37dp"
+            android:textColor="@color/white"
+            android:textSize="14dp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/shapeMine"
+            app:shape_endColor="#D691FD"
+            app:shape_radius="40dp"
+            app:shape_solidPressedColor="@color/pressedColor"
+            app:shape_startColor="#4976FB"
+            app:shape_strokeColor="#D7E6FB"
+            app:shape_strokeWidth="4dp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/mesreList"
+            android:layout_width="370dp"
+            android:visibility="gone"
+            android:orientation="vertical"
+            android:layout_height="match_parent"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:background="@color/white"
+            app:layout_constraintBottom_toTopOf="@+id/llVolume4"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</LinearLayout>

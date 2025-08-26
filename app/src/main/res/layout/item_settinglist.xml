@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal">
+
+    <com.hjq.shape.layout.ShapeLinearLayout
+        android:layout_width="156dp"
+        android:layout_height="113dp"
+        android:layout_marginTop="44dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        app:shape_endColor="#C5DCFF"
+        app:shape_startColor="#F6DCFF"
+        app:shape_radius="5dp"
+        app:shape_solidPressedColor="@color/bg_color"
+       >
+
+        <ImageView
+            android:id="@+id/ivSettingBg"
+            android:layout_marginTop="18dp"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:src="@mipmap/icon_languge" />
+
+        <com.hjq.shape.view.ShapeTextView
+            android:id="@+id/settingTitle"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_marginTop="18dp"
+            android:text="B03"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:textSize="10dp"
+            android:textStyle="bold"
+            app:shape_bottomLeftRadius="5dp"
+            app:shape_bottomRightRadius="5dp"
+            app:shape_solidColor="@color/white" />
+
+    </com.hjq.shape.layout.ShapeLinearLayout>
+</LinearLayout>
