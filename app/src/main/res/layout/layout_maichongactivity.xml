@@ -1,85 +1,217 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@mipmap/icon_pagebg"
+    android:background="#1E0A37"
     android:orientation="vertical"
     tools:ignore="MissingConstraints">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="42dp"
-        android:background="@color/title_color">
-
-        <ImageView
-            android:id="@+id/ivFinish"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_centerVertical="true"
-            android:paddingVertical="12dp"
-            android:paddingLeft="32dp"
-            android:src="@mipmap/icon_w_finish" />
-
-        <TextView
-            android:id="@+id/tvName"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:gravity="center_vertical"
-            android:paddingRight="32dp"
-            android:text=""
-            android:textColor="@color/white"
-            android:textSize="12dp" />   <ImageView
-        android:layout_width="160dp"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:src="@mipmap/pic_titlelogo" />
-    </RelativeLayout>
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginVertical="17dp">
+        <include layout="@layout/layout_logo_top_left" />
 
-        <net.center.blurview.ShapeBlurView
+        <com.hjq.shape.layout.ShapeLinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:blur_corner_radius="15dp"
-            app:blur_overlay_color="#400D46C8"
-            app:blur_radius="5dp" />
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="@dimen/dp_10"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:paddingHorizontal="16dp"
+            app:shape="rectangle"
+            app:shape_radius="4dp"
+            app:shape_solidColor="#14D5B7FF">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            <TextView
+                android:id="@+id/tvMaiChong"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingVertical="@dimen/dp_10"
+                android:text="脉冲"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                android:textStyle="bold" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rectangle"
+            <!--        <include layout="@layout/item_maichonghead" />-->
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+                android:gravity="center_horizontal"
+                tools:ignore="MissingConstraints">
 
-            <com.hjq.shape.view.ShapeTextView
-                android:id="@+id/tvSave"
-                android:layout_width="wrap_content"
-                android:layout_height="34dp"
-                android:layout_gravity="bottom|center_horizontal"
-                android:layout_marginTop="20dp"
-                android:gravity="center"
-                android:paddingHorizontal="33dp"
-                android:text="保存"
-                app:shape_radius="5dp"
-                app:shape_solidColor="@color/white"
-                app:shape_solidPressedColor="@color/bg_color" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="8dp">
 
-        </LinearLayout>
+                    <TextView
+                        android:id="@+id/tv1"
+                        android:layout_width="45dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="全部"
+                        android:textColor="@color/white"
+                        android:textSize="11dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toLeftOf="@+id/llHZ"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-    </FrameLayout>
+                    <com.hjq.shape.layout.ShapeLinearLayout
+                        android:id="@+id/llHZ"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="8dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toRightOf="@id/tv1"
+                        app:layout_constraintRight_toLeftOf="@+id/llKong"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:shape_radius="4dp"
+                        app:shape_solidColor="#1AFFFFFF">
 
-</LinearLayout>
+                        <TextView
+                            android:id="@+id/tv2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="10dp"
+                            android:text="sasa"
+                            android:textColor="@color/white"
+                            android:textSize="11dp" />
+
+                        <com.hjq.shape.view.ShapeTextView
+                            android:id="@+id/evHz"
+                            android:layout_width="100dp"
+                            android:layout_height="25dp"
+                            android:background="@null"
+                            android:gravity="center"
+                            android:hint=" "
+                            android:inputType="numberSigned"
+                            android:text="1000"
+                            android:textColor="@color/white"
+                            android:textColorHint="#B9CCF9"
+                            android:textSize="11dp" />
+
+                    </com.hjq.shape.layout.ShapeLinearLayout>
+
+                    <com.hjq.shape.layout.ShapeLinearLayout
+                        android:id="@+id/llKong"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="8dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toRightOf="@+id/llHZ"
+                        app:layout_constraintRight_toLeftOf="@+id/ivChose"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:shape_radius="4dp"
+                        app:shape_solidColor="#1AFFFFFF">
+
+                        <TextView
+                            android:id="@+id/tv3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="10dp"
+                            android:text="占空比："
+                            android:textColor="@color/white"
+                            android:textSize="11dp"
+
+                            app:layout_constraintLeft_toRightOf="@+id/llHZ"
+                            app:layout_constraintRight_toLeftOf="@+id/evKong" />
+
+                        <com.hjq.shape.view.ShapeTextView
+                            android:id="@+id/evKong"
+                            android:layout_width="100dp"
+                            android:layout_height="25dp"
+                            android:background="@null"
+                            android:gravity="center"
+                            android:hint=" "
+                            android:imeOptions="flagNoExtractUi"
+                            android:inputType="numberSigned"
+                            android:text="100"
+                            android:textColor="@color/white"
+                            android:textColorHint="#B9CCF9"
+                            android:textSize="11dp"
+                            app:layout_constraintLeft_toRightOf="@+id/tv3"
+                            app:layout_constraintRight_toLeftOf="@+id/ivChose" />
+
+                    </com.hjq.shape.layout.ShapeLinearLayout>
+
+                    <ImageView
+                        android:id="@+id/ivChose"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:src="@mipmap/icon_ran_nochose"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toRightOf="@+id/llKong"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
+
+            <com.hjq.shape.layout.ShapeRelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:shape_radius="@dimen/dp_4"
+                app:shape_solidColor="@color/white10">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rectangle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingTop="2dp"
+                    android:paddingBottom="8dp"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+            </com.hjq.shape.layout.ShapeRelativeLayout>
+
+        </com.hjq.shape.layout.ShapeLinearLayout>
+
+        <com.hjq.shape.view.ShapeTextView
+            android:id="@+id/tvSave"
+            android:layout_width="200dp"
+            android:layout_height="30dp"
+            android:layout_gravity="bottom|center_horizontal"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="20dp"
+            android:gravity="center"
+            android:text="保存"
+            android:textColor="@color/white"
+            android:textSize="10sp"
+            app:shape_endColor="#A202FF"
+            app:shape_radius="2dp"
+            app:shape_startColor="#10A5F9" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvName"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:gravity="center_vertical"
+        android:paddingRight="32dp"
+        android:text=""
+        android:textColor="@color/white"
+        android:textSize="12dp" />
+
+    <ImageView
+        android:id="@+id/ivFinish"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:paddingVertical="12dp"
+        android:paddingRight="32dp"
+        android:src="@mipmap/icon_w_finish" />
+
+</RelativeLayout>

@@ -130,14 +130,14 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
         binding.ivAdd1.setOnClickListener(this);
         binding.ivmiue.setOnClickListener(this);
         binding.ivmiue1.setOnClickListener(this);
-        binding.tvStart.setOnClickListener(this);
+        binding.rlStart.setOnClickListener(this);
         binding.ivFinish.setOnClickListener(this);
         binding.ivSetting.setOnClickListener(this);
+        binding.ivRecord.setOnClickListener(this);
+        binding.ivMaiChong.setOnClickListener(this);
         binding.fenshan.setOnClickListener(this);
         binding.ivBl.setOnClickListener(this);
         binding.llDeviceName.setOnClickListener(this);
-        binding.llVolume1.setOnClickListener(this);
-        binding.llVolume2.setOnClickListener(this);
         binding.seekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -160,7 +160,7 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
                 }
             }
         });
-        binding.tvStart.setOnLongClickListener(v -> {
+        binding.rlStart.setOnLongClickListener(v -> {
             try {
                 JSONObject jsonObject = new JSONObject();
                 jsonObject.put(PadSAttribute.Launch.getAttribute(), 2);
@@ -193,44 +193,6 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
         if (v == binding.ivFinish) {
             finishThis();
         }
-        if (v == binding.llVolume1) {
-            if (ForbadClick.isFastDoubleClick(1)) {
-                return;
-            }
-            int progress = binding.seekbar.getProgress();
-            progress--;
-            if (progress <= 0) {
-                progress = 0;
-            }
-            binding.seekbar.setProgress(progress);
-            try {
-                JSONObject jsonObject = new JSONObject();
-                jsonObject.put(PadSAttribute.Volume.getAttribute(), binding.seekbar.getProgress());
-                DemoApp.getInstance().getAppViewModel().setMQTT(jsonObject);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-
-        if (v == binding.llVolume2) {
-            if (ForbadClick.isFastDoubleClick(1)) {
-                return;
-            }
-            int progress = binding.seekbar.getProgress();
-            progress++;
-            if (progress > 100) {
-                progress = 100;
-            }
-            binding.seekbar.setProgress(progress);
-            try {
-                JSONObject jsonObject = new JSONObject();
-                jsonObject.put(PadSAttribute.Volume.getAttribute(), binding.seekbar.getProgress());
-                DemoApp.getInstance().getAppViewModel().setMQTT(jsonObject);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-
         if (v == binding.ivAdd) {
             if (ForbadClick.isFastDoubleClick(1)) {
                 return;
@@ -299,7 +261,7 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
                 setDeviceTimeMin();
             }
         }
-        if (v == binding.tvStart) {
+        if (v == binding.rlStart) {
             try {
 
                 JSONObject jsonObject = new JSONObject();
@@ -328,6 +290,28 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
                 e.printStackTrace();
             }
             ActivityUtils.startActivity(new Intent(mContext, DeviceSettingActivity.class));
+        }
+        if (v == binding.ivRecord) {
+//            try {
+//                JSONObject jsonObject = new JSONObject();
+//                jsonObject.put(PadSAttribute.PressKey.getAttribute(), 1);
+//                DemoApp.getInstance().getAppViewModel().setMQTT(jsonObject);
+//                showLoading();
+//            } catch (JSONException e) {
+//                e.printStackTrace();
+//            }
+            ActivityUtils.startActivity(UseHitorActivity.class);
+        }
+        if (v == binding.ivMaiChong) {
+//            try {
+//                JSONObject jsonObject = new JSONObject();
+//                jsonObject.put(PadSAttribute.PressKey.getAttribute(), 1);
+//                DemoApp.getInstance().getAppViewModel().setMQTT(jsonObject);
+//                showLoading();
+//            } catch (JSONException e) {
+//                e.printStackTrace();
+//            }
+            ActivityUtils.startActivity(MaiChongSettingActivity.class);
         }
         if (v == binding.fenshan) {
             if (Launch == 1) {
@@ -590,13 +574,13 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
     public void setLaunch() {
         // 0 暂停 1 启动 2 停止  
         if (Launch == 0) {
-            binding.tvStart.setText(DemoApp.getInstance().getAppViewModel().getLangText("暂停"));//Pause
+//            binding.tvStart.setText(DemoApp.getInstance().getAppViewModel().getLangText("暂停"));//Pause
         }
         if (Launch == 1) {
-            binding.tvStart.setText(DemoApp.getInstance().getAppViewModel().getLangText("已停止"));//Stop
+//            binding.tvStart.setText(DemoApp.getInstance().getAppViewModel().getLangText("已停止"));//Stop
         }
         if (Launch == 2) {
-            binding.tvStart.setText(DemoApp.getInstance().getAppViewModel().getLangText("开始"));//Start
+//            binding.tvStart.setText(DemoApp.getInstance().getAppViewModel().getLangText("开始"));//Start
         }
         if (Launch != 1) {
             handler.removeMessages(826);

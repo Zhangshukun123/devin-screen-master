@@ -29,9 +29,9 @@ public class MaiChongAdapter extends BaseQuickAdapter<SettingItem, BaseViewHolde
         helper.setText(R.id.evKong, item.getPulseDuty() + "");
         helper.addOnClickListener(R.id.ivChose);
 
-        CustomEditText  evhz=helper.getView(R.id.evHz);
+        CustomEditText evhz = helper.getView(R.id.evHz);
         evhz.setMaxInputValue(20000);
-        CustomEditText  evKong=helper.getView(R.id.evKong);
+        CustomEditText evKong = helper.getView(R.id.evKong);
         evKong.setMaxInputValue(100);
     }
 }

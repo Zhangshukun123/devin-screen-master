@@ -36,6 +36,7 @@ public class UseHitorActivity extends MqttBaseActivity<LayoutUsehittorBinding> {
 
     @Override
     protected void setUiText() {
+        binding.tvRecord.setText(DemoApp.getInstance().getAppViewModel().getLangText("记录"));
         binding.tvAllTime.setText(DemoApp.getInstance().getAppViewModel().getLangText("累计工作时间"));
         binding.tvXuhao.setText(DemoApp.getInstance().getAppViewModel().getLangText("序号"));
         binding.tvStartTime.setText(DemoApp.getInstance().getAppViewModel().getLangText("开始时间"));
@@ -116,22 +117,22 @@ public class UseHitorActivity extends MqttBaseActivity<LayoutUsehittorBinding> {
         //TotalTime:00001,Number:119,StartTime:2024/08/06 12:45:09,EndTime:2024/08/06 12:45:09,UsageTime:10:05
         if (strings.contains(PadSAttribute.TotalTime.getAttribute())) {
             try {
-                int  TotalTime = (int ) map.get(PadSAttribute.TotalTime.getAttribute());
+                int TotalTime = (int) map.get(PadSAttribute.TotalTime.getAttribute());
                 String s = String.valueOf(TotalTime);
-                  while (s.length()<5){
-                      s="0"+s;
-                  }              
+                while (s.length() < 5) {
+                    s = "0" + s;
+                }
                 binding.tvWorkAllTime.setText(s + " h");
-             int Number = (int) map.get(PadSAttribute.Number.getAttribute());
-             binding.tvNumber.setText(getPointTwo(Number));
-             String StartTime = (String) map.get(PadSAttribute.StartTime.getAttribute());
-             binding.evStartTime.setText(StartTime);
+                int Number = (int) map.get(PadSAttribute.Number.getAttribute());
+                binding.tvNumber.setText(getPointTwo(Number));
+                String StartTime = (String) map.get(PadSAttribute.StartTime.getAttribute());
+                binding.evStartTime.setText(StartTime);
 
-             String EndTime = (String) map.get(PadSAttribute.EndTime.getAttribute());
-             binding.evEndTime.setText(EndTime);
+                String EndTime = (String) map.get(PadSAttribute.EndTime.getAttribute());
+                binding.evEndTime.setText(EndTime);
 
-             String UsageTime = (String) map.get(PadSAttribute.UsageTime.getAttribute());
-             binding.evDeviceTime.setText(UsageTime);
+                String UsageTime = (String) map.get(PadSAttribute.UsageTime.getAttribute());
+                binding.evDeviceTime.setText(UsageTime);
             } catch (NumberFormatException e) {
                 e.printStackTrace();
             }
@@ -139,6 +140,7 @@ public class UseHitorActivity extends MqttBaseActivity<LayoutUsehittorBinding> {
         }
 
     }
+
     public String getPointTwo(int a) {
         if (a < 10) {
             return "0" + String.valueOf(a);

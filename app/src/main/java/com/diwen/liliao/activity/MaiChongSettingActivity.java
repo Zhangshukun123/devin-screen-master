@@ -2,8 +2,6 @@ package com.diwen.liliao.activity;
 
 import android.content.Intent;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.diwen.liliao.DemoApp;
 import com.diwen.liliao.InputDialog;
@@ -21,7 +19,6 @@ import com.diwen.liliao.netty.MQTTCons;
 import com.diwen.liliao.netty.PadSAttribute;
 import com.diwen.liliao.utils.ActivityUtils;
 import com.diwen.liliao.utils.AtyUtils;
-import com.hjq.shape.view.ShapeTextView;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -40,9 +37,6 @@ public class MaiChongSettingActivity extends MqttBaseActivity<LayoutMaichongacti
     private MaiChongAdapter maiChongAdapter;
     private ArrayList<SettingItem> buttonList;
     private int IntelligentMode;
-    private ShapeTextView evHz;
-    private ShapeTextView evKong;
-    private ImageView ivChose;
     private String[] splitset = new String[6];
     private boolean allChose = true;
     private InputDialog inputDialog;
@@ -70,16 +64,14 @@ public class MaiChongSettingActivity extends MqttBaseActivity<LayoutMaichongacti
             binding.tvName.setText(MyMMKV.getDeviceName());
         }
         buttonList = new ArrayList<>();
-        View headView = View.inflate(mContext, R.layout.item_maichonghead, null);
-        ivChose = headView.findViewById(R.id.ivChose);
-        ivChose.setImageResource(R.mipmap.icon_ran_chose);
-        ivChose.setOnClickListener(v -> {
+        binding.ivChose.setImageResource(R.mipmap.icon_ran_chose);
+        binding.ivChose.setOnClickListener(v -> {
             if (allChose) {
                 allChose = false;
-                ivChose.setImageResource(R.mipmap.icon_ran_nochose);
+                binding.ivChose.setImageResource(R.mipmap.icon_ran_nochose);
             } else {
                 allChose = true;
-                ivChose.setImageResource(R.mipmap.icon_ran_chose);
+                binding.ivChose.setImageResource(R.mipmap.icon_ran_chose);
             }
             for (SettingItem datum : maiChongAdapter.getData()) {
                 datum.setChose(allChose);
@@ -87,14 +79,12 @@ public class MaiChongSettingActivity extends MqttBaseActivity<LayoutMaichongacti
             maiChongAdapter.notifyDataSetChanged();
         });
 
-        evHz = headView.findViewById(R.id.evHz);
-        evKong = headView.findViewById(R.id.evKong);
-        
-        evHz.setOnClickListener(v -> {
+
+        binding.evHz.setOnClickListener(v -> {
             inputDialog = new InputDialog(mContext);
-            inputDialog.setshow(AtyUtils.getText(evHz));
+            inputDialog.setshow(AtyUtils.getText(binding.evHz));
             inputDialog.setOnitemchildClicke((view, postion, obj) -> {
-                evHz.setText((String) obj);
+                binding.evHz.setText((String) obj);
                 for (SettingItem o : buttonList) {
                     o.setPulseSetting((String) obj);
                 }
@@ -103,25 +93,22 @@ public class MaiChongSettingActivity extends MqttBaseActivity<LayoutMaichongacti
             inputDialog.setMaxInputValue(20000);
             inputDialog.showDialog();
         });
-        evKong.setOnClickListener(v -> {
+        binding.evKong.setOnClickListener(v -> {
             inputDialog = new InputDialog(mContext);
-            inputDialog.setshow(AtyUtils.getText(evKong));
+            inputDialog.setshow(AtyUtils.getText(binding.evKong));
             inputDialog.setOnitemchildClicke((view, postion, obj) -> {
-                evKong.setText((String) obj);
+                binding.evKong.setText((String) obj);
                 for (SettingItem o : buttonList) {
-                    o.setPulseDuty(AtyUtils.getText(evKong));
+                    o.setPulseDuty(AtyUtils.getText(binding.evKong));
                 }
                 maiChongAdapter.notifyDataSetChanged();
             });
             inputDialog.setMaxInputValue(100);
             inputDialog.showDialog();
         });
-        TextView tv1 = headView.findViewById(R.id.tv1);
-        TextView tv2 = headView.findViewById(R.id.tv2);
-        TextView tv3 = headView.findViewById(R.id.tv3);
-        tv1.setText(DemoApp.getInstance().getAppViewModel().getLangText("全部"));
-        tv2.setText(DemoApp.getInstance().getAppViewModel().getLangText("频率"));
-        tv3.setText(DemoApp.getInstance().getAppViewModel().getLangText("占空比"));
+        binding.tv1.setText(DemoApp.getInstance().getAppViewModel().getLangText("全部"));
+        binding.tv2.setText(DemoApp.getInstance().getAppViewModel().getLangText("频率"));
+        binding.tv3.setText(DemoApp.getInstance().getAppViewModel().getLangText("占空比"));
 
 
         buttonList.add(new SettingItem(R.mipmap.icon_lanta, "输出1"));
@@ -134,7 +121,6 @@ public class MaiChongSettingActivity extends MqttBaseActivity<LayoutMaichongacti
         }
         maiChongAdapter = new MaiChongAdapter(buttonList);
         binding.rectangle.setAdapter(maiChongAdapter);
-        maiChongAdapter.addHeaderView(headView);
         queryMaiChongAttribute();
     }
 
@@ -198,11 +184,11 @@ public class MaiChongSettingActivity extends MqttBaseActivity<LayoutMaichongacti
             }
             //从全部到5
             if (splitset[0].equals("0")) {
-                ivChose.setImageResource(R.mipmap.icon_ran_nochose);
+                binding.ivChose.setImageResource(R.mipmap.icon_ran_nochose);
                 allChose = false;
             } else {
                 allChose = true;
-                ivChose.setImageResource(R.mipmap.icon_ran_chose);
+                binding.ivChose.setImageResource(R.mipmap.icon_ran_chose);
             }
             for (int i = 1; i < splitset.length; i++) {
                 if (splitset[i].equals("0")) {
@@ -216,7 +202,7 @@ public class MaiChongSettingActivity extends MqttBaseActivity<LayoutMaichongacti
 
         if (strings.contains(PadSAttribute.PulseSetting0.getAttribute())) {
             int PulseSetting = (int) map.get(PadSAttribute.PulseSetting0.getAttribute());
-            evHz.setText(String.valueOf(PulseSetting));
+            binding.evHz.setText(String.valueOf(PulseSetting));
             int PulseSetting1 = (int) map.get(PadSAttribute.PulseSetting1.getAttribute());
             int PulseSetting2 = (int) map.get(PadSAttribute.PulseSetting2.getAttribute());
             int PulseSetting3 = (int) map.get(PadSAttribute.PulseSetting3.getAttribute());
@@ -231,10 +217,10 @@ public class MaiChongSettingActivity extends MqttBaseActivity<LayoutMaichongacti
             maiChongAdapter.getData().get(4).setPulseSetting(PulseSetting5 + "");
 
         }
-        
+
         if (strings.contains(PadSAttribute.PulseDuty0.getAttribute())) {
             int PulseDuty = (int) map.get(PadSAttribute.PulseDuty0.getAttribute());
-            evKong.setText(String.valueOf(PulseDuty));
+            binding.evKong.setText(String.valueOf(PulseDuty));
 
             int PulseDuty1 = (int) map.get(PadSAttribute.PulseDuty1.getAttribute());
             int PulseDuty2 = (int) map.get(PadSAttribute.PulseDuty2.getAttribute());
@@ -250,7 +236,7 @@ public class MaiChongSettingActivity extends MqttBaseActivity<LayoutMaichongacti
             maiChongAdapter.getData().get(4).setPulseDuty(PulseDuty5 + "");
 
         }
-       
+
         maiChongAdapter.notifyDataSetChanged();
     }
 
@@ -294,8 +280,8 @@ public class MaiChongSettingActivity extends MqttBaseActivity<LayoutMaichongacti
                 jsonObject.put(PadSAttribute.PluseMode.getAttribute(), 6);
             }
 
-            jsonObject.put(PadSAttribute.PulseSetting0.getAttribute(), Integer.parseInt(AtyUtils.getText(evHz)));
-            jsonObject.put(PadSAttribute.PulseDuty0.getAttribute(), Integer.parseInt(AtyUtils.getText(evKong)));
+            jsonObject.put(PadSAttribute.PulseSetting0.getAttribute(), Integer.parseInt(AtyUtils.getText(binding.evHz)));
+            jsonObject.put(PadSAttribute.PulseDuty0.getAttribute(), Integer.parseInt(AtyUtils.getText(binding.evKong)));
 
             StringBuffer binaryString = new StringBuffer();
             if (allChose) {
