@@ -50,6 +50,7 @@ public class MaiChongSettingActivity extends MqttBaseActivity<LayoutMaichongacti
 
     @Override
     protected void setUiText() {
+        binding.tvMaiChong.setText(DemoApp.getInstance().getAppViewModel().getLangText("脉冲"));
         binding.tvSave.setText(DemoApp.getInstance().getAppViewModel().getLangText("保存"));
     }
 
@@ -64,14 +65,13 @@ public class MaiChongSettingActivity extends MqttBaseActivity<LayoutMaichongacti
             binding.tvName.setText(MyMMKV.getDeviceName());
         }
         buttonList = new ArrayList<>();
-        binding.ivChose.setImageResource(R.mipmap.icon_ran_chose);
-        binding.ivChose.setOnClickListener(v -> {
+        binding.rlChose.setOnClickListener(v -> {
             if (allChose) {
                 allChose = false;
-                binding.ivChose.setImageResource(R.mipmap.icon_ran_nochose);
+                binding.ivChose.setVisibility(View.INVISIBLE);
             } else {
                 allChose = true;
-                binding.ivChose.setImageResource(R.mipmap.icon_ran_chose);
+                binding.ivChose.setVisibility(View.VISIBLE);
             }
             for (SettingItem datum : maiChongAdapter.getData()) {
                 datum.setChose(allChose);
@@ -184,11 +184,11 @@ public class MaiChongSettingActivity extends MqttBaseActivity<LayoutMaichongacti
             }
             //从全部到5
             if (splitset[0].equals("0")) {
-                binding.ivChose.setImageResource(R.mipmap.icon_ran_nochose);
+                binding.ivChose.setVisibility(View.INVISIBLE);
                 allChose = false;
             } else {
                 allChose = true;
-                binding.ivChose.setImageResource(R.mipmap.icon_ran_chose);
+                binding.ivChose.setVisibility(View.VISIBLE);
             }
             for (int i = 1; i < splitset.length; i++) {
                 if (splitset[i].equals("0")) {

@@ -109,7 +109,7 @@
                         android:paddingHorizontal="8dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintLeft_toRightOf="@+id/llHZ"
-                        app:layout_constraintRight_toLeftOf="@+id/ivChose"
+                        app:layout_constraintRight_toLeftOf="@+id/rlChose"
                         app:layout_constraintTop_toTopOf="parent"
                         app:shape_radius="4dp"
                         app:shape_solidColor="#1AFFFFFF">
@@ -144,15 +144,25 @@
 
                     </com.hjq.shape.layout.ShapeLinearLayout>
 
-                    <ImageView
-                        android:id="@+id/ivChose"
+                    <com.hjq.shape.layout.ShapeRelativeLayout
+                        android:id="@+id/rlChose"
                         android:layout_width="25dp"
                         android:layout_height="25dp"
-                        android:src="@mipmap/icon_ran_nochose"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintLeft_toRightOf="@+id/llKong"
                         app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:shape_radius="4dp"
+                        app:shape_solidColor="#1AFFFFFF">
+
+                        <ImageView
+                            android:id="@+id/ivChose"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:src="@mipmap/icon_ran_chose" />
+
+                    </com.hjq.shape.layout.ShapeRelativeLayout>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </LinearLayout>

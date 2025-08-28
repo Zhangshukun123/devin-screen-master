@@ -258,6 +258,7 @@
                     android:textSize="16dp" />
 
                 <ImageView
+                    android:id="@+id/fenshanJian"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:padding="@dimen/dp_10"
@@ -285,7 +286,7 @@
                     android:thumb="@drawable/shape_progressbar_thumb" />
 
                 <ImageView
-                    android:id="@+id/fenshan"
+                    android:id="@+id/fenshanJia"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:padding="7.5dp"
@@ -388,6 +389,7 @@
             app:layout_constraintTop_toTopOf="@id/rl_start">
 
             <ImageView
+                android:id="@+id/ivmiue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
@@ -406,6 +408,7 @@
             app:layout_constraintTop_toTopOf="@id/rl_start">
 
             <ImageView
+                android:id="@+id/ivAdd"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
@@ -419,49 +422,6 @@
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.5" />
 
-
-        <com.hjq.shape.layout.ShapeConstraintLayout
-            android:id="@+id/shapeMine"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            android:layout_marginRight="15dp"
-            android:padding="7dp"
-            app:layout_constraintRight_toLeftOf="@+id/shapeMao"
-            app:layout_constraintTop_toTopOf="parent"
-            app:shape_endColor="#FEE3F9"
-            app:shape_radius="5dp"
-            app:shape_startColor="#DFB6FD">
-
-            <com.hjq.shape.view.ShapeImageView
-                android:id="@+id/ivAdd"
-                android:layout_width="wrap_content"
-                android:layout_height="22dp"
-                android:paddingHorizontal="7dp"
-                android:paddingVertical="2dp"
-                android:src="@mipmap/icon_add"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:shape_radius="3dp"
-                app:shape_solidColor="@color/white"
-                app:shape_solidPressedColor="@color/pressedColor" />
-
-            <com.hjq.shape.view.ShapeImageView
-                android:id="@+id/ivmiue"
-                android:layout_width="wrap_content"
-                android:layout_height="22dp"
-                android:layout_marginTop="3dp"
-                android:paddingHorizontal="7dp"
-                android:paddingVertical="2dp"
-                android:src="@mipmap/icon_jian"
-                app:layout_constraintBottom_toBottomOf="@+id/tvMine"
-                app:layout_constraintLeft_toLeftOf="@+id/ivAdd"
-                app:shape_radius="3dp"
-                app:shape_solidColor="@color/white"
-                app:shape_solidPressedColor="@color/pressedColor" />
-
-
-        </com.hjq.shape.layout.ShapeConstraintLayout>
 
         <LinearLayout
             android:id="@+id/shapeMao"
@@ -515,68 +475,6 @@
             app:layout_constraintBottom_toBottomOf="@id/shapeMao"
             app:layout_constraintStart_toEndOf="@id/shapeMao"
             app:layout_constraintTop_toTopOf="@id/shapeMao" />
-
-        <com.hjq.shape.layout.ShapeConstraintLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:padding="7dp"
-            app:layout_constraintBottom_toBottomOf="@+id/shapeMine"
-            app:layout_constraintLeft_toRightOf="@+id/shapeMao"
-            app:layout_constraintTop_toTopOf="@+id/shapeMine"
-            app:shape_endColor="#FEE3F9"
-            app:shape_radius="5dp"
-            app:shape_startColor="#DFB6FD">
-
-            <com.hjq.shape.view.ShapeImageView
-                android:id="@+id/ivAdd1"
-                android:layout_width="wrap_content"
-                android:layout_height="22dp"
-                android:paddingHorizontal="7dp"
-                android:paddingVertical="2dp"
-                android:src="@mipmap/icon_add"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:shape_radius="3dp"
-                app:shape_solidColor="@color/white"
-                app:shape_solidPressedColor="@color/pressedColor" />
-
-            <com.hjq.shape.view.ShapeImageView
-                android:id="@+id/ivmiue1"
-                android:layout_width="wrap_content"
-                android:layout_height="22dp"
-                android:layout_marginTop="3dp"
-                android:paddingHorizontal="7dp"
-                android:paddingVertical="2dp"
-                android:src="@mipmap/icon_jian"
-                app:layout_constraintBottom_toBottomOf="@+id/tvSeconds"
-                app:layout_constraintLeft_toLeftOf="@+id/ivAdd1"
-                app:shape_radius="3dp"
-                app:shape_solidColor="@color/white"
-                app:shape_solidPressedColor="@color/pressedColor" />
-
-
-        </com.hjq.shape.layout.ShapeConstraintLayout>
-
-        <com.hjq.shape.view.ShapeTextView
-            android:id="@+id/tvStart"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_marginTop="35dp"
-            android:gravity="center"
-            android:paddingHorizontal="37dp"
-            android:textColor="@color/white"
-            android:textSize="14dp"
-            android:textStyle="bold"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/shapeMine"
-            app:shape_endColor="#D691FD"
-            app:shape_radius="40dp"
-            app:shape_solidPressedColor="@color/pressedColor"
-            app:shape_startColor="#4976FB"
-            app:shape_strokeColor="#D7E6FB"
-            app:shape_strokeWidth="4dp" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/mesreList"

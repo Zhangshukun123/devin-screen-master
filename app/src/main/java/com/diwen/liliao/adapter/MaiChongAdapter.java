@@ -1,6 +1,8 @@
 package com.diwen.liliao.adapter;
 
 
+import android.view.View;
+
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.diwen.liliao.DemoApp;
@@ -19,15 +21,14 @@ public class MaiChongAdapter extends BaseQuickAdapter<SettingItem, BaseViewHolde
 
     @Override
     protected void convert(BaseViewHolder helper, SettingItem item) {
-        helper.setImageResource(R.id.ivChose, item.isChose() ? R.mipmap.icon_ran_chose :
-                R.mipmap.icon_ran_nochose);
         helper.setText(R.id.tv1, DemoApp.getInstance().getAppViewModel().getLangText(item.getTitle()));
         helper.setText(R.id.tv2, DemoApp.getInstance().getAppViewModel().getLangText("频率"));
         helper.setText(R.id.tv3, DemoApp.getInstance().getAppViewModel().getLangText("占空比"));
+        helper.setVisible(R.id.ivChose, item.isChose());
 
         helper.setText(R.id.evHz, item.getPulseSetting() + "");
         helper.setText(R.id.evKong, item.getPulseDuty() + "");
-        helper.addOnClickListener(R.id.ivChose);
+        helper.addOnClickListener(R.id.rlChose);
 
         CustomEditText evhz = helper.getView(R.id.evHz);
         evhz.setMaxInputValue(20000);

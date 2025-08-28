@@ -127,15 +127,14 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
         binding.ivSong2.setOnClickListener(this);
         binding.ivSong3.setOnClickListener(this);
         binding.ivAdd.setOnClickListener(this);
-        binding.ivAdd1.setOnClickListener(this);
         binding.ivmiue.setOnClickListener(this);
-        binding.ivmiue1.setOnClickListener(this);
         binding.rlStart.setOnClickListener(this);
         binding.ivFinish.setOnClickListener(this);
         binding.ivSetting.setOnClickListener(this);
         binding.ivRecord.setOnClickListener(this);
         binding.ivMaiChong.setOnClickListener(this);
-        binding.fenshan.setOnClickListener(this);
+        binding.fenshanJian.setOnClickListener(this);
+        binding.fenshanJia.setOnClickListener(this);
         binding.ivBl.setOnClickListener(this);
         binding.llDeviceName.setOnClickListener(this);
         binding.seekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -226,41 +225,6 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
                 setDeviceTimeMin();
             }
         }
-        if (v == binding.ivAdd1) {
-            if (ForbadClick.isFastDoubleClick(1)) {
-                return;
-            }
-            if (PluseMode != 5) {
-                return;
-            }
-            if (Launch != 1) {
-                seconds++;
-                if (mine == 30) {
-                    seconds = 0;
-                }
-                if (seconds >= 59) {
-                    seconds = 59;
-                }
-                binding.tvSeconds.setText(getPointTwo(seconds));
-                setDeviceTimeMin();
-            }
-        }
-        if (v == binding.ivmiue1) {
-            if (ForbadClick.isFastDoubleClick(1)) {
-                return;
-            }
-            if (PluseMode != 5) {
-                return;
-            }
-            if (Launch != 1) {
-                seconds--;
-                if (seconds <= 0) {
-                    seconds = 0;
-                }
-                binding.tvSeconds.setText(getPointTwo(seconds));
-                setDeviceTimeMin();
-            }
-        }
         if (v == binding.rlStart) {
             try {
 
@@ -313,11 +277,28 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
 //            }
             ActivityUtils.startActivity(MaiChongSettingActivity.class);
         }
-        if (v == binding.fenshan) {
+        if (v == binding.fenshanJia) {
             if (Launch == 1) {
                 AirBlowerRun++;
                 if (AirBlowerRun > 5) {
-                    AirBlowerRun = 1;
+                    return;
+                }
+                binding.tvAirBlower.setText(String.valueOf(AirBlowerRun));
+                try {
+                    JSONObject jsonObject = new JSONObject();
+                    jsonObject.put(PadSAttribute.AirBlowerRun.getAttribute(), AirBlowerRun);
+                    DemoApp.getInstance().getAppViewModel().setMQTT(jsonObject);
+                    showLoading();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        if (v == binding.fenshanJian) {
+            if (Launch == 1) {
+                AirBlowerRun--;
+                if (AirBlowerRun < 0) {
+                    return;
                 }
                 binding.tvAirBlower.setText(String.valueOf(AirBlowerRun));
                 try {
