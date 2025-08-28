@@ -56,5 +56,11 @@
   "上一条": "Last",
   "下一条": "Next",
   "频率": "Frequency：",
-  "占空比": "Duty cycle："
+  "占空比": "Duty cycle：",
+  "设置蓝牙": "BLUETOOTH",
+  "设置WiFi": "WI-FI",
+  "设置时间": "TIME",
+  "设置语言": "LANGUAGE",
+  "设置风扇": "FANS",
+  "设置版本": "VERSION"
 }
