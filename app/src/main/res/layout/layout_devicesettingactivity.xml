@@ -3,8 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@mipmap/icon_pagebg"
+    android:background="@color/colorPrimary"
     android:orientation="vertical">
+    <!--    android:background="@mipmap/icon_pagebg"-->
+
 
     <include layout="@layout/layout_logo_top_left" />
 
@@ -189,14 +191,31 @@
 
         </com.hjq.shape.layout.ShapeConstraintLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/setTingList"
+        <com.hjq.shape.layout.ShapeLinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_marginHorizontal="30dp"
+            android:layout_marginStart="8dp"
             android:layout_weight="5"
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            app:spanCount="3" />
+            android:orientation="horizontal"
+            android:paddingStart="16dp"
+            android:paddingTop="13dp"
+            app:shape="rectangle"
+            app:shape_radius="4dp"
+            app:shape_solidColor="#14D5B7FF">
+
+            <FrameLayout
+                android:id="@+id/frameLayout"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="5" />
+        </com.hjq.shape.layout.ShapeLinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/setTingList"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="30dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
     </LinearLayout>
 

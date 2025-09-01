@@ -18,9 +18,9 @@ public class LanguageListAdapter extends BaseQuickAdapter<SettingItem, BaseViewH
 
     @Override
     protected void convert(BaseViewHolder helper, SettingItem item) {
- 
-         helper.setImageResource(R.id.ivChose,item.isChose()?R.mipmap.icon_chose:R.mipmap.icon_nochose)
-       .setImageResource(R.id.icLogo,item.getIcon_src()) 
-                 .setText(R.id.tvTile, DemoApp.getInstance().getAppViewModel().getLangText(item.getTitle()));
+        helper.setVisible(R.id.ivChose, item.isChose())
+                .setVisible(R.id.viewDivider, helper.getAdapterPosition() != 0)
+                .setImageResource(R.id.icLogo, item.getIcon_src())
+                .setText(R.id.tvTile, DemoApp.getInstance().getAppViewModel().getLangText(item.getTitle()));
     }
 }

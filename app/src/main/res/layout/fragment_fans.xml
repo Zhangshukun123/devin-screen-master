@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary">
+
+    <com.hjq.shape.layout.ShapeLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:shape="rectangle">
+
+        <TextView
+            android:id="@+id/tvTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingVertical="@dimen/dp_10"
+            android:text="语言"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvDateSetting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Date setting"
+            android:textColor="@color/white"
+            android:textSize="10sp" />
+
+        <com.hjq.shape.layout.ShapeConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_10"
+            android:paddingVertical="7.5dp"
+            app:shape="rectangle"
+            app:shape_radius="4dp"
+            app:shape_solidColor="#14D5B7FF">
+
+            <TextView
+                android:id="@+id/tvYear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Years"
+                android:textColor="@color/white"
+                android:textSize="15dp"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/tvMoth" />
+
+            <TextView
+                android:id="@+id/evYear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="0"
+                android:textColor="@color/white"
+                android:textSize="15dp"
+                app:layout_constraintLeft_toLeftOf="@id/tvYear"
+                app:layout_constraintTop_toBottomOf="@id/tvYear" />
+
+            <TextView
+                android:id="@+id/tvMoth"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Month"
+                android:textColor="@color/white"
+                android:textSize="15dp"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent" />
+
+            <TextView
+                android:id="@+id/evMoth"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="0"
+                android:textColor="@color/white"
+                android:textSize="15dp"
+                app:layout_constraintBaseline_toBaselineOf="@id/evYear"
+                app:layout_constraintLeft_toLeftOf="@id/tvMoth" />
+
+            <TextView
+                android:id="@+id/tvDay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Day"
+                android:textColor="@color/white"
+                android:textSize="15dp"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toRightOf="@id/tvMoth"
+                app:layout_constraintRight_toRightOf="parent" />
+
+            <TextView
+                android:id="@+id/evDay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="0"
+                android:textColor="@color/white"
+                android:textSize="15dp"
+                app:layout_constraintBaseline_toBaselineOf="@id/evYear"
+                app:layout_constraintLeft_toLeftOf="@id/tvDay" />
+        </com.hjq.shape.layout.ShapeConstraintLayout>
+
+
+        <TextView
+            android:id="@+id/tvTimeSetting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_10"
+            android:text="Date setting"
+            android:textColor="@color/white"
+            android:textSize="10sp" />
+
+        <com.hjq.shape.layout.ShapeConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_10"
+            android:paddingVertical="7.5dp"
+            app:shape="rectangle"
+            app:shape_radius="4dp"
+            app:shape_solidColor="#14D5B7FF">
+
+            <TextView
+                android:id="@+id/tvHour"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hour"
+                android:textColor="@color/white"
+                android:textSize="15dp"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/tvFen" />
+
+            <TextView
+                android:id="@+id/evHour"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="0"
+                android:textColor="@color/white"
+                android:textSize="15dp"
+                app:layout_constraintLeft_toLeftOf="@id/tvHour"
+                app:layout_constraintTop_toBottomOf="@id/tvHour" />
+
+            <TextView
+                android:id="@+id/tvFen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Minute"
+                android:textColor="@color/white"
+                android:textSize="15dp"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent" />
+
+            <TextView
+                android:id="@+id/evFen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="0"
+                android:textColor="@color/white"
+                android:textSize="15dp"
+                app:layout_constraintBaseline_toBaselineOf="@id/evHour"
+                app:layout_constraintLeft_toLeftOf="@id/tvFen" />
+
+            <TextView
+                android:id="@+id/tvMiao"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Second"
+                android:textColor="@color/white"
+                android:textSize="15dp"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toRightOf="@id/tvFen"
+                app:layout_constraintRight_toRightOf="parent" />
+
+            <TextView
+                android:id="@+id/evMiao"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="0"
+                android:textColor="@color/white"
+                android:textSize="15dp"
+                app:layout_constraintBaseline_toBaselineOf="@id/evHour"
+                app:layout_constraintLeft_toLeftOf="@id/tvMiao" />
+        </com.hjq.shape.layout.ShapeConstraintLayout>
+
+        <com.hjq.shape.view.ShapeTextView
+            android:id="@+id/tvSave"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_gravity="bottom|center_horizontal"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="20dp"
+            android:gravity="center"
+            android:text="保存"
+            android:textColor="@color/white"
+            android:textSize="10sp"
+            app:shape_endColor="#A202FF"
+            app:shape_radius="2dp"
+            app:shape_startColor="#10A5F9" />
+
+    </com.hjq.shape.layout.ShapeLinearLayout>
+</RelativeLayout>

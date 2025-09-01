@@ -10,6 +10,7 @@
   "风扇设置": "Fan Setting",
   "脉冲": "Pulse",
   "脉冲设置": "Pulse Setting",
+  "日期设置": "Date Setting",
   "时间设置": "Time Setting",
   "记录": "Records",
   "记录查询": "Search Record",
@@ -61,6 +62,9 @@
   "设置WiFi": "WI-FI",
   "设置时间": "TIME",
   "设置语言": "LANGUAGE",
+  "语言": "Language",
   "设置风扇": "FANS",
-  "设置版本": "VERSION"
+  "设置版本": "VERSION",
+  "版本": "Version",
+  "名称": "Name"
 }

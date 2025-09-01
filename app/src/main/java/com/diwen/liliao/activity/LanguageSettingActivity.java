@@ -70,8 +70,8 @@ public class LanguageSettingActivity extends MqttBaseActivity<LayoutLanguagesett
             }
             languageListAdapter.getItem(position).setChose(true);
             languageListAdapter.notifyDataSetChanged();
-            
-            switch (position){
+
+            switch (position) {
                 case 0:
                     binding.tvSave.setText("Save");
                     break;
@@ -88,7 +88,7 @@ public class LanguageSettingActivity extends MqttBaseActivity<LayoutLanguagesett
                     binding.tvSave.setText("Guardar");
                     break;
             }
-            
+
         });
     }
 
@@ -96,8 +96,8 @@ public class LanguageSettingActivity extends MqttBaseActivity<LayoutLanguagesett
     public void onClick(View v) {
         super.onClick(v);
         if (v == binding.ivFinish) {
-         BTCodeUtils.getInstance().finishTo(2);
-            
+            BTCodeUtils.getInstance().finishTo(2);
+
             ActivityUtils.finishActivity(LanguageSettingActivity.class);
         }
         if (v == binding.tvSave) {
@@ -105,9 +105,9 @@ public class LanguageSettingActivity extends MqttBaseActivity<LayoutLanguagesett
                 for (int i = 0; i < languageListAdapter.getData().size(); i++) {
                     if (languageListAdapter.getData().get(i).isChose()) {
                         JSONObject jsonObject = new JSONObject();
-                        jsonObject.put(PadSAttribute.Language.getAttribute(), i+1);
+                        jsonObject.put(PadSAttribute.Language.getAttribute(), i + 1);
                         DemoApp.getInstance().getAppViewModel().setMQTT(jsonObject);
-                        MyMMKV.putInteger(MyMMKV.Language,i+1);
+                        MyMMKV.putInteger(MyMMKV.Language, i + 1);
                         DemoApp.getInstance().getAppViewModel().setLang();
                     }
                 }
@@ -118,6 +118,7 @@ public class LanguageSettingActivity extends MqttBaseActivity<LayoutLanguagesett
 
         }
     }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEventMainThread(MessageEvent event) {
         if (event.getMessage().equals(MQTTCons.ACTION_DATA_AVAILABLE)) {
@@ -125,6 +126,7 @@ public class LanguageSettingActivity extends MqttBaseActivity<LayoutLanguagesett
             MqttMessage(model.getDeviceId(), model.getMap());
         }
     }
+
     @Override
     protected void MqttMessage(String DeviceId, Map<String, Object> map) {
         if (map == null) {
@@ -142,13 +144,13 @@ public class LanguageSettingActivity extends MqttBaseActivity<LayoutLanguagesett
             }
         }
         if (strings.contains(PadSAttribute.Language.getAttribute())) {
-         int  Language=(int) map.get(PadSAttribute.Language.getAttribute());
+            int Language = (int) map.get(PadSAttribute.Language.getAttribute());
             for (int i = 0; i < languageListAdapter.getData().size(); i++) {
                 languageListAdapter.getData().get(i).setChose(false);
             }
-            languageListAdapter.getData().get(Language-1).setChose(true);
+            languageListAdapter.getData().get(Language - 1).setChose(true);
             languageListAdapter.notifyDataSetChanged();
-            MyMMKV.putInteger(MyMMKV.Language,Language);
+            MyMMKV.putInteger(MyMMKV.Language, Language);
         }
 
     }

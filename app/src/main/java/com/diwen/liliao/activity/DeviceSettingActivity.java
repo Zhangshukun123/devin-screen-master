@@ -3,11 +3,20 @@ package com.diwen.liliao.activity;
 import android.content.Intent;
 import android.view.View;
 
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+
 import com.diwen.liliao.DemoApp;
 import com.diwen.liliao.R;
 import com.diwen.liliao.adapter.SettingListAdapter;
 import com.diwen.liliao.base.MqttBaseActivity;
 import com.diwen.liliao.databinding.LayoutDevicesettingactivityBinding;
+import com.diwen.liliao.fragment.BluetoothFragment;
+import com.diwen.liliao.fragment.FansFragment;
+import com.diwen.liliao.fragment.LanguageFragment;
+import com.diwen.liliao.fragment.TimeFragment;
+import com.diwen.liliao.fragment.VersionFragment;
+import com.diwen.liliao.fragment.WifiFragment;
 import com.diwen.liliao.mmkv.MyMMKV;
 import com.diwen.liliao.model.SettingItem;
 import com.diwen.liliao.netty.BTCodeUtils;
@@ -22,6 +31,13 @@ import java.util.ArrayList;
 public class DeviceSettingActivity extends MqttBaseActivity<LayoutDevicesettingactivityBinding> {
     private ArrayList<SettingItem> settingItems;
     private SettingListAdapter settingListAdapter;
+    private Fragment currentFragment;
+    private BluetoothFragment bluetoothFragment;
+    private WifiFragment wifiFragment;
+    private TimeFragment timeFragment;
+    private LanguageFragment languageFragment;
+    private FansFragment fansFragment;
+    private VersionFragment versionFragment;
 
     @Override
     protected void handleIntent(Intent intent) {
@@ -74,6 +90,10 @@ public class DeviceSettingActivity extends MqttBaseActivity<LayoutDevicesettinga
             }
 
         });
+        if (bluetoothFragment == null) {
+            bluetoothFragment = BluetoothFragment.newInstance();
+        }
+        switchFragment(bluetoothFragment).commit();
     }
 
     @Override
@@ -104,31 +124,52 @@ public class DeviceSettingActivity extends MqttBaseActivity<LayoutDevicesettinga
             resetCheckView();
             binding.llBlueTooth.setBackgroundResource(R.drawable.bg_radius_4_white10);
             binding.ivBluetooth.setImageResource(R.mipmap.ic_bluetooth_setting_check);
+            switchFragment(bluetoothFragment).commit();
         }
         if (v == binding.llWifi) {
             resetCheckView();
             binding.llWifi.setBackgroundResource(R.drawable.bg_radius_4_white10);
             binding.ivWifi.setImageResource(R.mipmap.ic_wifi_setting_check);
+            if (wifiFragment == null) {
+                wifiFragment = WifiFragment.newInstance();
+            }
+            switchFragment(wifiFragment).commit();
         }
         if (v == binding.llTime) {
             resetCheckView();
             binding.llTime.setBackgroundResource(R.drawable.bg_radius_4_white10);
             binding.ivTime.setImageResource(R.mipmap.ic_time_setting_check);
+            if (timeFragment == null) {
+                timeFragment = TimeFragment.newInstance();
+            }
+            switchFragment(timeFragment).commit();
         }
         if (v == binding.llLanguage) {
             resetCheckView();
             binding.llLanguage.setBackgroundResource(R.drawable.bg_radius_4_white10);
             binding.ivLanguage.setImageResource(R.mipmap.ic_language_setting_check);
+            if (languageFragment == null) {
+                languageFragment = LanguageFragment.newInstance();
+            }
+            switchFragment(languageFragment).commit();
         }
         if (v == binding.llFans) {
             resetCheckView();
             binding.llFans.setBackgroundResource(R.drawable.bg_radius_4_white10);
             binding.ivFans.setImageResource(R.mipmap.ic_fans_setting_check);
+            if (fansFragment == null) {
+                fansFragment = FansFragment.newInstance();
+            }
+            switchFragment(fansFragment).commit();
         }
         if (v == binding.llVersion) {
             resetCheckView();
             binding.llVersion.setBackgroundResource(R.drawable.bg_radius_4_white10);
             binding.ivVersion.setImageResource(R.mipmap.ic_version_setting_check);
+            if (versionFragment == null) {
+                versionFragment = VersionFragment.newInstance();
+            }
+            switchFragment(versionFragment).commit();
         }
     }
 
@@ -145,5 +186,19 @@ public class DeviceSettingActivity extends MqttBaseActivity<LayoutDevicesettinga
         binding.ivFans.setImageResource(R.mipmap.ic_fans_setting);
         binding.llVersion.setBackgroundResource(R.drawable.bg_translate);
         binding.ivVersion.setImageResource(R.mipmap.ic_version_setting);
+    }
+
+    private FragmentTransaction switchFragment(Fragment targetFragment) {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        if (!targetFragment.isAdded()) {
+            if (currentFragment != null) {
+                transaction.hide(currentFragment);
+            }
+            transaction.add(R.id.frameLayout, targetFragment, targetFragment.getClass().getName()).show(targetFragment);
+        } else {
+            transaction.hide(currentFragment).show(targetFragment);
+        }
+        currentFragment = targetFragment;
+        return transaction;
     }
 } 

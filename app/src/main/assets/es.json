@@ -10,6 +10,7 @@
   "风扇设置": "Configuración de Ventilador",
   "脉冲": "Pulso",
   "脉冲设置": "Configuración de Pulso",
+  "日期设置": "Configuración de la fecha",
   "时间设置": "Configuración de Tiempo",
   "记录": "Registro",
   "记录查询": "Historia Búsqueda",
@@ -61,6 +62,9 @@
   "设置WiFi": "WI-FI",
   "设置时间": "Tiempo",
   "设置语言": "Idiomas",
+  "语言": "Idiomas",
   "设置风扇": "Ventilador",
-  "设置版本": "Versión"
+  "设置版本": "Versión",
+  "版本": "Versión",
+  "名称": "Nombre"
 }
