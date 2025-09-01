@@ -1,12 +1,364 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="wifi" />
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvWifi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingVertical="@dimen/dp_10"
+                android:text="wifi"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <com.hjq.shape.layout.ShapeLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_10"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="@dimen/dp_10"
+                app:shape="rectangle"
+                app:shape_radius="4dp"
+                app:shape_solidColor="#14D5B7FF">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/ic_wifi_setting_check" />
+
+                <TextView
+                    android:id="@+id/tvTop"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_4"
+                    android:layout_weight="1"
+                    android:paddingVertical="@dimen/dp_10"
+                    android:text="wifi"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <com.hjq.shape.view.ShapeTextView
+                    android:id="@+id/tvDisWifi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:gravity="center"
+                    android:paddingHorizontal="@dimen/dp_10"
+                    android:text="Disconnect"
+                    android:textColor="@color/white"
+                    android:textSize="10sp"
+                    app:shape_radius="2dp"
+                    app:shape_solidColor="@color/wight20" />
+
+            </com.hjq.shape.layout.ShapeLinearLayout>
+
+            <com.hjq.shape.layout.ShapeLinearLayout
+                android:id="@+id/llConnectWifi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_10"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                android:visibility="visible"
+                app:shape="rectangle"
+                app:shape_radius="4dp"
+                app:shape_solidColor="#14D5B7FF"
+                tools:visibility="visible">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="16dp"
+                    android:paddingVertical="8dp">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_centerVertical="true"
+                        android:src="@mipmap/ic_wifi_setting_check" />
+
+                    <TextView
+                        android:id="@+id/tvTop1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp_4"
+                        android:layout_weight="1"
+                        android:paddingVertical="@dimen/dp_10"
+                        android:text="wifi"
+                        android:textColor="@color/white"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <com.hjq.shape.view.ShapeTextView
+                        android:id="@+id/tvSaveWifi"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:gravity="center"
+                        android:paddingHorizontal="@dimen/dp_10"
+                        android:text="保存"
+                        android:textColor="@color/white"
+                        android:textSize="10sp"
+                        app:shape_endColor="#A202FF"
+                        app:shape_radius="2dp"
+                        app:shape_startColor="#10A5F9" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/white" />
+
+                <com.hjq.shape.layout.ShapeLinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="16dp"
+                    android:paddingVertical="@dimen/dp_10">
+
+                    <TextView
+                        android:id="@+id/tvBtLeftName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Network Name"
+                        android:textColor="@color/white"
+                        android:textSize="10sp"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/etBtRightName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:gravity="end"
+                        android:text="HUAWEIp70PRO"
+                        android:textColor="@color/white"
+                        android:textSize="10sp" />
+
+                </com.hjq.shape.layout.ShapeLinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/white" />
+
+                <com.hjq.shape.layout.ShapeLinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="16dp"
+                    android:paddingVertical="@dimen/dp_10">
+
+                    <TextView
+                        android:id="@+id/tvBtLeftPwd"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Password"
+                        android:textColor="@color/white"
+                        android:textSize="10sp"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/etBtRightPwd"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:gravity="end"
+                        android:text="HUAWEIp70PRO"
+                        android:textColor="@color/white"
+                        android:textSize="10sp" />
+
+                </com.hjq.shape.layout.ShapeLinearLayout>
+
+            </com.hjq.shape.layout.ShapeLinearLayout>
+
+            <com.hjq.shape.layout.ShapeLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_10"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="@dimen/dp_10"
+                app:shape="rectangle"
+                app:shape_radius="4dp"
+                app:shape_solidColor="#14D5B7FF">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/ic_local_connect" />
+
+                <TextView
+                    android:id="@+id/tvBottom"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_4"
+                    android:layout_weight="1"
+                    android:paddingVertical="@dimen/dp_10"
+                    android:text="Local Configuration"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <com.hjq.shape.view.ShapeTextView
+                    android:id="@+id/tvDisLocal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:gravity="center"
+                    android:paddingHorizontal="@dimen/dp_10"
+                    android:text="Disconnect"
+                    android:textColor="@color/white"
+                    android:textSize="10sp"
+                    app:shape_radius="2dp"
+                    app:shape_solidColor="@color/wight20" />
+
+            </com.hjq.shape.layout.ShapeLinearLayout>
+
+            <com.hjq.shape.layout.ShapeLinearLayout
+                android:id="@+id/llConnectLocal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_10"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                android:visibility="visible"
+                app:shape="rectangle"
+                app:shape_radius="4dp"
+                app:shape_solidColor="#14D5B7FF"
+                tools:visibility="visible">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="16dp"
+                    android:paddingVertical="8dp">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_centerVertical="true"
+                        android:src="@mipmap/ic_local_connect" />
+
+                    <TextView
+                        android:id="@+id/tvBottom1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp_4"
+                        android:layout_weight="1"
+                        android:paddingVertical="@dimen/dp_10"
+                        android:text="Local Configuration"
+                        android:textColor="@color/white"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <com.hjq.shape.view.ShapeTextView
+                        android:id="@+id/tvSaveLocal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:gravity="center"
+                        android:paddingHorizontal="@dimen/dp_10"
+                        android:text="保存"
+                        android:textColor="@color/white"
+                        android:textSize="10sp"
+                        app:shape_endColor="#A202FF"
+                        app:shape_radius="2dp"
+                        app:shape_startColor="#10A5F9" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/white" />
+
+                <com.hjq.shape.layout.ShapeLinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="16dp"
+                    android:paddingVertical="@dimen/dp_10">
+
+                    <TextView
+                        android:id="@+id/tvLocalLeftName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Device Name"
+                        android:textColor="@color/white"
+                        android:textSize="10sp"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/etLocalRightName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:gravity="end"
+                        android:text="HUAWEIp70PRO"
+                        android:textColor="@color/white"
+                        android:textSize="10sp" />
+
+                </com.hjq.shape.layout.ShapeLinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/white" />
+
+                <com.hjq.shape.layout.ShapeLinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="16dp"
+                    android:paddingVertical="@dimen/dp_10">
+
+                    <TextView
+                        android:id="@+id/tvLocalLeftPort"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Local Port"
+                        android:textColor="@color/white"
+                        android:textSize="10sp"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/etLocalRightPort"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:gravity="end"
+                        android:text="HUAWEIp70PRO"
+                        android:textColor="@color/white"
+                        android:textSize="10sp" />
+
+                </com.hjq.shape.layout.ShapeLinearLayout>
+
+            </com.hjq.shape.layout.ShapeLinearLayout>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
 </RelativeLayout>

@@ -21,15 +21,16 @@ public class ButtonAirListAdapter extends BaseQuickAdapter<SettingItem, BaseView
 
     @Override
     protected void convert(BaseViewHolder helper, SettingItem item) {
-        ShapeTextView tvButton=helper.getView(R.id.tvButton);
-        if (item.isChose()){
-            tvButton.getShapeDrawableBuilder().setSolidColor(Color.parseColor("#FFF1FF")).intoBackground();
-            tvButton.setTextColor(ContextCompat.getColor(mContext,R.color.black));
-        }else {
-            tvButton.getShapeDrawableBuilder().setSolidColor(Color.parseColor("#40BCD4F6")).intoBackground();
-            tvButton.setTextColor(ContextCompat.getColor(mContext,R.color.white));
+        ShapeTextView tvButton = helper.getView(R.id.tvButton);
+        if (item.isChose()) {
+            tvButton.getShapeDrawableBuilder()
+                    .setGradientColor(new int[]{Color.parseColor("#A202FF"), Color.parseColor("#10A5F9")})
+                    .setAngle(315)
+                    .intoBackground();
+        } else {
+            tvButton.getShapeDrawableBuilder().setSolidColor(Color.TRANSPARENT).intoBackground();
         }
-        tvButton.setText(String.valueOf(helper.getLayoutPosition()+1));
-        
+        tvButton.setText(String.valueOf(helper.getLayoutPosition() + 1));
+
     }
 }

@@ -6,17 +6,15 @@
 
     <com.hjq.shape.view.ShapeTextView
         android:id="@+id/tvButton"
-        android:layout_width="49dp"
+        android:layout_width="27dp"
         android:layout_height="27dp"
-        android:layout_marginLeft="12dp"
+        android:layout_marginLeft="8dp"
         android:gravity="center"
         android:text="1"
         android:textColor="@color/white"
         android:textSize="11dp"
         app:shape_radius="5dp"
-        app:shape_solidColor="#40BCD4F6"
-        app:shape_solidPressedColor="@color/bg_color"
-        app:shape_strokeColor="#BCD4F6"
+        app:shape_strokeColor="#99FFFFFF"
         app:shape_strokeWidth="0.5dp" />
 
 

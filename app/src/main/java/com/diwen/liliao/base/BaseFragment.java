@@ -11,6 +11,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.viewbinding.ViewBinding;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -40,6 +42,10 @@ public abstract class BaseFragment<T extends ViewBinding> extends Fragment {
             Method method = aClass.getMethod("inflate", LayoutInflater.class, ViewGroup.class, boolean.class);
             binding = (T) method.invoke(null, inflater, container, false);
 
+            //判断是否需要注册
+            if (this.getClass().isAnnotationPresent(BindEventBus.class)) {
+                EventBus.getDefault().register(this);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -59,6 +65,14 @@ public abstract class BaseFragment<T extends ViewBinding> extends Fragment {
         binding = null; // 防止内存泄漏
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (this.getClass().isAnnotationPresent(BindEventBus.class)) {
+            EventBus.getDefault().unregister(this);
+        }
+
+    }
     /**
      * 初始化界面
      */

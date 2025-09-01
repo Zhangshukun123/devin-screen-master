@@ -2,8 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/colorPrimary">
+    android:layout_height="match_parent">
 
     <com.hjq.shape.layout.ShapeLinearLayout
         android:layout_width="match_parent"
@@ -12,184 +11,337 @@
         app:shape="rectangle">
 
         <TextView
-            android:id="@+id/tvTime"
+            android:id="@+id/tv1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingVertical="@dimen/dp_10"
-            android:text="语言"
+            android:text="Human Body Fan Setting"
             android:textColor="@color/white"
             android:textSize="12sp"
             android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/tvDateSetting"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Date setting"
-            android:textColor="@color/white"
-            android:textSize="10sp" />
-
-        <com.hjq.shape.layout.ShapeConstraintLayout
+        <com.hjq.shape.layout.ShapeLinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_10"
-            android:paddingVertical="7.5dp"
+            android:orientation="vertical"
+            android:paddingHorizontal="16dp"
             app:shape="rectangle"
             app:shape_radius="4dp"
             app:shape_solidColor="#14D5B7FF">
 
-            <TextView
-                android:id="@+id/tvYear"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Years"
-                android:textColor="@color/white"
-                android:textSize="15dp"
-                android:textStyle="bold"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toLeftOf="@id/tvMoth" />
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingVertical="7.5dp">
 
-            <TextView
-                android:id="@+id/evYear"
-                android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/tvChiLun"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Second"
+                    android:textColor="@color/white"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    app:layout_constraintLeft_toRightOf="@id/tvFen"
+                    app:layout_constraintRight_toRightOf="parent" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rectangle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="28dp"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/white" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="0"
-                android:textColor="@color/white"
-                android:textSize="15dp"
-                app:layout_constraintLeft_toLeftOf="@id/tvYear"
-                app:layout_constraintTop_toBottomOf="@id/tvYear" />
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingVertical="8dp">
 
-            <TextView
-                android:id="@+id/tvMoth"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Month"
-                android:textColor="@color/white"
-                android:textSize="15dp"
-                android:textStyle="bold"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent" />
+                <TextView
+                    android:id="@+id/tv2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="延迟关门时间："
+                    android:textColor="@color/white"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    app:layout_constraintLeft_toRightOf="@id/tvFen"
+                    app:layout_constraintRight_toRightOf="parent" />
 
-            <TextView
-                android:id="@+id/evMoth"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="0"
-                android:textColor="@color/white"
-                android:textSize="15dp"
-                app:layout_constraintBaseline_toBaselineOf="@id/evYear"
-                app:layout_constraintLeft_toLeftOf="@id/tvMoth" />
+                <EditText
+                    android:id="@+id/evMineClose"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:gravity="center"
+                    android:hint=" "
+                    android:inputType="numberSigned"
+                    android:textColor="@color/white"
+                    android:textColorHint="#B9CCF9"
+                    android:textSize="11dp" />
 
-            <TextView
-                android:id="@+id/tvDay"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Day"
-                android:textColor="@color/white"
-                android:textSize="15dp"
-                android:textStyle="bold"
-                app:layout_constraintLeft_toRightOf="@id/tvMoth"
-                app:layout_constraintRight_toRightOf="parent" />
+                <com.hjq.shape.view.ShapeTextView
+                    android:id="@+id/tvMineD"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:paddingStart="8dp"
+                    android:text="分钟"
+                    android:textColor="@color/white"
+                    android:textSize="11dp" />
 
-            <TextView
-                android:id="@+id/evDay"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="0"
-                android:textColor="@color/white"
-                android:textSize="15dp"
-                app:layout_constraintBaseline_toBaselineOf="@id/evYear"
-                app:layout_constraintLeft_toLeftOf="@id/tvDay" />
-        </com.hjq.shape.layout.ShapeConstraintLayout>
+            </LinearLayout>
 
+        </com.hjq.shape.layout.ShapeLinearLayout>
 
         <TextView
-            android:id="@+id/tvTimeSetting"
+            android:id="@+id/tv3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_10"
-            android:text="Date setting"
+            android:paddingVertical="@dimen/dp_10"
+            android:text="Human Body Fan Setting"
             android:textColor="@color/white"
-            android:textSize="10sp" />
+            android:textSize="12sp"
+            android:textStyle="bold" />
 
-        <com.hjq.shape.layout.ShapeConstraintLayout
+        <com.hjq.shape.layout.ShapeLinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_10"
-            android:paddingVertical="7.5dp"
+            android:orientation="vertical"
+            android:paddingHorizontal="16dp"
             app:shape="rectangle"
             app:shape_radius="4dp"
             app:shape_solidColor="#14D5B7FF">
 
-            <TextView
-                android:id="@+id/tvHour"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Hour"
-                android:textColor="@color/white"
-                android:textSize="15dp"
-                android:textStyle="bold"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toLeftOf="@id/tvFen" />
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingVertical="8dp">
 
-            <TextView
-                android:id="@+id/evHour"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="0"
-                android:textColor="@color/white"
-                android:textSize="15dp"
-                app:layout_constraintLeft_toLeftOf="@id/tvHour"
-                app:layout_constraintTop_toBottomOf="@id/tvHour" />
+                <TextView
+                    android:id="@+id/tvSet1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="开始温度："
+                    android:textColor="@color/white"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    app:layout_constraintLeft_toRightOf="@id/tvFen"
+                    app:layout_constraintRight_toRightOf="parent" />
 
-            <TextView
-                android:id="@+id/tvFen"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Minute"
-                android:textColor="@color/white"
-                android:textSize="15dp"
-                android:textStyle="bold"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent" />
+                <EditText
+                    android:id="@+id/evStarTemp"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:gravity="center"
+                    android:hint=" "
+                    android:inputType="numberSigned"
+                    android:textColor="@color/white"
+                    android:textColorHint="#B9CCF9"
+                    android:textSize="11dp" />
 
-            <TextView
-                android:id="@+id/evFen"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="0"
-                android:textColor="@color/white"
-                android:textSize="15dp"
-                app:layout_constraintBaseline_toBaselineOf="@id/evHour"
-                app:layout_constraintLeft_toLeftOf="@id/tvFen" />
+                <com.hjq.shape.view.ShapeTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:paddingStart="8dp"
+                    android:text="℃"
+                    android:textColor="@color/white"
+                    android:textSize="11dp" />
 
-            <TextView
-                android:id="@+id/tvMiao"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Second"
-                android:textColor="@color/white"
-                android:textSize="15dp"
-                android:textStyle="bold"
-                app:layout_constraintLeft_toRightOf="@id/tvFen"
-                app:layout_constraintRight_toRightOf="parent" />
+            </LinearLayout>
 
-            <TextView
-                android:id="@+id/evMiao"
-                android:layout_width="wrap_content"
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/white" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="0"
-                android:textColor="@color/white"
-                android:textSize="15dp"
-                app:layout_constraintBaseline_toBaselineOf="@id/evHour"
-                app:layout_constraintLeft_toLeftOf="@id/tvMiao" />
-        </com.hjq.shape.layout.ShapeConstraintLayout>
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingVertical="8dp">
+
+                <TextView
+                    android:id="@+id/tvSet3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="开始温度："
+                    android:textColor="@color/white"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    app:layout_constraintLeft_toRightOf="@id/tvFen"
+                    app:layout_constraintRight_toRightOf="parent" />
+
+                <EditText
+                    android:id="@+id/evCreTemp"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:gravity="center"
+                    android:hint=" "
+                    android:inputType="numberSigned"
+                    android:textColor="@color/white"
+                    android:textColorHint="#B9CCF9"
+                    android:textSize="11dp" />
+
+                <com.hjq.shape.view.ShapeTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:paddingStart="8dp"
+                    android:text="℃"
+                    android:textColor="@color/white"
+                    android:textSize="11dp"/>
+
+            </LinearLayout>
+
+        </com.hjq.shape.layout.ShapeLinearLayout>
+
+        <com.hjq.shape.layout.ShapeLinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_10"
+            android:orientation="horizontal">
+
+            <com.hjq.shape.layout.ShapeLinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:paddingHorizontal="16dp"
+                app:shape="rectangle"
+                app:shape_radius="4dp"
+                app:shape_solidColor="#14D5B7FF">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingVertical="8dp">
+
+                    <TextView
+                        android:id="@+id/tvSet2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="T1："
+                        android:textColor="@color/white"
+                        android:textSize="10sp"
+                        android:textStyle="bold"
+                        app:layout_constraintLeft_toRightOf="@id/tvFen"
+                        app:layout_constraintRight_toRightOf="parent" />
+
+                    <EditText
+                        android:id="@+id/evStarTempT1"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:gravity="center"
+                        android:hint=" "
+                        android:inputType="numberSigned"
+                        android:textColor="@color/white"
+                        android:textColorHint="#B9CCF9"
+                        android:textSize="11dp" />
+
+                    <com.hjq.shape.view.ShapeTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:paddingStart="8dp"
+                        android:text="℃"
+                        android:textColor="@color/white"
+                        android:textSize="11dp"/>
+
+                </LinearLayout>
+
+
+            </com.hjq.shape.layout.ShapeLinearLayout>
+
+            <com.hjq.shape.layout.ShapeLinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_10"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:paddingHorizontal="16dp"
+                app:shape="rectangle"
+                app:shape_radius="4dp"
+                app:shape_solidColor="#14D5B7FF">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingVertical="8dp">
+
+                    <TextView
+                        android:id="@+id/tvSet4"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="T2："
+                        android:textColor="@color/white"
+                        android:textSize="10sp"
+                        android:textStyle="bold"
+                        app:layout_constraintLeft_toRightOf="@id/tvFen"
+                        app:layout_constraintRight_toRightOf="parent" />
+
+                    <EditText
+                        android:id="@+id/evCreTempT2"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:gravity="center"
+                        android:hint=" "
+                        android:inputType="numberSigned"
+                        android:textColor="@color/white"
+                        android:textColorHint="#B9CCF9"
+                        android:textSize="11dp" />
+
+                    <com.hjq.shape.view.ShapeTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:paddingStart="8dp"
+                        android:text="℃"
+                        android:textColor="@color/white"
+                        android:textSize="11dp" />
+
+                </LinearLayout>
+
+
+            </com.hjq.shape.layout.ShapeLinearLayout>
+
+        </com.hjq.shape.layout.ShapeLinearLayout>
 
         <com.hjq.shape.view.ShapeTextView
             android:id="@+id/tvSave"

@@ -59,6 +59,7 @@
   "频率": "Fréquence：",
   "占空比": "Cycle de service：",
   "设置蓝牙": "BLUETOOTH",
+  "蓝牙名称": "Nom Bluetooth",
   "设置WiFi": "WI-FI",
   "设置时间": "Le temps",
   "设置语言": "Langue",
@@ -66,5 +67,9 @@
   "设置风扇": "Ventilateur",
   "设置版本": "Versions",
   "版本": "Versions",
-  "名称": "Le nom"
+  "名称": "Le nom",
+  "重命名": "Renommer",
+  "密码": "Mot de passe",
+  "断开": "Déconnecter",
+  "本地配置": "Configuration locale"
 }

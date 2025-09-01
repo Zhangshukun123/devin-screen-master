@@ -36,6 +36,7 @@ public class LanguageFragment extends BaseFragment<FragmentLanguageBinding> {
     @Override
     protected void initView() {
         binding.tvLanguage.setText(DemoApp.getInstance().getAppViewModel().getLangText("语言"));
+        binding.tvSave.setText(DemoApp.getInstance().getAppViewModel().getLangText("保存"));
         settingItems = new ArrayList<>();
         settingItems.add(new SettingItem(R.mipmap.icon_language1, "英语"));
         settingItems.add(new SettingItem(R.mipmap.icon_language2, "德语"));

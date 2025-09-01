@@ -31,7 +31,7 @@
   "开始温度": "Start Temperature：",
   "报警温度": "Alarm Temperature：",
   "齿轮": "Gear：",
-  "分钟": "Min",
+  "分钟": "min",
   "延迟关门时间": "Delay Closing Time：",
   "请输入": "Please enter",
   "全部": "Total",
@@ -59,6 +59,7 @@
   "频率": "Frequency：",
   "占空比": "Duty cycle：",
   "设置蓝牙": "BLUETOOTH",
+  "蓝牙名称": "Bluetooth Name",
   "设置WiFi": "WI-FI",
   "设置时间": "TIME",
   "设置语言": "LANGUAGE",
@@ -66,5 +67,9 @@
   "设置风扇": "FANS",
   "设置版本": "VERSION",
   "版本": "Version",
-  "名称": "Name"
+  "名称": "Name",
+  "重命名": "Rename",
+  "密码": "Password",
+  "断开": "Disconnect",
+  "本地配置": "LOCAL CONFIGURATION"
 }
