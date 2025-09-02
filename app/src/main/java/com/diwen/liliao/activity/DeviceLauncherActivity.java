@@ -283,7 +283,7 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
                 if (AirBlowerRun > 5) {
                     return;
                 }
-                binding.tvAirBlower.setText(String.valueOf(AirBlowerRun));
+                binding.seekbarFengshan.setProgress(AirBlowerRun);
                 try {
                     JSONObject jsonObject = new JSONObject();
                     jsonObject.put(PadSAttribute.AirBlowerRun.getAttribute(), AirBlowerRun);
@@ -300,7 +300,7 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
                 if (AirBlowerRun < 0) {
                     return;
                 }
-                binding.tvAirBlower.setText(String.valueOf(AirBlowerRun));
+                binding.seekbarFengshan.setProgress(AirBlowerRun);
                 try {
                     JSONObject jsonObject = new JSONObject();
                     jsonObject.put(PadSAttribute.AirBlowerRun.getAttribute(), AirBlowerRun);
@@ -377,7 +377,7 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
                 getAllAttributes();
                 binding.ivPhone.setImageResource(R.mipmap.icon_phoneline);
             } else {
-                binding.ivPhone.setImageResource(R.mipmap.icon_wifi);
+                binding.ivPhone.setImageResource(R.mipmap.icon_phoneunline);
             }
         }
         if (strings.contains(PadSAttribute.Volume.getAttribute())) {
@@ -412,12 +412,12 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
         }
         if (strings.contains(PadSAttribute.AirBlowerRun.getAttribute())) {
             AirBlowerRun = (int) map.get(PadSAttribute.AirBlowerRun.getAttribute());
-            binding.tvAirBlower.setText(String.valueOf(AirBlowerRun));
+            binding.seekbarFengshan.setProgress(AirBlowerRun);
         }
         if (strings.contains(PadSAttribute.AirBlowerStop.getAttribute())) {
             int AirBlowerStop = (int) map.get(PadSAttribute.AirBlowerStop.getAttribute());
             if (Launch == 2) {
-                binding.tvAirBlower.setText(String.valueOf(AirBlowerStop));
+                binding.seekbarFengshan.setProgress(AirBlowerRun);
             }
         }
         if (strings.contains(PadSAttribute.Language.getAttribute())) {
@@ -553,14 +553,20 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
     }
 
     public void setLaunch() {
-        // 0 暂停 1 启动 2 停止  
+        // 0 暂停 1 启动 2 停止
         if (Launch == 0) {
+            binding.ivStart.setImageResource(R.mipmap.ic_start);
+            binding.ivStatus.setImageResource(R.mipmap.ic_running);
 //            binding.tvStart.setText(DemoApp.getInstance().getAppViewModel().getLangText("暂停"));//Pause
         }
         if (Launch == 1) {
+            binding.ivStart.setImageResource(R.mipmap.ic_stop);
+            binding.ivStatus.setImageResource(R.mipmap.ic_running);
 //            binding.tvStart.setText(DemoApp.getInstance().getAppViewModel().getLangText("已停止"));//Stop
         }
         if (Launch == 2) {
+            binding.ivStart.setImageResource(R.mipmap.ic_start);
+            binding.ivStatus.setImageResource(R.mipmap.ic_setting);
 //            binding.tvStart.setText(DemoApp.getInstance().getAppViewModel().getLangText("开始"));//Start
         }
         if (Launch != 1) {

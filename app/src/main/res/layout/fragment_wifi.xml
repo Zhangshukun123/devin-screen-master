@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:background="@color/colorPrimary">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -48,18 +49,18 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dp_4"
                     android:layout_weight="1"
-                    android:paddingVertical="@dimen/dp_10"
                     android:text="wifi"
                     android:textColor="@color/white"
-                    android:textSize="12sp"
+                    android:textSize="10sp"
                     android:textStyle="bold" />
 
                 <com.hjq.shape.view.ShapeTextView
                     android:id="@+id/tvDisWifi"
                     android:layout_width="wrap_content"
-                    android:layout_height="30dp"
+                    android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:paddingHorizontal="@dimen/dp_10"
+                    android:paddingHorizontal="6dp"
+                    android:paddingVertical="3dp"
                     android:text="Disconnect"
                     android:textColor="@color/white"
                     android:textSize="10sp"
@@ -101,18 +102,18 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/dp_4"
                         android:layout_weight="1"
-                        android:paddingVertical="@dimen/dp_10"
                         android:text="wifi"
                         android:textColor="@color/white"
-                        android:textSize="12sp"
+                        android:textSize="10sp"
                         android:textStyle="bold" />
 
                     <com.hjq.shape.view.ShapeTextView
                         android:id="@+id/tvSaveWifi"
                         android:layout_width="wrap_content"
-                        android:layout_height="30dp"
+                        android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:paddingHorizontal="@dimen/dp_10"
+                        android:paddingHorizontal="6dp"
+                        android:paddingVertical="3dp"
                         android:text="保存"
                         android:textColor="@color/white"
                         android:textSize="10sp"
@@ -140,8 +141,7 @@
                         android:layout_height="wrap_content"
                         android:text="Network Name"
                         android:textColor="@color/white"
-                        android:textSize="10sp"
-                        android:textStyle="bold" />
+                        android:textSize="10sp" />
 
                     <EditText
                         android:id="@+id/etBtRightName"
@@ -174,8 +174,7 @@
                         android:layout_height="wrap_content"
                         android:text="Password"
                         android:textColor="@color/white"
-                        android:textSize="10sp"
-                        android:textStyle="bold" />
+                        android:textSize="10sp" />
 
                     <EditText
                         android:id="@+id/etBtRightPwd"
@@ -215,18 +214,18 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dp_4"
                     android:layout_weight="1"
-                    android:paddingVertical="@dimen/dp_10"
                     android:text="Local Configuration"
                     android:textColor="@color/white"
-                    android:textSize="12sp"
+                    android:textSize="10sp"
                     android:textStyle="bold" />
 
                 <com.hjq.shape.view.ShapeTextView
                     android:id="@+id/tvDisLocal"
                     android:layout_width="wrap_content"
-                    android:layout_height="30dp"
+                    android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:paddingHorizontal="@dimen/dp_10"
+                    android:paddingHorizontal="6dp"
+                    android:paddingVertical="3dp"
                     android:text="Disconnect"
                     android:textColor="@color/white"
                     android:textSize="10sp"
@@ -268,18 +267,18 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/dp_4"
                         android:layout_weight="1"
-                        android:paddingVertical="@dimen/dp_10"
                         android:text="Local Configuration"
                         android:textColor="@color/white"
-                        android:textSize="12sp"
+                        android:textSize="10sp"
                         android:textStyle="bold" />
 
                     <com.hjq.shape.view.ShapeTextView
                         android:id="@+id/tvSaveLocal"
                         android:layout_width="wrap_content"
-                        android:layout_height="30dp"
+                        android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:paddingHorizontal="@dimen/dp_10"
+                        android:paddingHorizontal="6dp"
+                        android:paddingVertical="3dp"
                         android:text="保存"
                         android:textColor="@color/white"
                         android:textSize="10sp"
@@ -307,8 +306,7 @@
                         android:layout_height="wrap_content"
                         android:text="Device Name"
                         android:textColor="@color/white"
-                        android:textSize="10sp"
-                        android:textStyle="bold" />
+                        android:textSize="10sp" />
 
                     <EditText
                         android:id="@+id/etLocalRightName"
@@ -341,8 +339,7 @@
                         android:layout_height="wrap_content"
                         android:text="Local Port"
                         android:textColor="@color/white"
-                        android:textSize="10sp"
-                        android:textStyle="bold" />
+                        android:textSize="10sp" />
 
                     <EditText
                         android:id="@+id/etLocalRightPort"

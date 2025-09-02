@@ -3,7 +3,7 @@
 
     <item
         android:id="@android:id/background"
-        android:drawable="@drawable/shape_progressbar_bg" />
+        android:drawable="@color/white10" />
 
     <item android:id="@android:id/progress">
 

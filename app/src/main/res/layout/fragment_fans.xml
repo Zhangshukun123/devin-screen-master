@@ -1,238 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:background="@color/colorPrimary">
 
-    <com.hjq.shape.layout.ShapeLinearLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:shape="rectangle">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/tv1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingVertical="@dimen/dp_10"
-            android:text="Human Body Fan Setting"
-            android:textColor="@color/white"
-            android:textSize="12sp"
-            android:textStyle="bold" />
 
         <com.hjq.shape.layout.ShapeLinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingHorizontal="16dp"
-            app:shape="rectangle"
-            app:shape_radius="4dp"
-            app:shape_solidColor="#14D5B7FF">
+            app:shape="rectangle">
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/tv1"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingVertical="7.5dp">
-
-                <TextView
-                    android:id="@+id/tvChiLun"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Second"
-                    android:textColor="@color/white"
-                    android:textSize="10sp"
-                    android:textStyle="bold"
-                    app:layout_constraintLeft_toRightOf="@id/tvFen"
-                    app:layout_constraintRight_toRightOf="parent" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rectangle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="28dp"
-                    android:orientation="horizontal"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:background="@color/white" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingVertical="8dp">
-
-                <TextView
-                    android:id="@+id/tv2"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="延迟关门时间："
-                    android:textColor="@color/white"
-                    android:textSize="10sp"
-                    android:textStyle="bold"
-                    app:layout_constraintLeft_toRightOf="@id/tvFen"
-                    app:layout_constraintRight_toRightOf="parent" />
-
-                <EditText
-                    android:id="@+id/evMineClose"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@null"
-                    android:gravity="center"
-                    android:hint=" "
-                    android:inputType="numberSigned"
-                    android:textColor="@color/white"
-                    android:textColorHint="#B9CCF9"
-                    android:textSize="11dp" />
-
-                <com.hjq.shape.view.ShapeTextView
-                    android:id="@+id/tvMineD"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:paddingStart="8dp"
-                    android:text="分钟"
-                    android:textColor="@color/white"
-                    android:textSize="11dp" />
-
-            </LinearLayout>
-
-        </com.hjq.shape.layout.ShapeLinearLayout>
-
-        <TextView
-            android:id="@+id/tv3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingVertical="@dimen/dp_10"
-            android:text="Human Body Fan Setting"
-            android:textColor="@color/white"
-            android:textSize="12sp"
-            android:textStyle="bold" />
-
-        <com.hjq.shape.layout.ShapeLinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingHorizontal="16dp"
-            app:shape="rectangle"
-            app:shape_radius="4dp"
-            app:shape_solidColor="#14D5B7FF">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingVertical="8dp">
-
-                <TextView
-                    android:id="@+id/tvSet1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="开始温度："
-                    android:textColor="@color/white"
-                    android:textSize="10sp"
-                    android:textStyle="bold"
-                    app:layout_constraintLeft_toRightOf="@id/tvFen"
-                    app:layout_constraintRight_toRightOf="parent" />
-
-                <EditText
-                    android:id="@+id/evStarTemp"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@null"
-                    android:gravity="center"
-                    android:hint=" "
-                    android:inputType="numberSigned"
-                    android:textColor="@color/white"
-                    android:textColorHint="#B9CCF9"
-                    android:textSize="11dp" />
-
-                <com.hjq.shape.view.ShapeTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:paddingStart="8dp"
-                    android:text="℃"
-                    android:textColor="@color/white"
-                    android:textSize="11dp" />
-
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:background="@color/white" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingVertical="8dp">
-
-                <TextView
-                    android:id="@+id/tvSet3"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="开始温度："
-                    android:textColor="@color/white"
-                    android:textSize="10sp"
-                    android:textStyle="bold"
-                    app:layout_constraintLeft_toRightOf="@id/tvFen"
-                    app:layout_constraintRight_toRightOf="parent" />
-
-                <EditText
-                    android:id="@+id/evCreTemp"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@null"
-                    android:gravity="center"
-                    android:hint=" "
-                    android:inputType="numberSigned"
-                    android:textColor="@color/white"
-                    android:textColorHint="#B9CCF9"
-                    android:textSize="11dp" />
-
-                <com.hjq.shape.view.ShapeTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:paddingStart="8dp"
-                    android:text="℃"
-                    android:textColor="@color/white"
-                    android:textSize="11dp"/>
-
-            </LinearLayout>
-
-        </com.hjq.shape.layout.ShapeLinearLayout>
-
-        <com.hjq.shape.layout.ShapeLinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_10"
-            android:orientation="horizontal">
+                android:paddingVertical="@dimen/dp_10"
+                android:text="Human Body Fan Setting"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                android:textStyle="bold" />
 
             <com.hjq.shape.layout.ShapeLinearLayout
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:paddingHorizontal="16dp"
                 app:shape="rectangle"
                 app:shape_radius="4dp"
@@ -243,27 +41,59 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    android:paddingVertical="8dp">
+                    android:paddingVertical="7.5dp">
 
                     <TextView
-                        android:id="@+id/tvSet2"
+                        android:id="@+id/tvChiLun"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="T1："
+                        android:text="Second"
                         android:textColor="@color/white"
                         android:textSize="10sp"
-                        android:textStyle="bold"
+                        app:layout_constraintLeft_toRightOf="@id/tvFen"
+                        app:layout_constraintRight_toRightOf="parent" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rectangle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="28dp"
+                        android:orientation="horizontal"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/white" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingVertical="8dp">
+
+                    <TextView
+                        android:id="@+id/tv2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="延迟关门时间："
+                        android:textColor="@color/white"
+                        android:textSize="10sp"
                         app:layout_constraintLeft_toRightOf="@id/tvFen"
                         app:layout_constraintRight_toRightOf="parent" />
 
                     <EditText
-                        android:id="@+id/evStarTempT1"
+                        android:id="@+id/evMineClose"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:background="@null"
-                        android:gravity="center"
+                        android:gravity="center|end"
                         android:hint=" "
                         android:inputType="numberSigned"
                         android:textColor="@color/white"
@@ -271,25 +101,33 @@
                         android:textSize="11dp" />
 
                     <com.hjq.shape.view.ShapeTextView
+                        android:id="@+id/tvMineD"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="center"
                         android:paddingStart="8dp"
-                        android:text="℃"
+                        android:text="分钟"
                         android:textColor="@color/white"
-                        android:textSize="11dp"/>
+                        android:textSize="11dp" />
 
                 </LinearLayout>
 
-
             </com.hjq.shape.layout.ShapeLinearLayout>
 
-            <com.hjq.shape.layout.ShapeLinearLayout
-                android:layout_width="0dp"
+            <TextView
+                android:id="@+id/tv3"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dp_10"
-                android:layout_weight="1"
-                android:orientation="horizontal"
+                android:paddingVertical="@dimen/dp_10"
+                android:text="Human Body Fan Setting"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <com.hjq.shape.layout.ShapeLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
                 android:paddingHorizontal="16dp"
                 app:shape="rectangle"
                 app:shape_radius="4dp"
@@ -303,24 +141,22 @@
                     android:paddingVertical="8dp">
 
                     <TextView
-                        android:id="@+id/tvSet4"
-                        android:layout_width="0dp"
+                        android:id="@+id/tvSet1"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="T2："
+                        android:text="开始温度："
                         android:textColor="@color/white"
                         android:textSize="10sp"
-                        android:textStyle="bold"
                         app:layout_constraintLeft_toRightOf="@id/tvFen"
                         app:layout_constraintRight_toRightOf="parent" />
 
                     <EditText
-                        android:id="@+id/evCreTempT2"
+                        android:id="@+id/evStarTemp"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:background="@null"
-                        android:gravity="center"
+                        android:gravity="center|end"
                         android:hint=" "
                         android:inputType="numberSigned"
                         android:textColor="@color/white"
@@ -338,25 +174,186 @@
 
                 </LinearLayout>
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/white" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingVertical="8dp">
+
+                    <TextView
+                        android:id="@+id/tvSet3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="开始温度："
+                        android:textColor="@color/white"
+                        android:textSize="10sp"
+                        app:layout_constraintLeft_toRightOf="@id/tvFen"
+                        app:layout_constraintRight_toRightOf="parent" />
+
+                    <EditText
+                        android:id="@+id/evCreTemp"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:gravity="center|end"
+                        android:hint=" "
+                        android:inputType="numberSigned"
+                        android:textColor="@color/white"
+                        android:textColorHint="#B9CCF9"
+                        android:textSize="11dp" />
+
+                    <com.hjq.shape.view.ShapeTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:paddingStart="8dp"
+                        android:text="℃"
+                        android:textColor="@color/white"
+                        android:textSize="11dp" />
+
+                </LinearLayout>
 
             </com.hjq.shape.layout.ShapeLinearLayout>
 
+            <com.hjq.shape.layout.ShapeLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_10"
+                android:orientation="horizontal">
+
+                <com.hjq.shape.layout.ShapeLinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="16dp"
+                    app:shape="rectangle"
+                    app:shape_radius="4dp"
+                    app:shape_solidColor="#14D5B7FF">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingVertical="8dp">
+
+                        <TextView
+                            android:id="@+id/tvSet2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="T1："
+                            android:textColor="@color/white"
+                            android:textSize="10sp"
+                            app:layout_constraintLeft_toRightOf="@id/tvFen"
+                            app:layout_constraintRight_toRightOf="parent" />
+
+                        <EditText
+                            android:id="@+id/evStarTempT1"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@null"
+                            android:gravity="center|end"
+                            android:hint=" "
+                            android:inputType="numberSigned"
+                            android:textColor="@color/white"
+                            android:textColorHint="#B9CCF9"
+                            android:textSize="11dp" />
+
+                        <com.hjq.shape.view.ShapeTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:paddingStart="8dp"
+                            android:text="℃"
+                            android:textColor="@color/white"
+                            android:textSize="11dp" />
+
+                    </LinearLayout>
+
+
+                </com.hjq.shape.layout.ShapeLinearLayout>
+
+                <com.hjq.shape.layout.ShapeLinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_10"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="16dp"
+                    app:shape="rectangle"
+                    app:shape_radius="4dp"
+                    app:shape_solidColor="#14D5B7FF">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingVertical="8dp">
+
+                        <TextView
+                            android:id="@+id/tvSet4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="T2："
+                            android:textColor="@color/white"
+                            android:textSize="10sp"
+                            app:layout_constraintLeft_toRightOf="@id/tvFen"
+                            app:layout_constraintRight_toRightOf="parent" />
+
+                        <EditText
+                            android:id="@+id/evCreTempT2"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@null"
+                            android:gravity="center|end"
+                            android:hint=" "
+                            android:inputType="numberSigned"
+                            android:textColor="@color/white"
+                            android:textColorHint="#B9CCF9"
+                            android:textSize="11dp" />
+
+                        <com.hjq.shape.view.ShapeTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:paddingStart="8dp"
+                            android:text="℃"
+                            android:textColor="@color/white"
+                            android:textSize="11dp" />
+
+                    </LinearLayout>
+
+
+                </com.hjq.shape.layout.ShapeLinearLayout>
+
+            </com.hjq.shape.layout.ShapeLinearLayout>
+
+            <com.hjq.shape.view.ShapeTextView
+                android:id="@+id/tvSave"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_gravity="bottom|center_horizontal"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="20dp"
+                android:gravity="center"
+                android:text="保存"
+                android:textColor="@color/white"
+                android:textSize="10sp"
+                app:shape_endColor="#A202FF"
+                app:shape_radius="2dp"
+                app:shape_startColor="#10A5F9" />
+
         </com.hjq.shape.layout.ShapeLinearLayout>
-
-        <com.hjq.shape.view.ShapeTextView
-            android:id="@+id/tvSave"
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:layout_gravity="bottom|center_horizontal"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="20dp"
-            android:gravity="center"
-            android:text="保存"
-            android:textColor="@color/white"
-            android:textSize="10sp"
-            app:shape_endColor="#A202FF"
-            app:shape_radius="2dp"
-            app:shape_startColor="#10A5F9" />
-
-    </com.hjq.shape.layout.ShapeLinearLayout>
+    </androidx.core.widget.NestedScrollView>
 </RelativeLayout>

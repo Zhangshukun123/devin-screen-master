@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#2A2860"
+    android:background="@mipmap/bg_main"
     android:orientation="vertical"
     tools:ignore="MissingConstraints">
 
@@ -90,18 +90,21 @@
 
         <ImageView
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:src="@mipmap/ic_machine"
             app:layout_constraintBottom_toTopOf="@id/ll_bottom"
+            app:layout_constraintDimensionRatio="H,210:118"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/guild_line_ver_center"
             app:layout_constraintTop_toBottomOf="@id/view_top_end" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/view_top_end"
-            android:layout_width="237dp"
-            android:layout_height="77dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:background="@mipmap/bg_main_top_right"
+            android:paddingStart="@dimen/dp_40"
+            android:paddingBottom="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -109,17 +112,46 @@
                 android:id="@+id/logo_music"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dp_40"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="@dimen/dp_10"
                 android:src="@mipmap/ic_music"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/tvPlayingNow"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvMusic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dp_4"
+                android:text="MUSIC"
+                android:textColor="@color/white"
+                android:textSize="8sp"
+                app:layout_constraintStart_toStartOf="@id/tvPlayingNow"
+                app:layout_constraintTop_toTopOf="@id/logo_music" />
+
+            <TextView
+                android:id="@+id/tvPlayingNow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="27dp"
+                android:text="PLAYING NOW"
+                android:textColor="#9F9F9F"
+                android:textSize="6sp"
+                app:layout_constraintEnd_toStartOf="@id/ivSong1"
+                app:layout_constraintTop_toBottomOf="@id/tvMusic" />
+
+            <ImageView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
             <com.diwen.liliao.utils.ReplaceSelectorImageView
                 android:id="@+id/ivSong1"
                 android:layout_width="16dp"
                 android:layout_height="16dp"
                 android:layout_marginEnd="20dp"
+                android:padding="@dimen/dp_4"
                 android:src="@mipmap/icon_song1"
                 app:layout_constraintBottom_toBottomOf="@id/ivSong2"
                 app:layout_constraintEnd_toStartOf="@id/ivSong2"
@@ -130,6 +162,7 @@
                 android:layout_width="16dp"
                 android:layout_height="16dp"
                 android:layout_marginEnd="20dp"
+                android:padding="@dimen/dp_4"
                 android:src="@mipmap/icon_song2"
                 app:layout_constraintBottom_toBottomOf="@id/ivSong3"
                 app:layout_constraintEnd_toStartOf="@id/ivSong3"
@@ -140,6 +173,7 @@
                 android:layout_width="16dp"
                 android:layout_height="16dp"
                 android:layout_marginTop="6dp"
+                android:padding="@dimen/dp_4"
                 android:src="@mipmap/icon_song3"
                 app:layout_constraintEnd_toEndOf="@id/seekbar"
                 app:layout_constraintTop_toTopOf="@id/logo_music" />
@@ -199,9 +233,11 @@
                 </LinearLayout>
 
                 <View
-                    android:layout_width="1dp"
+                    android:layout_width="0.5dp"
                     android:layout_height="match_parent"
-                    android:background="@color/white" />
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@color/white10" />
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -219,9 +255,11 @@
                 </LinearLayout>
 
                 <View
-                    android:layout_width="1dp"
+                    android:layout_width="0.5dp"
                     android:layout_height="match_parent"
-                    android:background="@color/white" />
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@color/white10" />
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -249,14 +287,6 @@
                 android:paddingStart="20dp"
                 android:paddingEnd="20dp">
 
-                <TextView
-                    android:id="@+id/tvAirBlower"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="3"
-                    android:textColor="@color/white"
-                    android:textSize="16dp" />
-
                 <ImageView
                     android:id="@+id/fenshanJian"
                     android:layout_width="30dp"
@@ -275,7 +305,7 @@
                     android:layout_marginEnd="@dimen/dp_10"
                     android:layout_weight="1"
                     android:background="@null"
-                    android:max="31"
+                    android:max="5"
                     android:min="0"
                     android:paddingStart="0dp"
                     android:paddingTop="13dp"
@@ -318,9 +348,11 @@
                 </LinearLayout>
 
                 <View
-                    android:layout_width="1dp"
+                    android:layout_width="0.5dp"
                     android:layout_height="match_parent"
-                    android:background="@color/white" />
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@color/white10" />
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -338,9 +370,11 @@
                 </LinearLayout>
 
                 <View
-                    android:layout_width="1dp"
+                    android:layout_width="0.5dp"
                     android:layout_height="match_parent"
-                    android:background="@color/white" />
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@color/white10" />
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -363,8 +397,8 @@
 
         <RelativeLayout
             android:id="@+id/rl_start"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="52dp"
+            android:layout_height="52dp"
             android:layout_marginBottom="@dimen/dp_40"
             android:background="@mipmap/bg_start"
             app:layout_constraintBottom_toTopOf="@id/ll_bottom"
@@ -372,6 +406,7 @@
             app:layout_constraintRight_toRightOf="@id/guild_line_ver_center">
 
             <ImageView
+                android:id="@+id/iv_start"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
@@ -381,9 +416,9 @@
 
         <RelativeLayout
             android:id="@+id/rl_start_left"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:background="@mipmap/bg_time_control"
+            android:layout_width="58dp"
+            android:layout_height="26dp"
+            android:background="@mipmap/bg_time_left"
             app:layout_constraintBottom_toBottomOf="@id/rl_start"
             app:layout_constraintEnd_toStartOf="@id/rl_start"
             app:layout_constraintTop_toTopOf="@id/rl_start">
@@ -400,9 +435,9 @@
 
         <RelativeLayout
             android:id="@+id/rl_start_right"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:background="@mipmap/bg_time_control"
+            android:layout_width="58dp"
+            android:layout_height="26dp"
+            android:background="@mipmap/bg_time_right"
             app:layout_constraintBottom_toBottomOf="@id/rl_start"
             app:layout_constraintStart_toEndOf="@id/rl_start"
             app:layout_constraintTop_toTopOf="@id/rl_start">
@@ -475,6 +510,16 @@
             app:layout_constraintBottom_toBottomOf="@id/shapeMao"
             app:layout_constraintStart_toEndOf="@id/shapeMao"
             app:layout_constraintTop_toTopOf="@id/shapeMao" />
+
+        <ImageView
+            android:id="@+id/iv_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:src="@mipmap/ic_setting"
+            app:layout_constraintEnd_toEndOf="@id/shapeMao"
+            app:layout_constraintStart_toStartOf="@id/shapeMao"
+            app:layout_constraintTop_toBottomOf="@id/shapeMao" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/mesreList"
