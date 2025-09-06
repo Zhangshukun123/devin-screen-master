@@ -68,8 +68,13 @@
   "设置版本": "Versión",
   "版本": "Versión",
   "名称": "Nombre",
-  "重命名": "Cambiar el nombre",
+  "重命名": "Renombrear",
   "密码": "Contraseña",
   "断开": "Desconexión",
-  "本地配置": "Configuración local"
+  "本地配置": "Configuración local",
+  "音乐": "Música",
+  "开始播放": "Jugando ahora",
+  "剩余时间": "Tiempo restante",
+  "设置": "Configuración",
+  "运行": "Funcionamiento"
 }

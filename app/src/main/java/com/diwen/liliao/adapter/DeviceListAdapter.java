@@ -8,6 +8,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.diwen.liliao.R;
 import com.diwen.liliao.model.DeviceModel;
 import com.hjq.shape.layout.ShapeLinearLayout;
+import com.hjq.shape.layout.ShapeRelativeLayout;
 
 import java.util.List;
 
@@ -20,7 +21,7 @@ public class DeviceListAdapter extends BaseQuickAdapter<DeviceModel, BaseViewHol
 
     @Override
     protected void convert(BaseViewHolder helper, DeviceModel item) {
-        ShapeLinearLayout llBg = helper.getView(R.id.llBg);
+        ShapeRelativeLayout llBg = helper.getView(R.id.llBg);
         if (helper.getLayoutPosition() == 2) {
             helper.setGone(R.id.llMengceng, false);
             llBg.getShapeDrawableBuilder().setSolidColor(Color.parseColor("#4DF2F6FF")).intoBackground();
@@ -29,7 +30,7 @@ public class DeviceListAdapter extends BaseQuickAdapter<DeviceModel, BaseViewHol
             llBg.getShapeDrawableBuilder().setSolidColor(Color.parseColor("#0DF2F6FF")).intoBackground();
         }
         if (item.isConnectTcp()){
-            helper.setImageResource(R.id.wifiState, R.mipmap.icon_phone);
+            helper.setImageResource(R.id.wifiState, R.mipmap.icon_phoneline);
         }else {
             if (item.isConnectUdp()) {
                 helper.setImageResource(R.id.wifiState, R.mipmap.icon_wificonnect);

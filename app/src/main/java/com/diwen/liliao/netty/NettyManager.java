@@ -12,6 +12,7 @@ import org.json.JSONObject;
 import java.io.UnsupportedEncodingException;
 
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelFutureListener;
@@ -33,10 +34,10 @@ public class NettyManager implements NettyListener {
     }
 
     public void setNewIp(String inetHost) {
-        if (nettyClient!=null){
+        if (nettyClient != null) {
             nettyClient.setNewIp(inetHost);
         }
-   
+
     }
 
     public void connectNetty() {
@@ -63,6 +64,7 @@ public class NettyManager implements NettyListener {
             nettyClient.disconnect();
             nettyClient.connect();
         }
+        Log.e(TAG, "sendData: " + data);
         nettyClient.sendMsgToServer(data, future -> {
             if (future.isSuccess()) {
                 Log.e(TAG, "发送成功");

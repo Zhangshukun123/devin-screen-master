@@ -2,6 +2,7 @@ package com.diwen.liliao.fragment;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.SeekBar;
 
 import com.diwen.liliao.DemoApp;
 import com.diwen.liliao.adapter.ButtonAirListAdapter;
@@ -99,6 +100,7 @@ public class FansFragment extends BaseFragment<FragmentFansBinding> {
                         buttonAirListAdapter.getData().get(AirBlower - 1).setChose(true);
                         buttonAirListAdapter.notifyDataSetChanged();
                     }
+                    binding.seekbarFans.setProgress(AirBlower);
                 }
                 if (strings.contains(PadSAttribute.AirTime.getAttribute())) {
                     int AirTime = (int) map.get(PadSAttribute.AirTime.getAttribute());
@@ -143,11 +145,12 @@ public class FansFragment extends BaseFragment<FragmentFansBinding> {
     public void setAirBlower() {
         try {
             JSONObject jsonObject = new JSONObject();
-            for (int i = 0; i < buttonAirListAdapter.getData().size(); i++) {
-                if (buttonAirListAdapter.getData().get(i).isChose()) {
-                    jsonObject.put(PadSAttribute.AirBlowerStop.getAttribute(), i + 1);
-                }
-            }
+//            for (int i = 0; i < buttonAirListAdapter.getData().size(); i++) {
+//                if (buttonAirListAdapter.getData().get(i).isChose()) {
+//                    jsonObject.put(PadSAttribute.AirBlowerStop.getAttribute(), i + 1);
+//                }
+//            }
+            jsonObject.put(PadSAttribute.AirBlowerStop.getAttribute(), binding.seekbarFans.getProgress());
             if (AtyUtils.isStringEmpty(AtyUtils.getText(binding.evMineClose))) {
                 jsonObject.put(PadSAttribute.AirTime.getAttribute(), Integer.parseInt(AtyUtils.getText(binding.evMineClose)));
             }

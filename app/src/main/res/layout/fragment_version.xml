@@ -82,7 +82,7 @@
                     android:id="@+id/tvUIVersionLeft"
                     android:layout_width="50dp"
                     android:layout_height="wrap_content"
-                    android:text="UI Ver："
+                    android:text="APP Ver："
                     android:textColor="@color/white"
                     android:textSize="10sp" />
 

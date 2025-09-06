@@ -25,6 +25,8 @@ import com.diwen.liliao.netty.PadSAttribute;
 import com.diwen.liliao.utils.ActivityUtils;
 import com.diwen.liliao.utils.AtyUtils;
 import com.diwen.liliao.utils.ForbadClick;
+import com.diwen.liliao.utils.StringUtils;
+import com.diwen.liliao.utils.Utils;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -65,6 +67,9 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
     @Override
     protected void setUiText() {
         setLaunch();
+        binding.tvRemainingTime.setText(StringUtils.getText("剩余时间"));
+        binding.tvMusic.setText(StringUtils.getText("音乐"));
+        binding.tvPlayingNow.setText(StringUtils.getText("开始播放"));
         if (DemoApp.getInstance().buildCompany) {
 
         } else {
@@ -556,17 +561,17 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
         // 0 暂停 1 启动 2 停止
         if (Launch == 0) {
             binding.ivStart.setImageResource(R.mipmap.ic_start);
-            binding.ivStatus.setImageResource(R.mipmap.ic_running);
+            binding.tvStatus.setText(StringUtils.getText("设置"));
 //            binding.tvStart.setText(DemoApp.getInstance().getAppViewModel().getLangText("暂停"));//Pause
         }
         if (Launch == 1) {
             binding.ivStart.setImageResource(R.mipmap.ic_stop);
-            binding.ivStatus.setImageResource(R.mipmap.ic_running);
+            binding.tvStatus.setText(StringUtils.getText("运行"));
 //            binding.tvStart.setText(DemoApp.getInstance().getAppViewModel().getLangText("已停止"));//Stop
         }
         if (Launch == 2) {
             binding.ivStart.setImageResource(R.mipmap.ic_start);
-            binding.ivStatus.setImageResource(R.mipmap.ic_setting);
+            binding.tvStatus.setText(StringUtils.getText("设置"));
 //            binding.tvStart.setText(DemoApp.getInstance().getAppViewModel().getLangText("开始"));//Start
         }
         if (Launch != 1) {

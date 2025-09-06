@@ -1,6 +1,7 @@
 package com.diwen.liliao.activity;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.view.View;
 
 import androidx.fragment.app.Fragment;
@@ -93,6 +94,7 @@ public class DeviceSettingActivity extends MqttBaseActivity<LayoutDevicesettinga
         if (bluetoothFragment == null) {
             bluetoothFragment = BluetoothFragment.newInstance();
         }
+        binding.tvBluetooth.setTypeface(Typeface.DEFAULT_BOLD);
         switchFragment(bluetoothFragment).commit();
     }
 
@@ -124,12 +126,14 @@ public class DeviceSettingActivity extends MqttBaseActivity<LayoutDevicesettinga
             resetCheckView();
             binding.llBlueTooth.setBackgroundResource(R.drawable.bg_radius_4_white10);
             binding.ivBluetooth.setImageResource(R.mipmap.ic_bluetooth_setting_check);
+            binding.tvBluetooth.setTypeface(Typeface.DEFAULT_BOLD);
             switchFragment(bluetoothFragment).commit();
         }
         if (v == binding.llWifi) {
             resetCheckView();
             binding.llWifi.setBackgroundResource(R.drawable.bg_radius_4_white10);
             binding.ivWifi.setImageResource(R.mipmap.ic_wifi_setting_check);
+            binding.tvWifi.setTypeface(Typeface.DEFAULT_BOLD);
             if (wifiFragment == null) {
                 wifiFragment = WifiFragment.newInstance();
             }
@@ -139,6 +143,7 @@ public class DeviceSettingActivity extends MqttBaseActivity<LayoutDevicesettinga
             resetCheckView();
             binding.llTime.setBackgroundResource(R.drawable.bg_radius_4_white10);
             binding.ivTime.setImageResource(R.mipmap.ic_time_setting_check);
+            binding.tvTime.setTypeface(Typeface.DEFAULT_BOLD);
             if (timeFragment == null) {
                 timeFragment = TimeFragment.newInstance();
             }
@@ -148,6 +153,7 @@ public class DeviceSettingActivity extends MqttBaseActivity<LayoutDevicesettinga
             resetCheckView();
             binding.llLanguage.setBackgroundResource(R.drawable.bg_radius_4_white10);
             binding.ivLanguage.setImageResource(R.mipmap.ic_language_setting_check);
+            binding.tvLanguage.setTypeface(Typeface.DEFAULT_BOLD);
             if (languageFragment == null) {
                 languageFragment = LanguageFragment.newInstance();
             }
@@ -157,6 +163,7 @@ public class DeviceSettingActivity extends MqttBaseActivity<LayoutDevicesettinga
             resetCheckView();
             binding.llFans.setBackgroundResource(R.drawable.bg_radius_4_white10);
             binding.ivFans.setImageResource(R.mipmap.ic_fans_setting_check);
+            binding.tvFans.setTypeface(Typeface.DEFAULT_BOLD);
             if (fansFragment == null) {
                 fansFragment = FansFragment.newInstance();
             }
@@ -166,6 +173,7 @@ public class DeviceSettingActivity extends MqttBaseActivity<LayoutDevicesettinga
             resetCheckView();
             binding.llVersion.setBackgroundResource(R.drawable.bg_radius_4_white10);
             binding.ivVersion.setImageResource(R.mipmap.ic_version_setting_check);
+            binding.tvVersion.setTypeface(Typeface.DEFAULT_BOLD);
             if (versionFragment == null) {
                 versionFragment = VersionFragment.newInstance();
             }
@@ -186,6 +194,13 @@ public class DeviceSettingActivity extends MqttBaseActivity<LayoutDevicesettinga
         binding.ivFans.setImageResource(R.mipmap.ic_fans_setting);
         binding.llVersion.setBackgroundResource(R.drawable.bg_translate);
         binding.ivVersion.setImageResource(R.mipmap.ic_version_setting);
+
+        binding.tvBluetooth.setTypeface(Typeface.DEFAULT);
+        binding.tvWifi.setTypeface(Typeface.DEFAULT);
+        binding.tvTime.setTypeface(Typeface.DEFAULT);
+        binding.tvLanguage.setTypeface(Typeface.DEFAULT);
+        binding.tvFans.setTypeface(Typeface.DEFAULT);
+        binding.tvVersion.setTypeface(Typeface.DEFAULT);
     }
 
     private FragmentTransaction switchFragment(Fragment targetFragment) {

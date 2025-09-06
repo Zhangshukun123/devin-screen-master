@@ -33,6 +33,7 @@
                 android:orientation="horizontal"
                 android:paddingHorizontal="16dp"
                 android:paddingVertical="@dimen/dp_10"
+                android:visibility="gone"
                 app:shape="rectangle"
                 app:shape_radius="4dp"
                 app:shape_solidColor="#14D5B7FF">
@@ -125,7 +126,8 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="0.5dp"
-                    android:background="@color/white" />
+                    android:layout_marginHorizontal="16dp"
+                    android:background="@color/divide" />
 
                 <com.hjq.shape.layout.ShapeLinearLayout
                     android:layout_width="match_parent"
@@ -143,8 +145,8 @@
                         android:textColor="@color/white"
                         android:textSize="10sp" />
 
-                    <EditText
-                        android:id="@+id/etBtRightName"
+                    <TextView
+                        android:id="@+id/tvWifiName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@null"
@@ -158,7 +160,8 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="0.5dp"
-                    android:background="@color/white" />
+                    android:layout_marginHorizontal="16dp"
+                    android:background="@color/divide" />
 
                 <com.hjq.shape.layout.ShapeLinearLayout
                     android:layout_width="match_parent"
@@ -176,8 +179,8 @@
                         android:textColor="@color/white"
                         android:textSize="10sp" />
 
-                    <EditText
-                        android:id="@+id/etBtRightPwd"
+                    <TextView
+                        android:id="@+id/tvWifiPwd"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@null"
@@ -198,6 +201,7 @@
                 android:orientation="horizontal"
                 android:paddingHorizontal="16dp"
                 android:paddingVertical="@dimen/dp_10"
+                android:visibility="gone"
                 app:shape="rectangle"
                 app:shape_radius="4dp"
                 app:shape_solidColor="#14D5B7FF">
@@ -290,7 +294,8 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="0.5dp"
-                    android:background="@color/white" />
+                    android:layout_marginHorizontal="16dp"
+                    android:background="@color/divide" />
 
                 <com.hjq.shape.layout.ShapeLinearLayout
                     android:layout_width="match_parent"
@@ -308,8 +313,8 @@
                         android:textColor="@color/white"
                         android:textSize="10sp" />
 
-                    <EditText
-                        android:id="@+id/etLocalRightName"
+                    <TextView
+                        android:id="@+id/tvLocalName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@null"
@@ -323,7 +328,8 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="0.5dp"
-                    android:background="@color/white" />
+                    android:layout_marginHorizontal="16dp"
+                    android:background="@color/divide" />
 
                 <com.hjq.shape.layout.ShapeLinearLayout
                     android:layout_width="match_parent"
@@ -341,8 +347,8 @@
                         android:textColor="@color/white"
                         android:textSize="10sp" />
 
-                    <EditText
-                        android:id="@+id/etLocalRightPort"
+                    <TextView
+                        android:id="@+id/tvLocalPort"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@null"

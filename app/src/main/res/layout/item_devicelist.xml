@@ -10,7 +10,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="44dp">
 
-        <com.hjq.shape.layout.ShapeLinearLayout
+        <com.hjq.shape.layout.ShapeRelativeLayout
             android:id="@+id/llBg"
             android:layout_width="156dp"
             android:layout_height="112dp"
@@ -21,21 +21,23 @@
 
             <ImageView
                 android:id="@+id/ivSettingBg"
-                android:layout_width="108dp"
-                android:layout_height="51dp"
-                android:layout_marginTop="20dp"
-                android:src="@mipmap/icon_devicelog" />
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:src="@mipmap/ic_machine" />
 
             <TextView
                 android:id="@+id/tvName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginHorizontal="@dimen/dp_10"
+                android:layout_marginVertical="5dp"
                 android:text="B03"
                 android:textColor="@color/white"
+                android:textSize="10sp"
                 android:textStyle="bold" />
 
-        </com.hjq.shape.layout.ShapeLinearLayout>
+        </com.hjq.shape.layout.ShapeRelativeLayout>
 
         <ImageView
             android:id="@+id/wifiState"
@@ -47,13 +49,13 @@
 
 
         <com.hjq.shape.layout.ShapeLinearLayout
-            android:layout_width="156dp"
             android:id="@+id/llMengceng"
+            android:layout_width="156dp"
             android:layout_height="112dp"
             android:gravity="center_horizontal"
             android:orientation="vertical"
             app:shape_radius="10dp"
-            app:shape_solidColor="@color/wight20"/>
+            app:shape_solidColor="@color/wight20" />
 
 
     </FrameLayout>

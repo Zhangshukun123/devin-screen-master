@@ -6,19 +6,29 @@ import android.view.View;
 import com.diwen.liliao.DemoApp;
 import com.diwen.liliao.adapter.ArrayWheelAdapter;
 import com.diwen.liliao.base.BaseFragment;
+import com.diwen.liliao.base.BindEventBus;
 import com.diwen.liliao.databinding.FragmentTimeBinding;
+import com.diwen.liliao.mmkv.MyMMKV;
+import com.diwen.liliao.model.MessageEvent;
+import com.diwen.liliao.model.MqttParseOverModel;
 import com.diwen.liliao.netty.BTCodeUtils;
+import com.diwen.liliao.netty.MQTTCons;
 import com.diwen.liliao.netty.PadSAttribute;
 import com.diwen.liliao.utils.AtyUtils;
 import com.diwen.liliao.utils.StringUtils;
 import com.diwen.liliao.utils.TimeUtils;
 
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Map;
+import java.util.Set;
 
+@BindEventBus
 public class TimeFragment extends BaseFragment<FragmentTimeBinding> implements View.OnClickListener {
     private String dateFromat = "yyyy-MM-dd HH:mm:ss";
     private ArrayList<String> arry_years;
@@ -70,6 +80,7 @@ public class TimeFragment extends BaseFragment<FragmentTimeBinding> implements V
         arry_timeM = new ArrayList<>();
         arry_times = new ArrayList<>();
         initYears();
+        getAllAttributes();
     }
 
     int now_year = 2024;
@@ -235,4 +246,62 @@ public class TimeFragment extends BaseFragment<FragmentTimeBinding> implements V
             }
         }
     }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEventMainThread(MessageEvent event) {
+        if (event.getMessage().equals(MQTTCons.ACTION_DATA_AVAILABLE)) {
+            MqttParseOverModel model = event.getMqttParseOverModel();
+            MqttMessage(model.getDeviceId(), model.getMap());
+        }
+    }
+
+    private void MqttMessage(String DeviceId, Map<String, Object> map) {
+        if (map == null) {
+            return;
+        }
+        if (!DeviceId.equals(MyMMKV.getDeviceName())) {
+            return;
+        }
+        Set<String> strings = map.keySet();
+        if (strings.contains(PadSAttribute.onLineState.getAttribute())) {
+            int onLineState = (int) map.get(PadSAttribute.onLineState.getAttribute());
+            if (onLineState == 1) {
+                getAllAttributes();
+            }
+        }
+        if (strings.contains(PadSAttribute.Second.getAttribute())) {
+            String Year = (String) map.get(PadSAttribute.Year.getAttribute());
+            String Month = (String) map.get(PadSAttribute.Month.getAttribute());
+            String Day = (String) map.get(PadSAttribute.Day.getAttribute());
+            String Hour = (String) map.get(PadSAttribute.Hour.getAttribute());
+            String Minute = (String) map.get(PadSAttribute.Minute.getAttribute());
+            String Second = (String) map.get(PadSAttribute.Second.getAttribute());
+            String format = String.format("%s-%s-%s %s:%s:%s", "20" + Year,
+                    Month,
+                    Day,
+                    Hour,
+                    Minute,
+                    Second
+            );
+            setTime(format);
+            setEvText();
+        }
+
+    }
+
+    public void getAllAttributes() {
+        try {
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put(PadSAttribute.Year.getAttribute(), 1);
+            jsonObject.put(PadSAttribute.Month.getAttribute(), 1);
+            jsonObject.put(PadSAttribute.Day.getAttribute(), 1);
+            jsonObject.put(PadSAttribute.Hour.getAttribute(), 1);
+            jsonObject.put(PadSAttribute.Minute.getAttribute(), 1);
+            jsonObject.put(PadSAttribute.Second.getAttribute(), 1);
+            DemoApp.getInstance().getAppViewModel().sendInquiryMQTT(jsonObject);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

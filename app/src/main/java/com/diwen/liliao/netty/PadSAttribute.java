@@ -60,6 +60,7 @@ public enum PadSAttribute {
     Hour("Hour"),
     Minute("Minute"),
     Second("Second"),
+    SoftWareVer("SoftWareVer"),
     AirBlowerRun("AirBlowerRun");
 
     // 成员变量  

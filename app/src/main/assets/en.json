@@ -64,12 +64,17 @@
   "设置时间": "TIME",
   "设置语言": "LANGUAGE",
   "语言": "Language",
-  "设置风扇": "FANS",
+  "设置风扇": "FAN",
   "设置版本": "VERSION",
   "版本": "Version",
   "名称": "Name",
   "重命名": "Rename",
   "密码": "Password",
   "断开": "Disconnect",
-  "本地配置": "LOCAL CONFIGURATION"
+  "本地配置": "LOCAL CONFIGURATION",
+  "音乐": "Music",
+  "开始播放": "Playing Now",
+  "剩余时间": "Remaining Time",
+  "设置": "settings",
+  "运行": "running"
 }

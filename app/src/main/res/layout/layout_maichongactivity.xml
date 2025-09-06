@@ -212,7 +212,8 @@
         android:paddingRight="32dp"
         android:text=""
         android:textColor="@color/white"
-        android:textSize="12dp" />
+        android:textSize="12dp"
+        android:visibility="gone" />
 
     <ImageView
         android:id="@+id/ivFinish"

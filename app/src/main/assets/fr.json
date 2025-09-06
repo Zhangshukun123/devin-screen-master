@@ -61,15 +61,20 @@
   "设置蓝牙": "BLUETOOTH",
   "蓝牙名称": "Nom Bluetooth",
   "设置WiFi": "WI-FI",
-  "设置时间": "Le temps",
+  "设置时间": "Heure",
   "设置语言": "Langue",
   "语言": "Langue",
-  "设置风扇": "Ventilateur",
+  "设置风扇": "Le ventilateur",
   "设置版本": "Versions",
   "版本": "Versions",
   "名称": "Le nom",
   "重命名": "Renommer",
   "密码": "Mot de passe",
   "断开": "Déconnecter",
-  "本地配置": "Configuration locale"
+  "本地配置": "Configuration locale",
+  "音乐": "Musique",
+  "开始播放": "Jouer maintenant",
+  "剩余时间": "Temps restant",
+  "设置": "Paramètres",
+  "运行": "Fonctionnement"
 }

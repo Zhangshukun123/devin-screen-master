@@ -1,7 +1,12 @@
 package com.diwen.liliao.adapter;
 
 
+import android.content.Context;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -34,5 +39,27 @@ public class MaiChongAdapter extends BaseQuickAdapter<SettingItem, BaseViewHolde
         evhz.setMaxInputValue(20000);
         CustomEditText evKong = helper.getView(R.id.evKong);
         evKong.setMaxInputValue(100);
+        evhz.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    InputMethodManager imm = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(evhz.getWindowToken(), 0);
+                    return true;    // 消费该事件
+                }
+                return false;
+            }
+        });
+        evKong.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    InputMethodManager imm = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(evhz.getWindowToken(), 0);
+                    return true;    // 消费该事件
+                }
+                return false;
+            }
+        });
     }
 }
