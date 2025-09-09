@@ -449,7 +449,13 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
                             binding.modelName.setText(DemoApp.getInstance().getAppViewModel().getLangText(item.getTitle()));
                         }
                     }
-
+                }
+                if (PluseMode == 5) {
+                    binding.ivmiue.setImageResource(R.mipmap.icon_jian);
+                    binding.ivAdd.setImageResource(R.mipmap.icon_add);
+                } else {
+                    binding.ivmiue.setImageResource(R.mipmap.icon_jian_no);
+                    binding.ivAdd.setImageResource(R.mipmap.icon_add_no);
                 }
             }
 
@@ -560,12 +566,12 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
     public void setLaunch() {
         // 0 暂停 1 启动 2 停止
         if (Launch == 0) {
-            binding.ivStart.setImageResource(R.mipmap.ic_start);
+            binding.ivStart.setImageResource(R.mipmap.ic_stop);
             binding.tvStatus.setText(StringUtils.getText("设置"));
 //            binding.tvStart.setText(DemoApp.getInstance().getAppViewModel().getLangText("暂停"));//Pause
         }
         if (Launch == 1) {
-            binding.ivStart.setImageResource(R.mipmap.ic_stop);
+            binding.ivStart.setImageResource(R.mipmap.ic_run);
             binding.tvStatus.setText(StringUtils.getText("运行"));
 //            binding.tvStart.setText(DemoApp.getInstance().getAppViewModel().getLangText("已停止"));//Stop
         }
