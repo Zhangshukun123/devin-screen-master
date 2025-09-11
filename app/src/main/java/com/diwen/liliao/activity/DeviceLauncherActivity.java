@@ -280,7 +280,7 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
 //            } catch (JSONException e) {
 //                e.printStackTrace();
 //            }
-            ActivityUtils.startActivity(MaiChongSettingActivity.class);
+            ActivityUtils.startActivity(DeviceModelActivity.class);
         }
         if (v == binding.fenshanJia) {
             if (Launch == 1) {

@@ -91,7 +91,7 @@ public class MainActivity extends MqttBaseActivity<ActivityMainBinding> {
                 ActivityUtils.startActivity(new Intent(mContext, DeviceModelActivity.class));
             } else {
                 ToastUtils.show("No networking");
-                ActivityUtils.startActivity(new Intent(mContext, DeviceLauncherActivity.class));
+//                ActivityUtils.startActivity(new Intent(mContext, DeviceLauncherActivity.class));
             }
         });
     }
@@ -243,21 +243,21 @@ public class MainActivity extends MqttBaseActivity<ActivityMainBinding> {
         Set<String> strings = map.keySet();
         if (strings.contains(PadSAttribute.onLineState.getAttribute())) {
             int onLineState = (int) map.get(PadSAttribute.onLineState.getAttribute());
-//            for (DeviceModel model : DemoApp.getInstance().getAppViewModel().device.getValue()) {
-//                if (model.getDeviceName().equals(DeviceId)) {
-//                    model.setConnectTcp(onLineState == 1);
-//                    if (onLineState == 1) {
-//                        //   getAllAttributes();
-//                    }
-//                }
-//            }
-//            deviceListAdapter.notifyDataSetChanged();
-//            DemoApp.getInstance().getAppViewModel().device.postValue(DemoApp.getInstance().getAppViewModel().device.getValue());
-            DeviceModel deviceModel = new DeviceModel();
-            deviceModel.setDeviceName(DeviceId);
-            deviceModel.setConnectTcp(onLineState == 1);
-            DemoApp.getInstance().getAppViewModel().device.getValue().add(deviceModel);
+            for (DeviceModel model : DemoApp.getInstance().getAppViewModel().device.getValue()) {
+                if (model.getDeviceName().equals(DeviceId)) {
+                    model.setConnectTcp(onLineState == 1);
+                    if (onLineState == 1) {
+                        //   getAllAttributes();
+                    }
+                }
+            }
             deviceListAdapter.notifyDataSetChanged();
+            DemoApp.getInstance().getAppViewModel().device.postValue(DemoApp.getInstance().getAppViewModel().device.getValue());
+//            DeviceModel deviceModel = new DeviceModel();
+//            deviceModel.setDeviceName(DeviceId);
+//            deviceModel.setConnectTcp(onLineState == 1);
+//            DemoApp.getInstance().getAppViewModel().device.getValue().add(deviceModel);
+//            deviceListAdapter.notifyDataSetChanged();
 
         }
         if (strings.contains(PadSAttribute.Language.getAttribute())) {

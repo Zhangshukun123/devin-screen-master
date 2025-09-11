@@ -3,21 +3,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingVertical="9dp"
-    android:gravity="center_horizontal">
+    android:gravity="center_horizontal"
+    android:paddingVertical="9dp">
 
     <com.hjq.shape.layout.ShapeLinearLayout
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:orientation="vertical"
+        app:shape="rectangle"
         app:shape_radius="5dp"
         app:shape_shadowColor="#3D4B43D9"
         app:shape_shadowOffsetX="2dp"
         app:shape_shadowOffsetY="2dp"
         app:shape_shadowSize="2dp"
-        app:shape="rectangle"
-        app:shape_solidColor="@color/white">
+        app:shape_solidColor="#14D5B7FF">
+
         <ImageView
             android:id="@+id/ivSettingBg"
             android:layout_width="50dp"
@@ -33,7 +34,7 @@
             android:gravity="center"
             android:lines="2"
             android:text=""
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="10dp"
             android:textStyle="bold" />
 
