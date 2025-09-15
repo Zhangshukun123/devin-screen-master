@@ -17,120 +17,127 @@
             android:orientation="vertical"
             app:shape="rectangle">
 
-            <TextView
-                android:id="@+id/tv1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingVertical="@dimen/dp_10"
-                android:text="Human Body Fan Setting"
-                android:textColor="@color/white"
-                android:textSize="12sp"
-                android:textStyle="bold" />
-
-            <com.hjq.shape.layout.ShapeLinearLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:paddingHorizontal="16dp"
-                app:shape="rectangle"
-                app:shape_radius="4dp"
-                app:shape_solidColor="#14D5B7FF">
+                android:visibility="gone">
 
-                <LinearLayout
+                <TextView
+                    android:id="@+id/tv1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="@dimen/dp_10"
+                    android:text="Human Body Fan Setting"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <com.hjq.shape.layout.ShapeLinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:paddingVertical="7.5dp">
+                    android:orientation="vertical"
+                    android:paddingHorizontal="16dp"
+                    app:shape="rectangle"
+                    app:shape_radius="4dp"
+                    app:shape_solidColor="#14D5B7FF">
 
-                    <TextView
-                        android:id="@+id/tvChiLun"
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Second"
-                        android:textColor="@color/white"
-                        android:textSize="10sp"
-                        app:layout_constraintLeft_toRightOf="@id/tvFen"
-                        app:layout_constraintRight_toRightOf="parent" />
-
-                    <SeekBar
-                        android:id="@+id/seekbar_fans"
-                        style="@android:style/Widget.SeekBar"
-                        android:layout_width="0dp"
-                        android:layout_height="28dp"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginStart="@dimen/dp_10"
-                        android:layout_weight="1"
-                        android:background="@null"
-                        android:max="5"
-                        android:min="0"
-                        android:paddingVertical="12dp"
-                        android:paddingStart="0dp"
-                        android:paddingEnd="0dp"
-                        android:progress="1"
-                        android:progressDrawable="@drawable/layer_list_progress_drawable_1"
-                        android:thumb="@drawable/shape_progressbar_thumb" />
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rectangle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="28dp"
+                        android:gravity="center_vertical"
                         android:orientation="horizontal"
-                        android:visibility="gone"
-                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        android:paddingVertical="7.5dp">
 
-                </LinearLayout>
+                        <TextView
+                            android:id="@+id/tvChiLun"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Second"
+                            android:textColor="@color/white"
+                            android:textSize="10sp"
+                            app:layout_constraintLeft_toRightOf="@id/tvFen"
+                            app:layout_constraintRight_toRightOf="parent" />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
-                    android:background="@color/divide" />
+                        <SeekBar
+                            android:id="@+id/seekbar_fans"
+                            style="@android:style/Widget.SeekBar"
+                            android:layout_width="0dp"
+                            android:layout_height="28dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="@dimen/dp_10"
+                            android:layout_weight="1"
+                            android:background="@null"
+                            android:max="5"
+                            android:min="0"
+                            android:paddingVertical="12dp"
+                            android:paddingStart="0dp"
+                            android:paddingEnd="0dp"
+                            android:progress="1"
+                            android:progressDrawable="@drawable/layer_list_progress_drawable_1"
+                            android:thumb="@drawable/shape_progressbar_thumb" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:paddingVertical="8dp">
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rectangle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="28dp"
+                            android:orientation="horizontal"
+                            android:visibility="gone"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
-                    <TextView
-                        android:id="@+id/tv2"
-                        android:layout_width="wrap_content"
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:background="@color/divide" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="延迟关门时间："
-                        android:textColor="@color/white"
-                        android:textSize="10sp"
-                        app:layout_constraintLeft_toRightOf="@id/tvFen"
-                        app:layout_constraintRight_toRightOf="parent" />
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingVertical="8dp">
 
-                    <EditText
-                        android:id="@+id/evMineClose"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:background="@null"
-                        android:gravity="center|end"
-                        android:hint=" "
-                        android:inputType="numberSigned"
-                        android:textColor="@color/white"
-                        android:textColorHint="#B9CCF9"
-                        android:textSize="11dp" />
+                        <TextView
+                            android:id="@+id/tv2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="延迟关门时间："
+                            android:textColor="@color/white"
+                            android:textSize="10sp"
+                            app:layout_constraintLeft_toRightOf="@id/tvFen"
+                            app:layout_constraintRight_toRightOf="parent" />
 
-                    <com.hjq.shape.view.ShapeTextView
-                        android:id="@+id/tvMineD"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:paddingStart="8dp"
-                        android:text="分钟"
-                        android:textColor="@color/white"
-                        android:textSize="11dp" />
+                        <EditText
+                            android:id="@+id/evMineClose"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@null"
+                            android:gravity="center|end"
+                            android:hint=" "
+                            android:inputType="numberSigned"
+                            android:textColor="@color/white"
+                            android:textColorHint="#B9CCF9"
+                            android:textSize="11dp" />
 
-                </LinearLayout>
+                        <com.hjq.shape.view.ShapeTextView
+                            android:id="@+id/tvMineD"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:paddingStart="8dp"
+                            android:text="分钟"
+                            android:textColor="@color/white"
+                            android:textSize="11dp" />
 
-            </com.hjq.shape.layout.ShapeLinearLayout>
+                    </LinearLayout>
+
+                </com.hjq.shape.layout.ShapeLinearLayout>
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/tv3"
@@ -240,6 +247,22 @@
 
             </com.hjq.shape.layout.ShapeLinearLayout>
 
+
+            <com.hjq.shape.view.ShapeTextView
+                android:id="@+id/tvSave"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_gravity="bottom|center_horizontal"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="20dp"
+                android:gravity="center"
+                android:text="保存"
+                android:textColor="@color/white"
+                android:textSize="10sp"
+                app:shape_endColor="#A202FF"
+                app:shape_radius="2dp"
+                app:shape_startColor="#10A5F9" />
+
             <com.hjq.shape.layout.ShapeLinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -346,21 +369,6 @@
                 </com.hjq.shape.layout.ShapeLinearLayout>
 
             </com.hjq.shape.layout.ShapeLinearLayout>
-
-            <com.hjq.shape.view.ShapeTextView
-                android:id="@+id/tvSave"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:layout_gravity="bottom|center_horizontal"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="20dp"
-                android:gravity="center"
-                android:text="保存"
-                android:textColor="@color/white"
-                android:textSize="10sp"
-                app:shape_endColor="#A202FF"
-                app:shape_radius="2dp"
-                app:shape_startColor="#10A5F9" />
 
         </com.hjq.shape.layout.ShapeLinearLayout>
     </androidx.core.widget.NestedScrollView>

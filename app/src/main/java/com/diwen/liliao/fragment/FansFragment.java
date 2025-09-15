@@ -150,10 +150,10 @@ public class FansFragment extends BaseFragment<FragmentFansBinding> {
 //                    jsonObject.put(PadSAttribute.AirBlowerStop.getAttribute(), i + 1);
 //                }
 //            }
-            jsonObject.put(PadSAttribute.AirBlowerStop.getAttribute(), binding.seekbarFans.getProgress());
-            if (AtyUtils.isStringEmpty(AtyUtils.getText(binding.evMineClose))) {
-                jsonObject.put(PadSAttribute.AirTime.getAttribute(), Integer.parseInt(AtyUtils.getText(binding.evMineClose)));
-            }
+//            jsonObject.put(PadSAttribute.AirBlowerStop.getAttribute(), binding.seekbarFans.getProgress());
+//            if (AtyUtils.isStringEmpty(AtyUtils.getText(binding.evMineClose))) {
+//                jsonObject.put(PadSAttribute.AirTime.getAttribute(), Integer.parseInt(AtyUtils.getText(binding.evMineClose)));
+//            }
             if (AtyUtils.isStringEmpty(AtyUtils.getText(binding.evStarTemp))) {
                 jsonObject.put(PadSAttribute.AirTemp.getAttribute(), Integer.parseInt(AtyUtils.getText(binding.evStarTemp)));
             }
