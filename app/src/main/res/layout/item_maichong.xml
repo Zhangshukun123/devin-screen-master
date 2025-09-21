@@ -14,21 +14,21 @@
 
         <TextView
             android:id="@+id/tv1"
-            android:layout_width="45dp"
-            android:layout_height="wrap_content"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
             android:gravity="center"
             android:text="全部"
             android:textColor="@color/white"
-            android:textSize="11dp"
+            android:textSize="8sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@+id/llHZ"
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.hjq.shape.layout.ShapeLinearLayout
             android:id="@+id/llHZ"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
             android:orientation="horizontal"
             android:paddingHorizontal="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -45,28 +45,30 @@
                 android:layout_marginRight="10dp"
                 android:text="sasa"
                 android:textColor="@color/white"
-                android:textSize="11dp" />
+                android:textSize="8sp" />
 
             <com.diwen.liliao.utils.CustomEditText
                 android:id="@+id/evHz"
                 android:layout_width="100dp"
                 android:layout_height="25dp"
-                android:imeOptions="actionDone"
                 android:background="@null"
                 android:gravity="center"
                 android:hint=" "
+                android:imeOptions="actionDone"
                 android:inputType="numberSigned"
                 android:text="1000"
                 android:textColor="@color/white"
                 android:textColorHint="#B9CCF9"
-                android:textSize="11dp" />
+                android:textSize="8sp" />
 
         </com.hjq.shape.layout.ShapeLinearLayout>
 
         <com.hjq.shape.layout.ShapeLinearLayout
             android:id="@+id/llKong"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/dp_10"
+            android:gravity="center_vertical"
             android:orientation="horizontal"
             android:paddingHorizontal="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -83,7 +85,7 @@
                 android:layout_marginRight="10dp"
                 android:text="占空比："
                 android:textColor="@color/white"
-                android:textSize="11dp"
+                android:textSize="8sp"
 
                 app:layout_constraintLeft_toRightOf="@+id/llHZ"
                 app:layout_constraintRight_toLeftOf="@+id/evKong" />
@@ -100,7 +102,7 @@
                 android:text="100"
                 android:textColor="@color/white"
                 android:textColorHint="#B9CCF9"
-                android:textSize="11dp"
+                android:textSize="8sp"
                 app:layout_constraintLeft_toRightOf="@+id/tv3"
                 app:layout_constraintRight_toLeftOf="@+id/ivChose" />
 
@@ -108,8 +110,9 @@
 
         <com.hjq.shape.layout.ShapeRelativeLayout
             android:id="@+id/rlChose"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+            android:layout_width="30dp"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="@dimen/dp_10"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toRightOf="@+id/llKong"
             app:layout_constraintRight_toRightOf="parent"

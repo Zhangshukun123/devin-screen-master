@@ -12,23 +12,21 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginHorizontal="@dimen/dp_10"
-        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginHorizontal="16dp"
         android:layout_weight="1.5"
         android:orientation="horizontal">
 
         <com.hjq.shape.layout.ShapeConstraintLayout
             android:id="@+id/chooseSetting"
-            android:layout_width="0dp"
+            android:layout_width="112.5dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
             app:shape_radius="4dp"
             app:shape_solidColor="@color/white10">
 
             <LinearLayout
                 android:id="@+id/llBlueTooth"
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
+                android:layout_height="36dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:paddingStart="@dimen/dp_10"
@@ -38,8 +36,8 @@
 
                 <ImageView
                     android:id="@+id/ivBluetooth"
-                    android:layout_width="14dp"
-                    android:layout_height="14dp"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
                     android:src="@mipmap/ic_bluetooth_setting" />
 
                 <TextView
@@ -56,7 +54,7 @@
             <LinearLayout
                 android:id="@+id/llWifi"
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
+                android:layout_height="36dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:paddingStart="@dimen/dp_10"
@@ -84,7 +82,7 @@
             <LinearLayout
                 android:id="@+id/llTime"
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
+                android:layout_height="36dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:paddingStart="@dimen/dp_10"
@@ -93,8 +91,8 @@
 
                 <ImageView
                     android:id="@+id/ivTime"
-                    android:layout_width="14dp"
-                    android:layout_height="14dp"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
                     android:src="@mipmap/ic_time_setting" />
 
                 <TextView
@@ -111,7 +109,7 @@
             <LinearLayout
                 android:id="@+id/llLanguage"
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
+                android:layout_height="36dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:paddingStart="@dimen/dp_10"
@@ -120,8 +118,8 @@
 
                 <ImageView
                     android:id="@+id/ivLanguage"
-                    android:layout_width="14dp"
-                    android:layout_height="14dp"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
                     android:src="@mipmap/ic_language_setting" />
 
                 <TextView
@@ -138,7 +136,7 @@
             <LinearLayout
                 android:id="@+id/llFans"
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
+                android:layout_height="36dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:paddingStart="@dimen/dp_10"
@@ -147,8 +145,8 @@
 
                 <ImageView
                     android:id="@+id/ivFans"
-                    android:layout_width="14dp"
-                    android:layout_height="14dp"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
                     android:src="@mipmap/ic_fans_setting" />
 
                 <TextView
@@ -165,7 +163,7 @@
             <LinearLayout
                 android:id="@+id/llVersion"
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
+                android:layout_height="36dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:paddingStart="@dimen/dp_10"
@@ -174,8 +172,8 @@
 
                 <ImageView
                     android:id="@+id/ivVersion"
-                    android:layout_width="14dp"
-                    android:layout_height="14dp"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
                     android:src="@mipmap/ic_version_setting" />
 
                 <TextView
@@ -194,11 +192,10 @@
         <com.hjq.shape.layout.ShapeLinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="@dimen/dp_10"
             android:layout_weight="5"
             android:orientation="horizontal"
-            android:paddingStart="16dp"
-            android:paddingTop="13dp"
+            android:paddingStart="13dp"
             app:shape="rectangle"
             app:shape_radius="4dp"
             app:shape_solidColor="#14D5B7FF">
@@ -235,17 +232,17 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="42dp">
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/dp_10">
 
         <ImageView
             android:id="@+id/ivFinish"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_width="52dp"
+            android:layout_height="42dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:paddingVertical="14dp"
-            android:paddingLeft="32dp"
-            android:paddingRight="32dp"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="11dp"
             android:src="@mipmap/icon_w_finish" />
 
         <TextView

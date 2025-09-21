@@ -38,8 +38,8 @@ public class VersionFragment extends BaseFragment<FragmentVersionBinding> {
         binding.tvName.setText(DemoApp.getInstance().getAppViewModel().getLangText("名称"));
 //        binding.tvUIVersionLeft.setText("UI Ver：");
 //        binding.tvSwVersionLeft.setText("SW Ver：");
-        binding.tvUIVersion.setText(Utils.getVersionCode(getActivity()));
-        binding.tvSwVersion.setText("1.0.0.0");
+        binding.tvUIVersion.setText(String.valueOf(Utils.getVersionName(getActivity())));
+        binding.tvSwVersion.setText(MyMMKV.getString(MyMMKV.SoftWareVer));
     }
 
     @Override
@@ -74,12 +74,12 @@ public class VersionFragment extends BaseFragment<FragmentVersionBinding> {
     }
 
     public void getVersionAttributes() {
-        try {
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.put(PadSAttribute.SoftWareVer.getAttribute(), 1);
-            DemoApp.getInstance().getAppViewModel().sendInquiryMQTT(jsonObject);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            JSONObject jsonObject = new JSONObject();
+//            jsonObject.put(PadSAttribute.SoftWareVer.getAttribute(), 1);
+//            DemoApp.getInstance().getAppViewModel().sendInquiryMQTT(jsonObject);
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
     }
 }

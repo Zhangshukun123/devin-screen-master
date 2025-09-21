@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="record_item_width">240dp</dimen>
+    <dimen name="record_item_height">27dp</dimen>
+    <dimen name="tv_size_normal">8sp</dimen>
+</resources>

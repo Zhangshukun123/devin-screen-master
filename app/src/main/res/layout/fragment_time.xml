@@ -12,195 +12,189 @@
 
         <TextView
             android:id="@+id/tvTime"
+            style="@style/text_title_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingVertical="@dimen/dp_10"
-            android:text="时间"
-            android:textColor="@color/white"
-            android:textSize="12sp"
-            android:textStyle="bold" />
+            android:text="时间" />
 
         <TextView
             android:id="@+id/tvDateSetting"
+            style="@style/text_normal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Date setting"
-            android:textColor="@color/white"
-            android:textSize="10sp" />
+            android:text="Date setting" />
 
         <com.hjq.shape.layout.ShapeConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_10"
-            android:paddingVertical="7.5dp"
+            android:layout_height="52dp"
+            android:layout_marginTop="8dp"
+            android:paddingTop="@dimen/dp_10"
             app:shape="rectangle"
             app:shape_radius="4dp"
             app:shape_solidColor="#14D5B7FF">
 
             <TextView
                 android:id="@+id/tvYear"
+                style="@style/text_normal_bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/dp_4"
                 android:text="Years"
-                android:textColor="@color/white"
-                android:textSize="10sp"
-                android:textStyle="bold"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toLeftOf="@id/tvMoth" />
 
             <TextView
                 android:id="@+id/evYear"
-                android:layout_width="wrap_content"
+                style="@style/text_normal"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:paddingVertical="5dp"
                 android:text="0"
-                android:textColor="@color/white"
-                android:textSize="10sp"
                 app:layout_constraintLeft_toLeftOf="@id/tvYear"
+                app:layout_constraintRight_toRightOf="@id/tvYear"
                 app:layout_constraintTop_toBottomOf="@id/tvYear" />
 
             <TextView
                 android:id="@+id/tvMoth"
+                style="@style/text_normal_bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/dp_4"
                 android:text="Month"
-                android:textColor="@color/white"
-                android:textSize="10sp"
-                android:textStyle="bold"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent" />
 
             <TextView
                 android:id="@+id/evMoth"
-                android:layout_width="wrap_content"
+                style="@style/text_normal"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:paddingVertical="5dp"
                 android:text="0"
-                android:textColor="@color/white"
-                android:textSize="10sp"
                 app:layout_constraintBaseline_toBaselineOf="@id/evYear"
-                app:layout_constraintLeft_toLeftOf="@id/tvMoth" />
+                app:layout_constraintLeft_toLeftOf="@id/tvMoth"
+                app:layout_constraintRight_toRightOf="@id/tvMoth" />
 
             <TextView
                 android:id="@+id/tvDay"
+                style="@style/text_normal_bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/dp_4"
                 android:text="Day"
-                android:textColor="@color/white"
-                android:textSize="10sp"
-                android:textStyle="bold"
                 app:layout_constraintLeft_toRightOf="@id/tvMoth"
                 app:layout_constraintRight_toRightOf="parent" />
 
             <TextView
                 android:id="@+id/evDay"
-                android:layout_width="wrap_content"
+                style="@style/text_normal"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:paddingVertical="5dp"
                 android:text="0"
-                android:textColor="@color/white"
-                android:textSize="10sp"
                 app:layout_constraintBaseline_toBaselineOf="@id/evYear"
-                app:layout_constraintLeft_toLeftOf="@id/tvDay" />
+                app:layout_constraintLeft_toLeftOf="@id/tvDay"
+                app:layout_constraintRight_toRightOf="@id/tvDay" />
         </com.hjq.shape.layout.ShapeConstraintLayout>
 
 
         <TextView
             android:id="@+id/tvTimeSetting"
+            style="@style/text_normal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_10"
-            android:text="Date setting"
-            android:textColor="@color/white"
-            android:textSize="10sp" />
+            android:text="Date setting" />
 
         <com.hjq.shape.layout.ShapeConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="52dp"
             android:layout_marginTop="@dimen/dp_10"
-            android:paddingVertical="7.5dp"
+            android:paddingTop="@dimen/dp_10"
             app:shape="rectangle"
             app:shape_radius="4dp"
             app:shape_solidColor="#14D5B7FF">
 
             <TextView
                 android:id="@+id/tvHour"
+                style="@style/text_normal_bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/dp_4"
                 android:text="Hour"
-                android:textColor="@color/white"
-                android:textSize="10sp"
-                android:textStyle="bold"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toLeftOf="@id/tvFen" />
 
             <TextView
                 android:id="@+id/evHour"
-                android:layout_width="wrap_content"
+                style="@style/text_normal"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:paddingVertical="5dp"
                 android:text="0"
-                android:textColor="@color/white"
-                android:textSize="10sp"
                 app:layout_constraintLeft_toLeftOf="@id/tvHour"
+                app:layout_constraintRight_toRightOf="@id/tvHour"
                 app:layout_constraintTop_toBottomOf="@id/tvHour" />
 
             <TextView
                 android:id="@+id/tvFen"
+                style="@style/text_normal_bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/dp_4"
                 android:text="Minute"
-                android:textColor="@color/white"
-                android:textSize="10sp"
-                android:textStyle="bold"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent" />
 
             <TextView
                 android:id="@+id/evFen"
-                android:layout_width="wrap_content"
+                style="@style/text_normal"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:paddingVertical="5dp"
                 android:text="0"
-                android:textColor="@color/white"
-                android:textSize="10sp"
                 app:layout_constraintBaseline_toBaselineOf="@id/evHour"
-                app:layout_constraintLeft_toLeftOf="@id/tvFen" />
+                app:layout_constraintLeft_toLeftOf="@id/tvFen"
+                app:layout_constraintRight_toRightOf="@id/tvFen" />
 
             <TextView
                 android:id="@+id/tvMiao"
+                style="@style/text_normal_bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/dp_4"
                 android:text="Second"
-                android:textColor="@color/white"
-                android:textSize="10sp"
-                android:textStyle="bold"
                 app:layout_constraintLeft_toRightOf="@id/tvFen"
                 app:layout_constraintRight_toRightOf="parent" />
 
             <TextView
                 android:id="@+id/evMiao"
-                android:layout_width="wrap_content"
+                style="@style/text_normal"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:paddingVertical="5dp"
                 android:text="0"
-                android:textColor="@color/white"
-                android:textSize="10sp"
                 app:layout_constraintBaseline_toBaselineOf="@id/evHour"
-                app:layout_constraintLeft_toLeftOf="@id/tvMiao" />
+                app:layout_constraintLeft_toLeftOf="@id/tvMiao"
+                app:layout_constraintRight_toRightOf="@id/tvMiao" />
         </com.hjq.shape.layout.ShapeConstraintLayout>
 
         <com.hjq.shape.view.ShapeTextView
             android:id="@+id/tvSave"
             android:layout_width="match_parent"
-            android:layout_height="30dp"
+            android:layout_height="24.5dp"
             android:layout_gravity="bottom|center_horizontal"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginTop="12dp"
             android:gravity="center"
             android:text="保存"
             android:textColor="@color/white"
-            android:textSize="10sp"
+            android:textSize="9sp"
             app:shape_endColor="#A202FF"
             app:shape_radius="2dp"
             app:shape_startColor="#10A5F9" />

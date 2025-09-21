@@ -37,6 +37,7 @@
         <item name="android:backgroundDimEnabled">false</item>
         <item name="android:backgroundDimAmount">0.4</item>
     </style>
+
     <style name="mydialog" parent="@android:style/Theme.Dialog">
         <item name="android:windowFrame">@null</item>
         <item name="android:windowIsFloating">true</item>
@@ -47,8 +48,26 @@
         <item name="android:backgroundDimEnabled">false</item>
         <item name="android:backgroundDimAmount">0.2</item>
     </style>
+
     <declare-styleable name="ReplaceSelectorImageView">
         <attr name="norBackGround" format="reference" />
         <attr name="pressBackGround" format="reference" />
     </declare-styleable>
+
+    <style name="text_title_label">
+        <item name="android:textSize">10sp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:paddingTop">16dp</item>
+        <item name="android:paddingBottom">@dimen/dp_10</item>
+    </style>
+
+    <style name="text_normal">
+        <item name="android:textSize">8sp</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="text_normal_bold" parent="text_normal">
+        <item name="android:textStyle">bold</item>
+    </style>
+
 </resources>

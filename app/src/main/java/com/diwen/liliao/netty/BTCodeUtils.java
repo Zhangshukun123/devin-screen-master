@@ -30,7 +30,7 @@ public class BTCodeUtils {
         try {
             JSONObject jsonObject = new JSONObject();
             jsonObject.put(PadSAttribute.BackKey.getAttribute(), BackKey);
-            DemoApp.getInstance().getAppViewModel().setMQTT(jsonObject);
+//            DemoApp.getInstance().getAppViewModel().setMQTT(jsonObject);
         } catch (JSONException e) {
             e.printStackTrace();
             return new JSONObject();

@@ -10,6 +10,7 @@ public class MyMMKV {
     private static final String fileName = "liliao_word";
     public static final String hostIp = "hostIp";
     public static final String Language = "Language";
+    public static final String SoftWareVer = "SoftWareVer";
 
 
     public static MMKV get() {

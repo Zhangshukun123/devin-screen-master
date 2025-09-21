@@ -12,19 +12,16 @@
 
         <TextView
             android:id="@+id/tvLanguage"
+            style="@style/text_title_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingVertical="@dimen/dp_10"
-            android:text="语言"
-            android:textColor="@color/white"
-            android:textSize="12sp"
-            android:textStyle="bold" />
+            android:text="语言" />
 
         <com.hjq.shape.layout.ShapeRecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="@dimen/dp_10"
             android:layout_weight="1"
             android:orientation="vertical"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -35,10 +32,9 @@
         <com.hjq.shape.view.ShapeTextView
             android:id="@+id/tvSave"
             android:layout_width="match_parent"
-            android:layout_height="30dp"
+            android:layout_height="24.5dp"
             android:layout_gravity="bottom|center_horizontal"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginTop="@dimen/dp_10"
             android:gravity="center"
             android:text="保存"
             android:textColor="@color/white"

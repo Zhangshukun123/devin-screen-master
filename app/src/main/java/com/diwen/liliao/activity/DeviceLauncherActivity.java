@@ -9,6 +9,9 @@ import android.view.ViewGroup;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.diwen.liliao.DemoApp;
 import com.diwen.liliao.R;
 import com.diwen.liliao.base.BindEventBus;
@@ -26,7 +29,6 @@ import com.diwen.liliao.utils.ActivityUtils;
 import com.diwen.liliao.utils.AtyUtils;
 import com.diwen.liliao.utils.ForbadClick;
 import com.diwen.liliao.utils.StringUtils;
-import com.diwen.liliao.utils.Utils;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -37,9 +39,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Created By  tian on 2024/7/16
@@ -250,14 +249,14 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
         }
         if (v == binding.ivSetting) {
             //{"IntentName":"setDeviceStats","Params":{"PressKey":1},"deviceName":"B03"}
-            try {
-                JSONObject jsonObject = new JSONObject();
-                jsonObject.put(PadSAttribute.PressKey.getAttribute(), 1);
-                DemoApp.getInstance().getAppViewModel().setMQTT(jsonObject);
-                showLoading();
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+//            try {
+//                JSONObject jsonObject = new JSONObject();
+//                jsonObject.put(PadSAttribute.PressKey.getAttribute(), 1);
+//                DemoApp.getInstance().getAppViewModel().setMQTT(jsonObject);
+//                showLoading();
+//            } catch (JSONException e) {
+//                e.printStackTrace();
+//            }
             ActivityUtils.startActivity(new Intent(mContext, DeviceSettingActivity.class));
         }
         if (v == binding.ivRecord) {
@@ -317,7 +316,7 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
             }
         }
         if (v == binding.ivBl) {
-            ActivityUtils.startActivity(new Intent(mContext, BlStateActivity.class));
+//            ActivityUtils.startActivity(new Intent(mContext, BlStateActivity.class));
         }
         if (v == binding.llDeviceName) {
             ActivityUtils.startActivity(new Intent(mContext, DeviceListActivity.class));
@@ -361,8 +360,8 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
             MqttParseOverModel model = event.getMqttParseOverModel();
             MqttMessage(model.getDeviceId(), model.getMap());
         } else if (MQTTCons.ACTION_DATA_AVAILABLE_BLUE.equals(event.getMessage())) {
-            //    mMsgList.add(event.getCase_message());
-            //   mMsgAdapter.notifyDataSetChanged();
+            mMsgList.add(event.getCase_message());
+            mMsgAdapter.notifyDataSetChanged();
         }
     }
 
@@ -384,6 +383,9 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
             } else {
                 binding.ivPhone.setImageResource(R.mipmap.icon_phoneunline);
             }
+        }
+        if (strings.contains(PadSAttribute.SoftWareVer.getAttribute())) {
+            MyMMKV.get().putString(MyMMKV.SoftWareVer, (String) map.get(PadSAttribute.SoftWareVer.getAttribute()));
         }
         if (strings.contains(PadSAttribute.Volume.getAttribute())) {
             binding.ivPhone.setImageResource(R.mipmap.icon_phoneline);
@@ -436,6 +438,14 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
                 binding.ivBl.setImageResource(R.mipmap.icon_lanta);
             } else {
                 binding.ivBl.setImageResource(R.mipmap.icon_lantadis);
+            }
+        }
+        if (strings.contains(PadSAttribute.BtState.getAttribute())) {
+            int BtState = (int) map.get(PadSAttribute.BtState.getAttribute());
+            if (BtState == 1) {
+                binding.ivWifi.setImageResource(R.mipmap.icon_wificonnect);
+            } else {
+                binding.ivWifi.setImageResource(R.mipmap.icon_wificonnectdis);
             }
         }
         if (strings.contains(PadSAttribute.PluseMode.getAttribute())) {
@@ -567,17 +577,17 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
         // 0 暂停 1 启动 2 停止
         if (Launch == 0) {
             binding.ivStart.setImageResource(R.mipmap.ic_stop);
-            binding.tvStatus.setText(StringUtils.getText("设置"));
+            binding.ivStatus.setImageResource(R.mipmap.ic_status_setting);
 //            binding.tvStart.setText(DemoApp.getInstance().getAppViewModel().getLangText("暂停"));//Pause
         }
         if (Launch == 1) {
             binding.ivStart.setImageResource(R.mipmap.ic_run);
-            binding.tvStatus.setText(StringUtils.getText("运行"));
+            binding.ivStatus.setImageResource(R.mipmap.ic_status_running);
 //            binding.tvStart.setText(DemoApp.getInstance().getAppViewModel().getLangText("已停止"));//Stop
         }
         if (Launch == 2) {
             binding.ivStart.setImageResource(R.mipmap.ic_start);
-            binding.tvStatus.setText(StringUtils.getText("设置"));
+            binding.ivStatus.setImageResource(R.mipmap.ic_status_setting);
 //            binding.tvStart.setText(DemoApp.getInstance().getAppViewModel().getLangText("开始"));//Start
         }
         if (Launch != 1) {

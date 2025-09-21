@@ -10,6 +10,7 @@ import com.hjq.toast.ToastUtils;
 import com.tencent.mmkv.MMKV;
 
 import androidx.lifecycle.ViewModelProvider;
+
 import me.jessyan.autosize.AutoSize;
 
 
@@ -21,7 +22,7 @@ public class DemoApp extends Application {
     public Context mContext;
     private static DemoApp applicationUtils;
     private AppViewModel appViewModel;
-    public  boolean buildCompany=true;
+    public boolean buildCompany = false;
 
     @Override
     public void onCreate() {
@@ -63,7 +64,6 @@ public class DemoApp extends Application {
         super.onTrimMemory(level);
         // 根据手机内存剩余情况清理图片内存缓存
     }
-
 
 
 }

@@ -3,9 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@mipmap/bg_main"
-    android:layout_height="match_parent">
-
+    android:layout_height="match_parent"
+    android:background="@mipmap/bg_main">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,11 +15,9 @@
 
         <com.hjq.shape.layout.ShapeLinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="@dimen/dp_10"
-            android:layout_marginTop="@dimen/dp_10"
-            android:layout_marginEnd="@dimen/dp_10"
-            android:layout_marginBottom="@dimen/dp_40"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_weight="1"
             android:orientation="horizontal"
             app:shape="rectangle"
             app:shape_radius="4dp"
@@ -36,46 +33,39 @@
 
                 <TextView
                     android:id="@+id/tvRecord"
+                    style="@style/text_title_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingVertical="@dimen/dp_10"
-                    android:text="记录"
-                    android:textColor="@color/white"
-                    android:textSize="12sp"
-                    android:textStyle="bold" />
+                    android:text="记录" />
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="30dp"
-                    android:layout_gravity="center_horizontal"
+                    android:layout_width="@dimen/record_item_width"
+                    android:layout_height="@dimen/record_item_height"
                     android:background="@drawable/bg_radius_4_white10"
+                    android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:paddingStart="@dimen/dp_10"
                     android:paddingEnd="@dimen/dp_10">
 
                     <TextView
                         android:id="@+id/tvXuhao"
+                        style="@style/text_normal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:text="序     号："
-                        android:textColor="@color/white"
-                        android:textSize="10sp" />
+                        android:text="序     号：" />
 
                     <TextView
                         android:id="@+id/tvNumber"
+                        style="@style/text_normal"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:textColor="@color/white"
-                        android:textSize="10sp" />
+                        android:gravity="center" />
 
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="30dp"
-                    android:layout_gravity="center_horizontal"
+                    android:layout_width="@dimen/record_item_width"
+                    android:layout_height="@dimen/record_item_height"
                     android:layout_marginTop="@dimen/dp_10"
                     android:background="@drawable/bg_radius_4_white10"
                     android:gravity="center_vertical"
@@ -85,28 +75,24 @@
 
                     <TextView
                         android:id="@+id/tvDeviceTime"
+                        style="@style/text_normal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:text="使用时长："
-                        android:textColor="@color/white"
-                        android:textSize="10sp" />
+                        android:text="使用时长：" />
 
                     <TextView
                         android:id="@+id/evDeviceTime"
+                        style="@style/text_normal"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:text=""
-                        android:textColor="@color/white"
-                        android:textSize="10sp" />
+                        android:text="" />
 
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="30dp"
-                    android:layout_gravity="center_horizontal"
+                    android:layout_width="@dimen/record_item_width"
+                    android:layout_height="@dimen/record_item_height"
                     android:layout_marginTop="@dimen/dp_10"
                     android:background="@drawable/bg_radius_4_white10"
                     android:gravity="center_vertical"
@@ -116,27 +102,23 @@
 
                     <TextView
                         android:id="@+id/tvStartTime"
+                        style="@style/text_normal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:text="开始时间："
-                        android:textColor="@color/white"
-                        android:textSize="10sp" />
+                        android:text="开始时间：" />
 
                     <TextView
                         android:id="@+id/evStartTime"
+                        style="@style/text_normal"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:textColor="@color/white"
-                        android:textSize="10sp" />
+                        android:gravity="center" />
 
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="30dp"
-                    android:layout_gravity="center_horizontal"
+                    android:layout_width="@dimen/record_item_width"
+                    android:layout_height="@dimen/record_item_height"
                     android:layout_marginTop="@dimen/dp_10"
                     android:background="@drawable/bg_radius_4_white10"
                     android:gravity="center_vertical"
@@ -146,27 +128,24 @@
 
                     <TextView
                         android:id="@+id/tvEndTime"
+                        style="@style/text_normal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:text="结束时间："
-                        android:textColor="@color/white"
-                        android:textSize="10sp" />
+                        android:text="结束时间：" />
 
                     <TextView
                         android:id="@+id/evEndTime"
+                        style="@style/text_normal"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:textColor="@color/white"
-                        android:textSize="10sp" />
+                        android:gravity="center" />
 
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="30dp"
-                    android:layout_gravity="center_horizontal"
+                    android:layout_width="@dimen/record_item_width"
+                    android:layout_height="@dimen/record_item_height"
                     android:layout_marginTop="@dimen/dp_10"
                     android:background="@drawable/bg_radius_4_white10"
                     android:gravity="center_vertical"
@@ -176,26 +155,23 @@
 
                     <TextView
                         android:id="@+id/tvAllTime"
+                        style="@style/text_normal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="累计工作时间："
-                        android:textColor="@color/white"
-                        android:textSize="10sp" />
+                        android:text="累计工作时间：" />
 
                     <TextView
                         android:id="@+id/tvWorkAllTime"
+                        style="@style/text_normal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text=""
-                        android:textColor="#ffffffff"
-                        android:textSize="14dp" />
+                        android:text="" />
 
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="30dp"
-                    android:layout_gravity="center_horizontal"
+                    android:layout_width="@dimen/record_item_width"
+                    android:layout_height="24.5dp"
                     android:layout_marginTop="16dp"
                     android:gravity="center"
                     android:orientation="horizontal">
@@ -208,7 +184,7 @@
                         android:gravity="center"
                         android:text="上一条"
                         android:textColor="@color/white"
-                        android:textSize="10sp"
+                        android:textSize="9sp"
                         app:shape_radius="2dp"
                         app:shape_solidColor="#00000000"
                         app:shape_strokeColor="@color/white"
@@ -223,7 +199,7 @@
                         android:gravity="center"
                         android:text="下一条"
                         android:textColor="@color/white"
-                        android:textSize="10sp"
+                        android:textSize="9sp"
                         app:shape_endColor="#A202FF"
                         app:shape_radius="2dp"
                         app:shape_startColor="#10A5F9" />
@@ -251,29 +227,37 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.hjq.shape.layout.ShapeLinearLayout>
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/dp_10">
+
+            <TextView
+                android:id="@+id/tvName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:gravity="center_vertical"
+                android:paddingRight="32dp"
+                android:text=""
+                android:textColor="@color/white"
+                android:textSize="12dp"
+                android:visibility="gone"
+                tools:text="@string/app_name" />
+
+
+            <ImageView
+                android:id="@+id/ivFinish"
+                android:layout_width="52dp"
+                android:layout_height="42dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="11dp"
+                android:src="@mipmap/icon_w_finish" />
+        </RelativeLayout>
+
     </LinearLayout>
 
-
-    <TextView
-        android:id="@+id/tvName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:gravity="center_vertical"
-        android:paddingRight="32dp"
-        android:text=""
-        android:textColor="@color/white"
-        android:textSize="12dp"
-        tools:text="@string/app_name" />
-
-    <ImageView
-        android:id="@+id/ivFinish"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:paddingVertical="12dp"
-        android:paddingRight="32dp"
-        android:src="@mipmap/icon_w_finish" />
 
 </RelativeLayout>

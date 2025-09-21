@@ -21,7 +21,11 @@ import com.diwen.liliao.fragment.WifiFragment;
 import com.diwen.liliao.mmkv.MyMMKV;
 import com.diwen.liliao.model.SettingItem;
 import com.diwen.liliao.netty.BTCodeUtils;
+import com.diwen.liliao.netty.PadSAttribute;
 import com.diwen.liliao.utils.ActivityUtils;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -178,6 +182,16 @@ public class DeviceSettingActivity extends MqttBaseActivity<LayoutDevicesettinga
                 versionFragment = VersionFragment.newInstance();
             }
             switchFragment(versionFragment).commit();
+            getVersionAttributes();
+        }
+    }
+    public void getVersionAttributes() {
+        try {
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put(PadSAttribute.SoftWareVer.getAttribute(), 1);
+            DemoApp.getInstance().getAppViewModel().sendInquiryMQTT(jsonObject);
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
     }
 

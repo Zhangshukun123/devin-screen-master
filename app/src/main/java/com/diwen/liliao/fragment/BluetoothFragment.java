@@ -47,6 +47,7 @@ public class BluetoothFragment extends BaseFragment<FragmentBluetoothBinding> im
     protected void initData() {
         binding.tvMusicPlay.setOnClickListener(this);
         binding.tvSave.setOnClickListener(this);
+        getAllAttributes();
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -77,7 +78,7 @@ public class BluetoothFragment extends BaseFragment<FragmentBluetoothBinding> im
     @Override
     public void onClick(View view) {
         if (view == binding.tvMusicPlay) {
-            binding.llReset.setVisibility(View.VISIBLE);
+//            binding.llReset.setVisibility(View.VISIBLE);
         } else if (view == binding.tvSave) {
             binding.llReset.setVisibility(View.GONE);
             try {
