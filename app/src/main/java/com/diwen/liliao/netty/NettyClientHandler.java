@@ -1,6 +1,16 @@
 package com.diwen.liliao.netty;
 
+import android.text.TextUtils;
 import android.util.Log;
+
+import com.diwen.liliao.DemoApp;
+import com.diwen.liliao.mmkv.MyMMKV;
+import com.diwen.liliao.model.DeviceModel;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
@@ -21,8 +31,28 @@ public class NettyClientHandler extends ChannelInboundHandlerAdapter {
     public void userEventTriggered(ChannelHandlerContext ctx, Object evt) throws Exception {
         if (evt instanceof IdleStateEvent) {
             IdleStateEvent event = (IdleStateEvent) evt;
-            if (event.state() == IdleState.WRITER_IDLE) {
-                ctx.channel().writeAndFlush("Heartbeat");
+            if (event.state() == IdleState.READER_IDLE) {
+                System.out.println("读超时，认为连接断开，关闭通道并重连");
+                ctx.close();  // 关闭后触发 channelInactive
+            } else if (event.state() == IdleState.WRITER_IDLE) {
+                sendHeartData();
+//                    ctx.writeAndFlush(Unpooled.copiedBuffer(heart, CharsetUtil.UTF_8));
+            }
+        }
+    }
+
+    private void sendHeartData() {
+        ArrayList<DeviceModel> value = DemoApp.getInstance().getAppViewModel().device.getValue();
+        for (DeviceModel model : value) {
+            if (model.isConnectTcp()) {
+                JSONObject jsonObject = new JSONObject();
+                try {
+                    jsonObject.put("heart", "5");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                DemoApp.getInstance().getAppViewModel().sendInquiryMQTT(jsonObject, model.getDeviceName());
+                System.out.println("客户端发送心跳" + model.getDeviceName());
             }
         }
     }

@@ -5,6 +5,7 @@ import com.diwen.liliao.DemoApp;
 import com.diwen.liliao.model.MyKey;
 
 import java.lang.reflect.Field;
+import java.util.Locale;
 
 /**
  *
@@ -14,6 +15,9 @@ import java.lang.reflect.Field;
 public class StringUtils {
     public static String getText(String str) {
         return DemoApp.getInstance().getAppViewModel().getLangText(str);
+    }
+    public static String getUpperText(String str) {
+        return DemoApp.getInstance().getAppViewModel().getLangText(str).toUpperCase(Locale.ROOT);
     }
     public static boolean isEmpty(String value) {
         return value == null || value.equalsIgnoreCase("null") || value.equals("");

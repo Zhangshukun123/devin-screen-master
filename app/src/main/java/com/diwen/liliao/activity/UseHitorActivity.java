@@ -14,6 +14,7 @@ import com.diwen.liliao.netty.BTCodeUtils;
 import com.diwen.liliao.netty.MQTTCons;
 import com.diwen.liliao.netty.PadSAttribute;
 import com.diwen.liliao.utils.ActivityUtils;
+import com.diwen.liliao.utils.StringUtils;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -36,7 +37,7 @@ public class UseHitorActivity extends MqttBaseActivity<LayoutUsehittorBinding> {
 
     @Override
     protected void setUiText() {
-        binding.tvRecord.setText(DemoApp.getInstance().getAppViewModel().getLangText("记录"));
+        binding.tvRecord.setText(StringUtils.getUpperText("记录"));
         binding.tvAllTime.setText(DemoApp.getInstance().getAppViewModel().getLangText("累计工作时间"));
         binding.tvXuhao.setText(DemoApp.getInstance().getAppViewModel().getLangText("序号"));
         binding.tvStartTime.setText(DemoApp.getInstance().getAppViewModel().getLangText("开始时间"));

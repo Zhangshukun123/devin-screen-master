@@ -70,6 +70,7 @@ public class NettyManager implements NettyListener {
                 Log.e(TAG, "发送成功");
             } else {
                 Log.e(TAG, "发送失败");
+                disOnlie();
             }
         });
     }

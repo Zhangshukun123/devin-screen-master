@@ -1,6 +1,7 @@
 package com.diwen.liliao.activity;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
@@ -10,6 +11,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.diwen.liliao.DemoApp;
@@ -28,6 +30,7 @@ import com.diwen.liliao.netty.PadSAttribute;
 import com.diwen.liliao.utils.ActivityUtils;
 import com.diwen.liliao.utils.AtyUtils;
 import com.diwen.liliao.utils.ForbadClick;
+import com.diwen.liliao.utils.NetworkMonitor;
 import com.diwen.liliao.utils.StringUtils;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -37,6 +40,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
@@ -57,6 +61,7 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
     private String deviceName;
     private List<String> mMsgList;
     private MsgAdapter mMsgAdapter;
+    private NetworkMonitor networkMonitor;
 
     @Override
     protected void handleIntent(Intent intent) {
@@ -67,7 +72,7 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
     protected void setUiText() {
         setLaunch();
         binding.tvRemainingTime.setText(StringUtils.getText("剩余时间"));
-        binding.tvMusic.setText(StringUtils.getText("音乐"));
+        binding.tvMusic.setText(StringUtils.getUpperText("音乐"));
         binding.tvPlayingNow.setText(StringUtils.getText("开始播放"));
         if (DemoApp.getInstance().buildCompany) {
 
@@ -89,8 +94,11 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void config() {
+        networkMonitor = new NetworkMonitor(this);
+        networkMonitor.start();
         getAllAttributes();
         mMsgList = new ArrayList<>();
         mMsgAdapter = new MsgAdapter();
@@ -98,12 +106,14 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onDestroy() {
         super.onDestroy();
         if (handler != null) {
             handler.removeMessages(826);
         }
+        networkMonitor.stop();
     }
 
     @Override
@@ -130,8 +140,8 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
         binding.ivSong1.setOnClickListener(this);
         binding.ivSong2.setOnClickListener(this);
         binding.ivSong3.setOnClickListener(this);
-        binding.ivAdd.setOnClickListener(this);
-        binding.ivmiue.setOnClickListener(this);
+        binding.rlStartRight.setOnClickListener(this);
+        binding.rlStartLeft.setOnClickListener(this);
         binding.rlStart.setOnClickListener(this);
         binding.ivFinish.setOnClickListener(this);
         binding.ivSetting.setOnClickListener(this);
@@ -196,38 +206,39 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
         if (v == binding.ivFinish) {
             finishThis();
         }
-        if (v == binding.ivAdd) {
+        if (v == binding.rlStartRight) {
             if (ForbadClick.isFastDoubleClick(1)) {
                 return;
             }
             if (PluseMode != 5) {
                 return;
             }
-
-            if (Launch != 1) {
-                mine++;
-                if (mine >= 30) {
-                    mine = 30;
-                }
-                binding.tvMine.setText(getPointTwo(mine));
-                setDeviceTimeMin();
+            if (Launch != 2) {
+                return;
             }
+            mine++;
+            if (mine >= 30) {
+                mine = 30;
+            }
+            binding.tvMine.setText(getPointTwo(mine));
+            setDeviceTimeMin();
         }
-        if (v == binding.ivmiue) {
+        if (v == binding.rlStartLeft) {
             if (ForbadClick.isFastDoubleClick(1)) {
                 return;
             }
             if (PluseMode != 5) {
                 return;
             }
-            if (Launch != 1) {
-                mine--;
-                if (mine <= 0) {
-                    mine = 0;
-                }
-                binding.tvMine.setText(getPointTwo(mine));
-                setDeviceTimeMin();
+            if (Launch != 2) {
+                return;
             }
+            mine--;
+            if (mine <= 0) {
+                mine = 0;
+            }
+            binding.tvMine.setText(getPointTwo(mine));
+            setDeviceTimeMin();
         }
         if (v == binding.rlStart) {
             try {
@@ -248,37 +259,12 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
             }
         }
         if (v == binding.ivSetting) {
-            //{"IntentName":"setDeviceStats","Params":{"PressKey":1},"deviceName":"B03"}
-//            try {
-//                JSONObject jsonObject = new JSONObject();
-//                jsonObject.put(PadSAttribute.PressKey.getAttribute(), 1);
-//                DemoApp.getInstance().getAppViewModel().setMQTT(jsonObject);
-//                showLoading();
-//            } catch (JSONException e) {
-//                e.printStackTrace();
-//            }
             ActivityUtils.startActivity(new Intent(mContext, DeviceSettingActivity.class));
         }
         if (v == binding.ivRecord) {
-//            try {
-//                JSONObject jsonObject = new JSONObject();
-//                jsonObject.put(PadSAttribute.PressKey.getAttribute(), 1);
-//                DemoApp.getInstance().getAppViewModel().setMQTT(jsonObject);
-//                showLoading();
-//            } catch (JSONException e) {
-//                e.printStackTrace();
-//            }
             ActivityUtils.startActivity(UseHitorActivity.class);
         }
         if (v == binding.ivMaiChong) {
-//            try {
-//                JSONObject jsonObject = new JSONObject();
-//                jsonObject.put(PadSAttribute.PressKey.getAttribute(), 1);
-//                DemoApp.getInstance().getAppViewModel().setMQTT(jsonObject);
-//                showLoading();
-//            } catch (JSONException e) {
-//                e.printStackTrace();
-//            }
             ActivityUtils.startActivity(DeviceModelActivity.class);
         }
         if (v == binding.fenshanJia) {
@@ -360,8 +346,12 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
             MqttParseOverModel model = event.getMqttParseOverModel();
             MqttMessage(model.getDeviceId(), model.getMap());
         } else if (MQTTCons.ACTION_DATA_AVAILABLE_BLUE.equals(event.getMessage())) {
-            mMsgList.add(event.getCase_message());
-            mMsgAdapter.notifyDataSetChanged();
+//            mMsgList.add(event.getCase_message());
+//            mMsgAdapter.notifyDataSetChanged();
+        } else if (MQTTCons.NETWORK_CONNECTED.equals(event.getMessage())) {
+            binding.ivWifi.setImageResource(R.mipmap.icon_wificonnect);
+        } else if (MQTTCons.NETWORK_ERROR.equals(event.getMessage())) {
+            binding.ivWifi.setImageResource(R.mipmap.icon_wificonnectdis);
         }
     }
 
@@ -388,10 +378,18 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
             MyMMKV.get().putString(MyMMKV.SoftWareVer, (String) map.get(PadSAttribute.SoftWareVer.getAttribute()));
         }
         if (strings.contains(PadSAttribute.Volume.getAttribute())) {
-            binding.ivPhone.setImageResource(R.mipmap.icon_phoneline);
+//            binding.ivPhone.setImageResource(R.mipmap.icon_phoneline);
             int Volume = (int) map.get(PadSAttribute.Volume.getAttribute());
             if (Volume > 0) {
                 binding.seekbar.setProgress(Volume);
+            }
+        }
+        if (strings.contains(PadSAttribute.Warning.getAttribute())) {
+            int warning = (int) map.get(PadSAttribute.Warning.getAttribute());
+            if (warning == 1) {
+                binding.ivWarning.setVisibility(View.VISIBLE);
+            } else {
+                binding.ivWarning.setVisibility(View.GONE);
             }
         }
         if (strings.contains(PadSAttribute.MusicalState.getAttribute())) {
@@ -429,8 +427,11 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
         }
         if (strings.contains(PadSAttribute.Language.getAttribute())) {
             int Language = (int) map.get(PadSAttribute.Language.getAttribute());
-            MyMMKV.putInteger(MyMMKV.Language, Language);
-            DemoApp.getInstance().getAppViewModel().setLang();
+            int localLanguage = MyMMKV.getInteger(MyMMKV.Language);
+            if (localLanguage != Language) {
+                MyMMKV.putInteger(MyMMKV.Language, Language);
+                DemoApp.getInstance().getAppViewModel().setLang();
+            }
         }
         if (strings.contains(PadSAttribute.BtState.getAttribute())) {
             int BtState = (int) map.get(PadSAttribute.BtState.getAttribute());
@@ -438,14 +439,6 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
                 binding.ivBl.setImageResource(R.mipmap.icon_lanta);
             } else {
                 binding.ivBl.setImageResource(R.mipmap.icon_lantadis);
-            }
-        }
-        if (strings.contains(PadSAttribute.BtState.getAttribute())) {
-            int BtState = (int) map.get(PadSAttribute.BtState.getAttribute());
-            if (BtState == 1) {
-                binding.ivWifi.setImageResource(R.mipmap.icon_wificonnect);
-            } else {
-                binding.ivWifi.setImageResource(R.mipmap.icon_wificonnectdis);
             }
         }
         if (strings.contains(PadSAttribute.PluseMode.getAttribute())) {
@@ -460,7 +453,7 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
                         }
                     }
                 }
-                if (PluseMode == 5) {
+                if (PluseMode == 5 && Launch == 2) {
                     binding.ivmiue.setImageResource(R.mipmap.icon_jian);
                     binding.ivAdd.setImageResource(R.mipmap.icon_add);
                 } else {

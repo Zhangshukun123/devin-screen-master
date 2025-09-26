@@ -18,6 +18,7 @@ import com.diwen.liliao.netty.MQTTCons;
 import com.diwen.liliao.netty.PadSAttribute;
 import com.diwen.liliao.utils.ActivityUtils;
 import com.diwen.liliao.utils.AtyUtils;
+import com.diwen.liliao.utils.StringUtils;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -44,7 +45,7 @@ public class DeviceModelActivity extends MqttBaseActivity<LayoutDevicemodelactiv
 
     @Override
     protected void setUiText() {
-        binding.tvTitle.setText(DemoApp.getInstance().getAppViewModel().getLangText("工作模式"));
+        binding.tvTitle.setText(StringUtils.getUpperText("工作模式"));
         settingItems = new ArrayList<>();
         settingItems.add(new SettingItem(R.mipmap.icon_model1, "肌肉恢复"));
         settingItems.add(new SettingItem(R.mipmap.icon_model2, "疼痛缓解"));
@@ -81,10 +82,17 @@ public class DeviceModelActivity extends MqttBaseActivity<LayoutDevicemodelactiv
     }
 
     public void sendModel(int PluseMode) {
+        sendModel(PluseMode, true);
+    }
+
+    public void sendModel(int PluseMode, boolean finish) {
         try {
             JSONObject jsonObject = new JSONObject();
             jsonObject.put(PadSAttribute.PluseMode.getAttribute(), PluseMode);
             DemoApp.getInstance().getAppViewModel().setMQTT(jsonObject);
+            if (!finish) {
+                return;
+            }
             showLoading();
             if (ActivityUtils.isActivityExistsInStack(DeviceLauncherActivity.class)) {
                 ActivityUtils.finishToActivity(DeviceLauncherActivity.class, false);
@@ -99,9 +107,9 @@ public class DeviceModelActivity extends MqttBaseActivity<LayoutDevicemodelactiv
 
     @Override
     protected void config() {
-        if (AtyUtils.isStringEmpty(deviceName)){
+        if (AtyUtils.isStringEmpty(deviceName)) {
             binding.tvName.setText(deviceName);
-        }else {
+        } else {
             binding.tvName.setText(MyMMKV.getDeviceName());
         }
         try {

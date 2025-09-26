@@ -182,7 +182,7 @@ public class DeviceSettingActivity extends MqttBaseActivity<LayoutDevicesettinga
                 versionFragment = VersionFragment.newInstance();
             }
             switchFragment(versionFragment).commit();
-            getVersionAttributes();
+//            getVersionAttributes();
         }
     }
     public void getVersionAttributes() {

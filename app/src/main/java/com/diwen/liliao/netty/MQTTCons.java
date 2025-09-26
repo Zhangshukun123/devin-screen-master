@@ -15,8 +15,9 @@ public class MQTTCons {
     public final static String ACTION_DATA_TOPIC = "com.tian.mqtt.ACTION_DATA_TOPIC";//收到的主题
     public final static String EXTRA_ERROR_CODE = "com.tian.mqtt.EXTRA_ERROR_CODE";//错误提示code
     public final static String EXTRA_ERROR_MESSAGE = "com.tian.mqtt.EXTRA_ERROR_MESSAGE";//错误信息  发送超时等 
-    
-    
+
+    public static final String NETWORK_CONNECTED = "com.tian.mqtt.NETWORK_CONNECTED";
+    public static final String NETWORK_ERROR = "com.tian.mqtt.NETWORK_ERROR";
     /**  服务器订阅
      * sys/event/cg/model/id/set receive    /#
      */

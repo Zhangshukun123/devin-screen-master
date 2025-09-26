@@ -61,7 +61,9 @@ public enum PadSAttribute {
     Minute("Minute"),
     Second("Second"),
     SoftWareVer("SoftWareVer"),
-    AirBlowerRun("AirBlowerRun");
+    AirBlowerRun("AirBlowerRun"),
+    Warning("Warning"),
+    HeartTimer("HeartTimer");
 
     // 成员变量  
     private String Attribute;

@@ -19,6 +19,7 @@ import com.diwen.liliao.netty.MQTTCons;
 import com.diwen.liliao.netty.PadSAttribute;
 import com.diwen.liliao.utils.ActivityUtils;
 import com.diwen.liliao.utils.AtyUtils;
+import com.diwen.liliao.utils.StringUtils;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -50,7 +51,7 @@ public class MaiChongSettingActivity extends MqttBaseActivity<LayoutMaichongacti
 
     @Override
     protected void setUiText() {
-        binding.tvMaiChong.setText(DemoApp.getInstance().getAppViewModel().getLangText("脉冲"));
+        binding.tvMaiChong.setText(StringUtils.getUpperText("脉冲"));
         binding.tvSave.setText(DemoApp.getInstance().getAppViewModel().getLangText("保存"));
     }
 
@@ -106,7 +107,7 @@ public class MaiChongSettingActivity extends MqttBaseActivity<LayoutMaichongacti
             inputDialog.setMaxInputValue(100);
             inputDialog.showDialog();
         });
-        binding.tv1.setText(DemoApp.getInstance().getAppViewModel().getLangText("全部"));
+        binding.tv1.setText(StringUtils.getUpperText("全部"));
         binding.tv2.setText(DemoApp.getInstance().getAppViewModel().getLangText("频率"));
         binding.tv3.setText(DemoApp.getInstance().getAppViewModel().getLangText("占空比"));
 
@@ -145,6 +146,7 @@ public class MaiChongSettingActivity extends MqttBaseActivity<LayoutMaichongacti
             ActivityUtils.finishActivity(DeviceModelActivity.class);
             ActivityUtils.finishActivity(DeviceSettingActivity.class);
             ActivityUtils.finishActivity(DeviceListActivity.class);
+            setMaiChonBlower();
         }
         if (v == binding.tvSave) {
             setMaiChonBlower();
@@ -305,7 +307,7 @@ public class MaiChongSettingActivity extends MqttBaseActivity<LayoutMaichongacti
             }
             DemoApp.getInstance().getAppViewModel().setMQTT(jsonObject);
             if (ActivityUtils.isActivityExistsInStack(DeviceLauncherActivity.class)) {
-                //       ActivityUtils.finishToActivity(DeviceLauncherActivity.class,false);
+//                ActivityUtils.finishToActivity(DeviceLauncherActivity.class, false);
             } else {
                 ActivityUtils.startActivity(new Intent(mContext, DeviceLauncherActivity.class));
             }

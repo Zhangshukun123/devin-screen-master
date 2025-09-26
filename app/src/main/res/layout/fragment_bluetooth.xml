@@ -35,13 +35,15 @@
                 android:layout_height="wrap_content"
                 android:text="Rename" />
 
-            <TextView
+            <EditText
                 android:id="@+id/tvMusicPlay"
                 style="@style/text_normal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@null"
                 android:gravity="end"
-                android:text="@string/app_name" />
+                android:singleLine="true"
+                android:imeOptions="actionSend" />
 
 
         </com.hjq.shape.layout.ShapeLinearLayout>

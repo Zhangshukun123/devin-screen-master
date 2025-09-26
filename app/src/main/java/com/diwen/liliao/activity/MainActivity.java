@@ -91,7 +91,7 @@ public class MainActivity extends MqttBaseActivity<ActivityMainBinding> {
                 ActivityUtils.startActivity(new Intent(mContext, DeviceModelActivity.class));
             } else {
                 ToastUtils.show("No networking");
-                ActivityUtils.startActivity(new Intent(mContext, DeviceLauncherActivity.class));
+//                ActivityUtils.startActivity(new Intent(mContext, DeviceLauncherActivity.class));
             }
         });
     }
@@ -112,6 +112,10 @@ public class MainActivity extends MqttBaseActivity<ActivityMainBinding> {
                     public void returnData(int type, Object data, String udpOfIp) {
                         try {
                             String parseOkOfData = DataUtils.bytesToString((byte[]) data, DataUtils.GB2312);
+                            if (parseOkOfData.contains("heart")) {
+                                System.out.println("客户端收到心跳" + parseOkOfData);
+                                return;
+                            }
                             Bundle bundle = new Bundle();
                             Message message = Message.obtain();
                             message.what = 30;
@@ -262,8 +266,11 @@ public class MainActivity extends MqttBaseActivity<ActivityMainBinding> {
         }
         if (strings.contains(PadSAttribute.Language.getAttribute())) {
             int Language = (int) map.get(PadSAttribute.Language.getAttribute());
-            MyMMKV.putInteger(MyMMKV.Language, Language);
-            DemoApp.getInstance().getAppViewModel().setLang();
+            int localLanguage = MyMMKV.getInteger(MyMMKV.Language);
+            if (localLanguage != Language) {
+                MyMMKV.putInteger(MyMMKV.Language, Language);
+                DemoApp.getInstance().getAppViewModel().setLang();
+            }
         }
         if (strings.contains(PadSAttribute.Launch.getAttribute())) {
             int Launch = (int) map.get(PadSAttribute.Launch.getAttribute());

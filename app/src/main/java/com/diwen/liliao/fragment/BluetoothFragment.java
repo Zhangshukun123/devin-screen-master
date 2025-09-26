@@ -1,7 +1,13 @@
 package com.diwen.liliao.fragment;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.TextView;
 
 import com.diwen.liliao.DemoApp;
 import com.diwen.liliao.base.BaseFragment;
@@ -14,6 +20,7 @@ import com.diwen.liliao.netty.MQTTCons;
 import com.diwen.liliao.netty.PadSAttribute;
 import com.diwen.liliao.utils.AtyUtils;
 import com.diwen.liliao.utils.StringUtils;
+import com.hjq.toast.ToastUtils;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -39,13 +46,29 @@ public class BluetoothFragment extends BaseFragment<FragmentBluetoothBinding> im
         binding.tvSave.setText(StringUtils.getText("保存"));
         binding.tvBtLeftName.setText(StringUtils.getText("蓝牙名称"));
         binding.tvBtLeftPwd.setText(StringUtils.getText("密码"));
-        binding.tvMusicPlay.setText(StringUtils.getText("音乐播放"));
 
     }
 
     @Override
     protected void initData() {
-        binding.tvMusicPlay.setOnClickListener(this);
+        binding.tvMusicPlay.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
+                if (actionId == EditorInfo.IME_ACTION_SEND) {
+                    if (TextUtils.isEmpty(AtyUtils.getText(binding.tvMusicPlay))) {
+                        ToastUtils.show("蓝牙名称不能为空");
+                    } else {
+                        resetName();
+
+                        InputMethodManager imm = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm.hideSoftInputFromWindow(binding.tvMusicPlay.getWindowToken(), 0);
+                    }
+                    return true;
+                }
+
+                return false;
+            }
+        });
         binding.tvSave.setOnClickListener(this);
         getAllAttributes();
     }
@@ -88,6 +111,16 @@ public class BluetoothFragment extends BaseFragment<FragmentBluetoothBinding> im
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    public void resetName() {
+        try {
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put(PadSAttribute.BtName.getAttribute(), AtyUtils.getText(binding.tvMusicPlay));
+            DemoApp.getInstance().getAppViewModel().setMQTT(jsonObject);
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
     }
 

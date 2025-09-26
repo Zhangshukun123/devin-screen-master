@@ -14,6 +14,7 @@ import com.diwen.liliao.mmkv.MyMMKV;
 import com.diwen.liliao.model.SettingItem;
 import com.diwen.liliao.netty.PadSAttribute;
 import com.diwen.liliao.utils.ActivityUtils;
+import com.diwen.liliao.utils.StringUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -35,18 +36,20 @@ public class LanguageFragment extends BaseFragment<FragmentLanguageBinding> {
 
     @Override
     protected void initView() {
-        binding.tvLanguage.setText(DemoApp.getInstance().getAppViewModel().getLangText("语言"));
+        binding.tvLanguage.setText(StringUtils.getUpperText("语言"));
         binding.tvSave.setText(DemoApp.getInstance().getAppViewModel().getLangText("保存"));
         settingItems = new ArrayList<>();
-        settingItems.add(new SettingItem(R.mipmap.icon_language1, "英语"));
-        settingItems.add(new SettingItem(R.mipmap.icon_language2, "德语"));
-        settingItems.add(new SettingItem(R.mipmap.icon_language5, "法语"));
-        settingItems.add(new SettingItem(R.mipmap.icon_language3, "意大利语"));
-        settingItems.add(new SettingItem(R.mipmap.icon_language4, "西班牙语"));
+        settingItems.add(new SettingItem(R.mipmap.icon_language1, "英语", 1));
+        settingItems.add(new SettingItem(R.mipmap.icon_language5, "法语", 3));
+        settingItems.add(new SettingItem(R.mipmap.icon_language2, "德语", 2));
+        settingItems.add(new SettingItem(R.mipmap.icon_language3, "意大利语", 4));
+        settingItems.add(new SettingItem(R.mipmap.icon_language4, "西班牙语", 5));
 
         int integer = MyMMKV.getInteger(MyMMKV.Language);
-        if (integer > 0) {
-            settingItems.get(integer - 1).setChose(true);
+        for (int i = 0; i < settingItems.size(); i++) {
+            if (settingItems.get(i).getDeviceModel() == integer) {
+                settingItems.get(i).setChose(true);
+            }
         }
         languageListAdapter = new LanguageListAdapter(settingItems);
         binding.recyclerView.setAdapter(languageListAdapter);
@@ -66,10 +69,10 @@ public class LanguageFragment extends BaseFragment<FragmentLanguageBinding> {
                     binding.tvSave.setText("Save");
                     break;
                 case 1:
-                    binding.tvSave.setText("Speichern");
+                    binding.tvSave.setText("Enregistrer");
                     break;
                 case 2:
-                    binding.tvSave.setText("Enregistrer");
+                    binding.tvSave.setText("Speichern");
                     break;
                 case 3:
                     binding.tvSave.setText("Salva");
@@ -87,9 +90,9 @@ public class LanguageFragment extends BaseFragment<FragmentLanguageBinding> {
                     for (int i = 0; i < languageListAdapter.getData().size(); i++) {
                         if (languageListAdapter.getData().get(i).isChose()) {
                             JSONObject jsonObject = new JSONObject();
-                            jsonObject.put(PadSAttribute.Language.getAttribute(), i + 1);
+                            jsonObject.put(PadSAttribute.Language.getAttribute(), languageListAdapter.getData().get(i).getDeviceModel());
                             DemoApp.getInstance().getAppViewModel().setMQTT(jsonObject);
-                            MyMMKV.putInteger(MyMMKV.Language, i + 1);
+                            MyMMKV.putInteger(MyMMKV.Language, languageListAdapter.getData().get(i).getDeviceModel());
                             DemoApp.getInstance().getAppViewModel().setLang();
                             ActivityUtils.finishActivity(DeviceSettingActivity.class);
                         }

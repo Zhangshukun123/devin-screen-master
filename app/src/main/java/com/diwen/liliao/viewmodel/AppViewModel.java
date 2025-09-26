@@ -57,7 +57,7 @@ public class AppViewModel extends AndroidViewModel {
 
     // 读取 语言文件
     public void setLang() {
-        int integer = MyMMKV.getInteger(MyMMKV.Language, 0);
+        int integer = MyMMKV.getInteger(MyMMKV.Language, 1);
         switch (integer) {
             case 0:
                 langType = "zh";
@@ -202,11 +202,11 @@ public class AppViewModel extends AndroidViewModel {
         String name = MyMMKV.getDeviceName();
         switch (name) {
             case "B01":
-                
+
                 if (nettyManagerB01 != null) {
                     nettyManagerB01.setMQTT(jsonObject);
                 }
-        
+
                 break;
             case "B02":
                 if (nettyManagerB02 != null) {
@@ -238,7 +238,12 @@ public class AppViewModel extends AndroidViewModel {
 
     public void sendInquiryMQTT(JSONObject jsonObject) {
         String name = MyMMKV.getDeviceName();
-        switch (name) {
+        sendInquiryMQTT(jsonObject, name);
+    }
+
+
+    public void sendInquiryMQTT(JSONObject jsonObject, String deviceName) {
+        switch (deviceName) {
             case "B01":
                 if (nettyManagerB01 != null) {
                     nettyManagerB01.sendInquiryMQTT(jsonObject);

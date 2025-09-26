@@ -8,6 +8,7 @@ import com.diwen.liliao.utils.DataUtils;
 
 
 import java.nio.charset.Charset;
+import java.util.concurrent.TimeUnit;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.buffer.ByteBuf;
@@ -15,18 +16,25 @@ import io.netty.buffer.Unpooled;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelFutureListener;
+import io.netty.channel.ChannelInitializer;
+import io.netty.channel.ChannelOption;
+import io.netty.channel.ChannelPipeline;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
+import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
+import io.netty.handler.timeout.IdleStateHandler;
 
 public class NettyClient {
     public NettyClient(String inetHost) {
         this.inetHost = inetHost;
     }
+
     public void setNewIp(String inetHost) {
         this.inetHost = inetHost;
 
     }
+
     private static final String TAG = "tian";
     private String inetHost;
     private EventLoopGroup group;//Bootstrap参数
@@ -72,7 +80,16 @@ public class NettyClient {
                 Bootstrap bootstrap = new Bootstrap();
                 bootstrap.group(group)//设置的一系列连接参数操作等
                         .channel(NioSocketChannel.class)
-                        .handler(new NettyClientHandler(listener));
+                        .option(ChannelOption.SO_KEEPALIVE, true)
+                        .handler(new ChannelInitializer<SocketChannel>() {
+                            @Override
+                            protected void initChannel(SocketChannel ch) {
+                                ChannelPipeline p = ch.pipeline();
+                                p.addLast(new IdleStateHandler(15, 5, 0, TimeUnit.SECONDS));
+                                p.addLast(new NettyClientHandler(listener));
+                            }
+                        });
+//                        .handler(new NettyClientHandler(listener));
                 try {
                     //连接监听
                     channelFuture = bootstrap.connect(inetHost, Constans.TCP_PORT).addListener(new ChannelFutureListener() {
@@ -113,7 +130,9 @@ public class NettyClient {
     public void disconnect() {
         Log.e(TAG, "断开连接");
         isNeedReconnect = false;
-        group.shutdownGracefully();
+        if (group != null) {
+            group.shutdownGracefully();
+        }
     }
 
     //重新连接
