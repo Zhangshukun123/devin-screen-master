@@ -570,17 +570,18 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
         // 0 暂停 1 启动 2 停止
         if (Launch == 0) {
             binding.ivStart.setImageResource(R.mipmap.ic_stop);
-            binding.ivStatus.setImageResource(R.mipmap.ic_status_setting);
+            binding.tvStatus.setText(StringUtils.getUpperText("设置"));
 //            binding.tvStart.setText(DemoApp.getInstance().getAppViewModel().getLangText("暂停"));//Pause
         }
         if (Launch == 1) {
             binding.ivStart.setImageResource(R.mipmap.ic_run);
-            binding.ivStatus.setImageResource(R.mipmap.ic_status_running);
+            binding.tvStatus.setText(StringUtils.getUpperText("运行"));
 //            binding.tvStart.setText(DemoApp.getInstance().getAppViewModel().getLangText("已停止"));//Stop
         }
         if (Launch == 2) {
             binding.ivStart.setImageResource(R.mipmap.ic_start);
-            binding.ivStatus.setImageResource(R.mipmap.ic_status_setting);
+            binding.tvStatus.setText(StringUtils.getUpperText("设置"));
+            binding.tvStatus.setText(StringUtils.getUpperText("运行"));
 //            binding.tvStart.setText(DemoApp.getInstance().getAppViewModel().getLangText("开始"));//Start
         }
         if (Launch != 1) {

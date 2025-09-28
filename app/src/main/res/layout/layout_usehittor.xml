@@ -122,6 +122,7 @@
                     android:layout_marginTop="@dimen/dp_10"
                     android:background="@drawable/bg_radius_4_white10"
                     android:gravity="center_vertical"
+                    android:visibility="gone"
                     android:orientation="horizontal"
                     android:paddingStart="@dimen/dp_10"
                     android:paddingEnd="@dimen/dp_10">
@@ -178,12 +179,12 @@
                     android:orientation="horizontal">
 
                     <com.hjq.shape.view.ShapeTextView
-                        android:id="@+id/tvUp"
+                        android:id="@+id/tvDown"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="上一条"
+                        android:text="下一条"
                         android:textColor="@color/white"
                         android:textSize="9sp"
                         app:shape_radius="2dp"
@@ -192,13 +193,13 @@
                         app:shape_strokeWidth="0.5dp" />
 
                     <com.hjq.shape.view.ShapeTextView
-                        android:id="@+id/tvDown"
+                        android:id="@+id/tvUp"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="@dimen/dp_10"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="下一条"
+                        android:text="上一条"
                         android:textColor="@color/white"
                         android:textSize="9sp"
                         app:shape_endColor="#A202FF"

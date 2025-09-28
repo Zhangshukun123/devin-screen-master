@@ -40,7 +40,8 @@ public class UseHitorActivity extends MqttBaseActivity<LayoutUsehittorBinding> {
         binding.tvRecord.setText(StringUtils.getUpperText("记录"));
         binding.tvAllTime.setText(DemoApp.getInstance().getAppViewModel().getLangText("累计工作时间"));
         binding.tvXuhao.setText(DemoApp.getInstance().getAppViewModel().getLangText("序号"));
-        binding.tvStartTime.setText(DemoApp.getInstance().getAppViewModel().getLangText("开始时间"));
+        binding.tvStartTime.setText(DemoApp.getInstance().getAppViewModel().getLangText("时间戳"));
+//        binding.tvStartTime.setText(DemoApp.getInstance().getAppViewModel().getLangText("开始时间"));
         binding.tvEndTime.setText(DemoApp.getInstance().getAppViewModel().getLangText("结束时间"));
         binding.tvDeviceTime.setText(DemoApp.getInstance().getAppViewModel().getLangText("使用时长"));
         binding.tvUp.setText(DemoApp.getInstance().getAppViewModel().getLangText("上一条"));

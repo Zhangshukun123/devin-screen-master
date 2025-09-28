@@ -49,11 +49,12 @@
   "连接": "connect",
   "未连接": "ununited",
   "音乐播放": "Music playback",
-  "累计工作时间": "Total Working Time：",
-  "序号": "Serial Number：",
+  "累计工作时间": "Total Time",
+  "序号": "Record No",
+  "时间戳": "Timestamp",
   "开始时间": "Start Time：",
   "结束时间": "End Time：",
-  "使用时长": "Usage Time：",
+  "使用时长": "Duration",
   "上一条": "Last",
   "下一条": "Next",
   "频率": "Frequency：",
@@ -75,6 +76,6 @@
   "音乐": "Music",
   "开始播放": "Playing Now",
   "剩余时间": "REMAINING TIME",
-  "设置": "settings",
+  "设置": "setting",
   "运行": "running"
 }
