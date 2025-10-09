@@ -55,4 +55,7 @@ public class MyMMKV {
     public static String getDeviceName() {
         return get().decodeString("deviceName", "");
     }
-} 
+    public static String getDeviceIp() {
+        return get().decodeString("deviceIp", "");
+    }
+}

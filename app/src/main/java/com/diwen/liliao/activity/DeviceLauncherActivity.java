@@ -61,7 +61,6 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
     private String deviceName;
     private List<String> mMsgList;
     private MsgAdapter mMsgAdapter;
-    private NetworkMonitor networkMonitor;
 
     @Override
     protected void handleIntent(Intent intent) {
@@ -97,8 +96,6 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void config() {
-        networkMonitor = new NetworkMonitor(this);
-        networkMonitor.start();
         getAllAttributes();
         mMsgList = new ArrayList<>();
         mMsgAdapter = new MsgAdapter();
@@ -113,7 +110,6 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
         if (handler != null) {
             handler.removeMessages(826);
         }
-        networkMonitor.stop();
     }
 
     @Override
@@ -570,7 +566,7 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
         // 0 暂停 1 启动 2 停止
         if (Launch == 0) {
             binding.ivStart.setImageResource(R.mipmap.ic_stop);
-            binding.tvStatus.setText(StringUtils.getUpperText("设置"));
+            binding.tvStatus.setText(StringUtils.getUpperText("运行"));
 //            binding.tvStart.setText(DemoApp.getInstance().getAppViewModel().getLangText("暂停"));//Pause
         }
         if (Launch == 1) {
@@ -581,7 +577,6 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
         if (Launch == 2) {
             binding.ivStart.setImageResource(R.mipmap.ic_start);
             binding.tvStatus.setText(StringUtils.getUpperText("设置"));
-            binding.tvStatus.setText(StringUtils.getUpperText("运行"));
 //            binding.tvStart.setText(DemoApp.getInstance().getAppViewModel().getLangText("开始"));//Start
         }
         if (Launch != 1) {

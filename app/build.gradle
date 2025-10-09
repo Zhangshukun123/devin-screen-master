@@ -4,7 +4,7 @@ android {
     compileSdkVersion 31
     defaultConfig {
         multiDexEnabled true
-        applicationId "com.diwen.liliao"
+        applicationId "com.diwen.liliaocang"
         minSdkVersion 19
         targetSdkVersion 30
         versionCode 1

@@ -11,6 +11,7 @@ import android.util.Log;
 import androidx.annotation.RequiresApi;
 
 import com.diwen.liliao.DemoApp;
+import com.diwen.liliao.mmkv.MyMMKV;
 import com.diwen.liliao.model.MessageEvent;
 import com.diwen.liliao.netty.MQTTCons;
 import com.diwen.liliao.netty.PadSAttribute;
@@ -34,6 +35,8 @@ public class NetworkMonitor {
             public void onAvailable(Network network) {
                 // 网络可用（Wi-Fi/移动数据连接成功）
                 EventBus.getDefault().post(new MessageEvent(MQTTCons.NETWORK_CONNECTED));
+
+//                DemoApp.getInstance().getAppViewModel().connectNetty(MyMMKV.getDeviceName(), MyMMKV.getDeviceIp());
                 Log.d("NetworkMonitor", "网络已连接");
             }
 

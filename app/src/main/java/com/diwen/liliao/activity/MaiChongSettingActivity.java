@@ -91,7 +91,7 @@ public class MaiChongSettingActivity extends MqttBaseActivity<LayoutMaichongacti
                 }
                 maiChongAdapter.notifyDataSetChanged();
             });
-            inputDialog.setMaxInputValue(20000);
+            inputDialog.setMaxInputValue(10000);
             inputDialog.showDialog();
         });
         binding.evKong.setOnClickListener(v -> {

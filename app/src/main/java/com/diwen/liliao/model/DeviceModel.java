@@ -8,9 +8,10 @@ import lombok.Data;
  */
 @Data
 public class DeviceModel {
-    private String deviceIp="192.168.0.83";
-    private String deviceName="";
-    private String deviceId="";
-    private  boolean connectUdp;
-    private  boolean connectTcp;
-} 
+    private String deviceIp = "192.168.0.83";
+    private String deviceName = "";
+    private String deviceId = "";
+    private boolean connectUdp;
+    private boolean connectTcp;
+    private boolean connectWifi = true;
+}

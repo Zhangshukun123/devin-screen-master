@@ -11,6 +11,7 @@ import android.os.Looper;
 import android.os.Message;
 
 import com.diwen.liliao.DemoApp;
+import com.diwen.liliao.R;
 import com.diwen.liliao.adapter.DeviceListAdapter;
 import com.diwen.liliao.base.BindEventBus;
 import com.diwen.liliao.base.MqttBaseActivity;
@@ -83,6 +84,7 @@ public class MainActivity extends MqttBaseActivity<ActivityMainBinding> {
         deviceListAdapter.setOnItemClickListener((adapter, view, position) -> {
             if (deviceListAdapter.getItem(position).isConnectTcp()) {
                 MyMMKV.get().putString("deviceName", deviceListAdapter.getItem(position).getDeviceName());//点击的设备   判读设备是否在线
+                MyMMKV.get().putString("deviceIp", deviceListAdapter.getItem(position).getDeviceIp());//点击的设备   判读设备是否在线
                 DemoApp.getInstance().getAppViewModel().connectNetty(deviceListAdapter.getItem(position).getDeviceName(), deviceListAdapter.getItem(position).getDeviceIp());
                 if (DemoApp.getInstance().buildCompany) {
                     ActivityUtils.startActivity(new Intent(mContext, DeviceLauncherActivity.class));
@@ -236,6 +238,16 @@ public class MainActivity extends MqttBaseActivity<ActivityMainBinding> {
         if (event.getMessage().equals(MQTTCons.ACTION_DATA_AVAILABLE)) {
             MqttParseOverModel model = event.getMqttParseOverModel();
             MqttMessage(model.getDeviceId(), model.getMap());
+        } else if (MQTTCons.NETWORK_CONNECTED.equals(event.getMessage())) {
+            for (DeviceModel model : DemoApp.getInstance().getAppViewModel().device.getValue()) {
+                model.setConnectWifi(true);
+            }
+            deviceListAdapter.notifyDataSetChanged();
+        } else if (MQTTCons.NETWORK_ERROR.equals(event.getMessage())) {
+            for (DeviceModel model : DemoApp.getInstance().getAppViewModel().device.getValue()) {
+                model.setConnectWifi(false);
+            }
+            deviceListAdapter.notifyDataSetChanged();
         }
     }
 

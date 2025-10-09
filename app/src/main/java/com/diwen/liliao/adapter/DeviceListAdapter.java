@@ -29,15 +29,19 @@ public class DeviceListAdapter extends BaseQuickAdapter<DeviceModel, BaseViewHol
             helper.setGone(R.id.llMengceng, true);
             llBg.getShapeDrawableBuilder().setSolidColor(Color.parseColor("#0DF2F6FF")).intoBackground();
         }
-        if (item.isConnectTcp()){
-            helper.setImageResource(R.id.wifiState, R.mipmap.icon_phoneline);
-        }else {
-            if (item.isConnectUdp()) {
-                helper.setImageResource(R.id.wifiState, R.mipmap.icon_wificonnect);
-
+        if (item.isConnectWifi()) {
+            if (item.isConnectTcp()) {
+                helper.setImageResource(R.id.wifiState, R.mipmap.icon_phoneline);
             } else {
-                helper.setImageResource(R.id.wifiState, R.mipmap.icon_diswifi);
-            } 
+                if (item.isConnectUdp()) {
+                    helper.setImageResource(R.id.wifiState, R.mipmap.icon_wificonnect);
+
+                } else {
+                    helper.setImageResource(R.id.wifiState, R.mipmap.icon_diswifi);
+                }
+            }
+        } else {
+            helper.setImageResource(R.id.wifiState, R.mipmap.icon_wificonnectdis);
         }
         helper.setText(R.id.tvName, item.getDeviceName());
     }
