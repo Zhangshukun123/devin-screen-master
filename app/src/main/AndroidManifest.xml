@@ -4,6 +4,7 @@
 
     <uses-permission android:name='android.permission.INTERNET' />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+
     <application
         android:name=".DemoApp"
         android:allowBackup="true"
@@ -24,10 +25,10 @@
 
         <activity
             android:name=".SplashActivity"
-            android:configChanges="smallestScreenSize|screenSize|screenLayout|keyboardHidden|orientation"
+            android:configChanges="smallestScreenSize|screenSize|screenLayout|keyboardHidden|orientation|uiMode|density"
             android:launchMode="singleTask"
-            android:theme="@style/splash_style"
-            android:screenOrientation="landscape">
+            android:screenOrientation="landscape"
+            android:theme="@style/splash_style">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <action android:name="android.intent.action.MAIN" />
@@ -37,62 +38,70 @@
         </activity>
         <activity
             android:name=".activity.MainActivity"
-            android:configChanges="smallestScreenSize|screenSize|screenLayout|keyboardHidden|orientation"
+            android:configChanges="smallestScreenSize|screenSize|screenLayout|keyboardHidden|orientation|uiMode|density"
             android:launchMode="singleTask"
-            android:screenOrientation="landscape"/>
-          
+            android:screenOrientation="landscape" />
+
         <activity
             android:name=".activity.DeviceSettingActivity"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activity.DeviceLauncherActivity"
-            android:configChanges="smallestScreenSize|screenSize|screenLayout|keyboardHidden|orientation"
+            android:configChanges="smallestScreenSize|screenSize|screenLayout|keyboardHidden|orientation|uiMode|density"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activity.DeviceModelActivity"
-            android:configChanges="smallestScreenSize|screenSize|screenLayout|keyboardHidden|orientation"
+            android:configChanges="smallestScreenSize|screenSize|screenLayout|keyboardHidden|orientation|uiMode|density"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activity.LanguageSettingActivity"
-            android:configChanges="smallestScreenSize|screenSize|screenLayout|keyboardHidden|orientation"
+
+            android:configChanges="smallestScreenSize|screenSize|screenLayout|keyboardHidden|orientation|uiMode|density"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activity.AirSettingActivity"
-            android:configChanges="smallestScreenSize|screenSize|screenLayout|keyboardHidden|orientation"
+
+            android:configChanges="smallestScreenSize|screenSize|screenLayout|keyboardHidden|orientation|uiMode|density"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activity.MaiChongSettingActivity"
-            android:configChanges="smallestScreenSize|screenSize|screenLayout|keyboardHidden|orientation"
+
+            android:configChanges="smallestScreenSize|screenSize|screenLayout|keyboardHidden|orientation|uiMode|density"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activity.TimeSettingsActivity"
-            android:configChanges="smallestScreenSize|screenSize|screenLayout|keyboardHidden|orientation"
+
+            android:configChanges="smallestScreenSize|screenSize|screenLayout|keyboardHidden|orientation|uiMode|density"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activity.AddDeviceActivity"
-            android:configChanges="smallestScreenSize|screenSize|screenLayout|keyboardHidden|orientation"
+
+            android:configChanges="smallestScreenSize|screenSize|screenLayout|keyboardHidden|orientation|uiMode|density"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activity.UseHitorActivity"
-            android:configChanges="smallestScreenSize|screenSize|screenLayout|keyboardHidden|orientation"
+
+            android:configChanges="smallestScreenSize|screenSize|screenLayout|keyboardHidden|orientation|uiMode|density"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activity.BlStateActivity"
-            android:configChanges="smallestScreenSize|screenSize|screenLayout|keyboardHidden|orientation"
+
+            android:configChanges="smallestScreenSize|screenSize|screenLayout|keyboardHidden|orientation|uiMode|density"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activity.DeviceListActivity"
-            android:configChanges="smallestScreenSize|screenSize|screenLayout|keyboardHidden|orientation"
+
+            android:configChanges="smallestScreenSize|screenSize|screenLayout|keyboardHidden|orientation|uiMode|density"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="adjustPan" />
     </application>

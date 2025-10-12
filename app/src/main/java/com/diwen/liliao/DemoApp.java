@@ -22,6 +22,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import me.jessyan.autosize.AutoSize;
+import me.jessyan.autosize.AutoSizeConfig;
 
 
 /**
@@ -29,22 +30,15 @@ import me.jessyan.autosize.AutoSize;
  * Describe:    应用的入口
  */
 public class DemoApp extends Application {
-    private NetworkMonitor networkMonitor;
     public Context mContext;
     private static DemoApp applicationUtils;
     private AppViewModel appViewModel;
     public boolean buildCompany = false;
 
-    private Handler handler;
-    private Runnable task;
-
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onCreate() {
         super.onCreate();
         setContext(getApplicationContext());
-        networkMonitor = new NetworkMonitor(this);
-        networkMonitor.start();
         appViewModel = new ViewModelProvider.AndroidViewModelFactory(this).create(AppViewModel.class);
         applicationUtils = this;
         Utils.init(this);
@@ -52,34 +46,6 @@ public class DemoApp extends Application {
         MMKV.initialize(this);
         AutoSize.checkAndInit(this);
         appViewModel.setLang();
-
-
-        handler = new Handler(Looper.getMainLooper());
-        task = new Runnable() {
-            @Override
-            public void run() {
-                sendDataToServer();
-                handler.postDelayed(this, 5000);
-            }
-        };
-        handler.postDelayed(task, 5000);
-    }
-
-    private void sendDataToServer() {
-        try {
-            for (DeviceModel model : DemoApp.getInstance().getAppViewModel().device.getValue()) {
-                if (model.isConnectTcp()) {
-
-//                    DemoApp.getInstance().getAppViewModel().checkConnect(model.getDeviceName(), model.getDeviceIp());
-//                    DemoApp.getInstance().getAppViewModel().upNettyIp(model.getDeviceName(), model.getDeviceIp());
-                    JSONObject jsonObject = new JSONObject();
-                    jsonObject.put(PadSAttribute.HeartTimer.getAttribute(), 1);
-//                    DemoApp.getInstance().getAppViewModel().sendInquiryMQTT(jsonObject, model.getDeviceName());
-                }
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
     }
 
     public Context getContext() {
@@ -104,11 +70,9 @@ public class DemoApp extends Application {
         // 清理所有图片内存缓存
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onTrimMemory(int level) {
         super.onTrimMemory(level);
-        networkMonitor.stop();
         // 根据手机内存剩余情况清理图片内存缓存
     }
 

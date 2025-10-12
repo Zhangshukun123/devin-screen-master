@@ -21,6 +21,7 @@ import com.diwen.liliao.base.MqttBaseActivity;
 import com.diwen.liliao.databinding.BlufiMessageItemBinding;
 import com.diwen.liliao.databinding.LayoutDevicelauncheractivityBinding;
 import com.diwen.liliao.mmkv.MyMMKV;
+import com.diwen.liliao.model.DeviceModel;
 import com.diwen.liliao.model.MessageEvent;
 import com.diwen.liliao.model.MqttParseOverModel;
 import com.diwen.liliao.model.SettingItem;
@@ -88,6 +89,14 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
                     if (item.getDeviceModel() == PluseMode) {
                         binding.modelName.setText(DemoApp.getInstance().getAppViewModel().getLangText(item.getTitle()));
                     }
+                }
+            }
+
+            for (DeviceModel model : DemoApp.getInstance().getAppViewModel().device.getValue()) {
+                if (model.isConnectWifi()) {
+                    binding.ivWifi.setImageResource(R.mipmap.icon_wificonnect);
+                } else {
+                    binding.ivWifi.setImageResource(R.mipmap.icon_wificonnectdis);
                 }
             }
         }

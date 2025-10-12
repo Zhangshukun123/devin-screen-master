@@ -5,6 +5,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -30,6 +31,7 @@ import com.diwen.liliao.utils.DataUtils;
 import com.diwen.liliao.utils.DoubleClickExitDetector;
 import com.diwen.liliao.utils.JsonUtils;
 import com.diwen.liliao.utils.MqttWorkerThread;
+import com.diwen.liliao.utils.NetworkMonitor;
 import com.diwen.liliao.utils.ThreadPoolUtils;
 import com.hjq.toast.ToastUtils;
 
@@ -44,10 +46,12 @@ import java.util.Map;
 import java.util.Set;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 @BindEventBus
 public class MainActivity extends MqttBaseActivity<ActivityMainBinding> {
+    private NetworkMonitor networkMonitor;
     private DeviceListAdapter deviceListAdapter;
     private DoubleClickExitDetector exitDetector;
 
@@ -55,8 +59,11 @@ public class MainActivity extends MqttBaseActivity<ActivityMainBinding> {
     protected void handleIntent(Intent intent) {
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void config() {
+        networkMonitor = new NetworkMonitor(this);
+        networkMonitor.start();
         deviceListAdapter = new DeviceListAdapter(DemoApp.getInstance().getAppViewModel().device.getValue());
         binding.deviceList.setAdapter(deviceListAdapter);
         register();
@@ -157,6 +164,7 @@ public class MainActivity extends MqttBaseActivity<ActivityMainBinding> {
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -164,6 +172,7 @@ public class MainActivity extends MqttBaseActivity<ActivityMainBinding> {
             handler.removeMessages(30);
             handler.removeMessages(31);
         }
+        networkMonitor.stop();
     }
 
     //{"deviceName":"B02","IntentName":"设备在线","Params":{"Launch":2}}
@@ -243,11 +252,13 @@ public class MainActivity extends MqttBaseActivity<ActivityMainBinding> {
                 model.setConnectWifi(true);
             }
             deviceListAdapter.notifyDataSetChanged();
+            DemoApp.getInstance().getAppViewModel().device.postValue(DemoApp.getInstance().getAppViewModel().device.getValue());
         } else if (MQTTCons.NETWORK_ERROR.equals(event.getMessage())) {
             for (DeviceModel model : DemoApp.getInstance().getAppViewModel().device.getValue()) {
                 model.setConnectWifi(false);
             }
             deviceListAdapter.notifyDataSetChanged();
+            DemoApp.getInstance().getAppViewModel().device.postValue(DemoApp.getInstance().getAppViewModel().device.getValue());
         }
     }
 
@@ -344,5 +355,6 @@ public class MainActivity extends MqttBaseActivity<ActivityMainBinding> {
             e.printStackTrace();
         }
     }
+
 
 }
