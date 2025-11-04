@@ -5,8 +5,11 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -147,6 +150,10 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
         binding.ivSong3.setOnClickListener(this);
         binding.rlStartRight.setOnClickListener(this);
         binding.rlStartLeft.setOnClickListener(this);
+        // 加号按钮
+        setupButton(binding.rlStartRight, true);
+        // 减号按钮
+        setupButton(binding.rlStartLeft, false);
         binding.rlStart.setOnClickListener(this);
         binding.ivFinish.setOnClickListener(this);
         binding.ivSetting.setOnClickListener(this);
@@ -189,6 +196,72 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
             }
             return true;
         });
+    }
+
+
+    // 用于控制长按自动加减
+    private Handler longClickHandler = new Handler(Looper.getMainLooper());
+    private boolean isLongPressing = false;
+
+    // 控制连续加减的速度（越小越快，单位：毫秒）
+    private static final int REPEAT_INTERVAL = 100;
+
+    /**
+     * 设置按钮点击与长按逻辑
+     */
+    private void setupButton(RelativeLayout button, boolean isAdd) {
+        // 长按时开始快速变化
+        button.setOnLongClickListener(v -> {
+            isLongPressing = true;
+            longClickHandler.post(new RepeatRunnable(isAdd));
+            return true; // 返回 true 表示长按事件已消费
+        });
+
+        // 松手或离开按钮区域时停止
+        button.setOnTouchListener((v, event) -> {
+            if (event.getAction() == MotionEvent.ACTION_UP
+                    || event.getAction() == MotionEvent.ACTION_CANCEL) {
+                isLongPressing = false;
+                setDeviceTimeMin();
+            }
+            return false; // 让点击事件继续生效
+        });
+    }
+
+    /**
+     * 连续执行加减的 Runnable
+     */
+    private class RepeatRunnable implements Runnable {
+        private final boolean isAdd;
+
+        RepeatRunnable(boolean isAdd) {
+            this.isAdd = isAdd;
+        }
+
+        @Override
+        public void run() {
+            if (PluseMode != 5) {
+                return;
+            }
+            if (Launch != 2) {
+                return;
+            }
+            if (isLongPressing) {
+                if (isAdd) {
+                    mine++;
+                    if (mine >= 30) {
+                        mine = 30;
+                    }
+                } else {
+                    mine--;
+                    if (mine <= 0) {
+                        mine = 0;
+                    }
+                }
+                binding.tvMine.setText(getPointTwo(mine));
+                longClickHandler.postDelayed(this, REPEAT_INTERVAL);
+            }
+        }
     }
 
     public void finishThis() {
