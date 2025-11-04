@@ -8,9 +8,13 @@ import com.diwen.liliao.adapter.DeviceListAdapter;
 import com.diwen.liliao.base.MqttBaseActivity;
 import com.diwen.liliao.databinding.ActivityMainBinding;
 import com.diwen.liliao.mmkv.MyMMKV;
+import com.diwen.liliao.model.MessageEvent;
 import com.diwen.liliao.netty.BTCodeUtils;
+import com.diwen.liliao.netty.MQTTCons;
 import com.diwen.liliao.utils.ActivityUtils;
 import com.hjq.toast.ToastUtils;
+
+import org.greenrobot.eventbus.EventBus;
 
 public class DeviceListActivity extends MqttBaseActivity<ActivityMainBinding> {
     private DeviceListAdapter deviceListAdapter;
@@ -37,18 +41,20 @@ public class DeviceListActivity extends MqttBaseActivity<ActivityMainBinding> {
             deviceListAdapter.setNewData(deviceModels);
         });
         deviceListAdapter.setOnItemClickListener((adapter, view, position) -> {
-         if (deviceListAdapter.getItem(position).isConnectTcp()) {
+            if (deviceListAdapter.getItem(position).isConnectTcp()) {
                 DemoApp.getInstance().getAppViewModel().connectNetty(deviceListAdapter.getItem(position).getDeviceName(), deviceListAdapter.getItem(position).getDeviceIp());
-                 MyMMKV.get().putString("deviceName", deviceListAdapter.getItem(position).getDeviceName());//点击的设备   判读设备是否在线
-              if (DemoApp.getInstance().buildCompany){
-                  ActivityUtils.finishToActivity(DeviceLauncherActivity.class, false);
-              }else {
-
-                  ActivityUtils.startActivity(new Intent(mContext, DeviceModelActivity.class).putExtra("name", deviceListAdapter.getItem(position).getDeviceName()));
-              }
-           } else {
-             ToastUtils.show("No networking");
-           }
+                if (!deviceListAdapter.getItem(position).getDeviceName().equals(MyMMKV.getDeviceName())) {
+                    EventBus.getDefault().post(new MessageEvent(MQTTCons.ACTION_DEVICE_CHANGE));
+                }
+                MyMMKV.get().putString("deviceName", deviceListAdapter.getItem(position).getDeviceName());//点击的设备   判读设备是否在线
+                if (DemoApp.getInstance().buildCompany) {
+                    ActivityUtils.finishToActivity(DeviceLauncherActivity.class, false);
+                } else {
+                    ActivityUtils.startActivity(new Intent(mContext, DeviceModelActivity.class).putExtra("name", deviceListAdapter.getItem(position).getDeviceName()));
+                }
+            } else {
+                ToastUtils.show("No networking");
+            }
         });
         binding.llTitle.setVisibility(View.GONE);
         binding.reluserSee.setVisibility(View.VISIBLE);

@@ -430,6 +430,9 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
             binding.ivWifi.setImageResource(R.mipmap.icon_wificonnect);
         } else if (MQTTCons.NETWORK_ERROR.equals(event.getMessage())) {
             binding.ivWifi.setImageResource(R.mipmap.icon_wificonnectdis);
+        } else if (MQTTCons.ACTION_DEVICE_CHANGE.equals(event.getMessage())) {
+            Launch = 2;
+            setLaunch();
         }
     }
 
@@ -478,19 +481,22 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
                 binding.ivSong2.setImageResource(R.mipmap.icon_playing);
             }
         }
-        if (strings.contains(PadSAttribute.Launch.getAttribute())) {
-            Launch = (int) map.get(PadSAttribute.Launch.getAttribute());
-            setLaunch();
-        }
         if (strings.contains(PadSAttribute.DeviceTimeMin.getAttribute())) {
             mine = (int) map.get(PadSAttribute.DeviceTimeMin.getAttribute());
             binding.tvMine.setText(getPointTwo(mine));
             seconds = (int) map.get(PadSAttribute.DeviceTimeSecond.getAttribute());
             binding.tvSeconds.setText(getPointTwo(seconds));
-            if (Launch == 1) {
-                allTime = mine * 60 + seconds;
-                handler.removeMessages(826);
-                handler.sendEmptyMessage(826);
+        }
+        if (strings.contains(PadSAttribute.Launch.getAttribute())) {
+            int oLaunch = (int) map.get(PadSAttribute.Launch.getAttribute());
+            if (Launch != oLaunch) {
+                Launch = oLaunch;
+                setLaunch();
+                if (Launch == 1) {
+                    allTime = mine * 60 + seconds;
+                    handler.removeMessages(826);
+                    handler.sendEmptyMessage(826);
+                }
             }
         }
         if (strings.contains(PadSAttribute.AirBlowerRun.getAttribute())) {

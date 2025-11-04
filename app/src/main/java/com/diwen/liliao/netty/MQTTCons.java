@@ -18,6 +18,8 @@ public class MQTTCons {
 
     public static final String NETWORK_CONNECTED = "com.tian.mqtt.NETWORK_CONNECTED";
     public static final String NETWORK_ERROR = "com.tian.mqtt.NETWORK_ERROR";
+
+    public static final String ACTION_DEVICE_CHANGE = "com.tian.mqtt.ACTION_DEVICE_CHANGE";
     /**  服务器订阅
      * sys/event/cg/model/id/set receive    /#
      */
