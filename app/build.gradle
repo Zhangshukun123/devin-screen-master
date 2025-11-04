@@ -25,6 +25,18 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            def appName = "Magique"                        // 应用名（可改）
+            def buildTypeName = variant.buildType.name   // debug / release
+            def versionName = variant.versionName        // 版本名
+            def date = new Date().format("yyyyMMdd") // 时间戳
+            // 自定义 APK 文件名
+            def newName = "${appName}_${buildTypeName}_v${versionName}_${date}.apk"
+            // 设置文件名
+            output.outputFileName = newName
+        }
+    }
 }
 
 dependencies {
