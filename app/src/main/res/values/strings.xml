@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Magique</string>
+    <string name="app_name_red">Red Light Therapy Device</string>
     <string name="view_tag_key">translation_z</string>
 </resources>
