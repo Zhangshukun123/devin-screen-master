@@ -18,6 +18,7 @@ import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.diwen.liliao.DemoApp;
+import com.diwen.liliao.InputDialog;
 import com.diwen.liliao.R;
 import com.diwen.liliao.base.BindEventBus;
 import com.diwen.liliao.base.MqttBaseActivity;
@@ -33,6 +34,7 @@ import com.diwen.liliao.netty.MQTTCons;
 import com.diwen.liliao.netty.PadSAttribute;
 import com.diwen.liliao.utils.ActivityUtils;
 import com.diwen.liliao.utils.AtyUtils;
+import com.diwen.liliao.utils.DeviceValueUtils;
 import com.diwen.liliao.utils.ForbadClick;
 import com.diwen.liliao.utils.NetworkMonitor;
 import com.diwen.liliao.utils.StringUtils;
@@ -60,6 +62,8 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
     private int MusicalState = 1;
     private int Launch = 2;//
     private int AirBlowerRun = 3;
+    private int prepareSeconds = 10;
+    private int prepareRemainingSeconds = 10;
     private ArrayList<SettingItem> settingItems;
     private int PluseMode = 0;
     private String deviceName;
@@ -77,6 +81,9 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
         binding.tvRemainingTime.setText(StringUtils.getText("剩余时间"));
         binding.tvMusic.setText(StringUtils.getUpperText("音乐"));
         binding.tvPlayingNow.setText(StringUtils.getText("开始播放"));
+        binding.tvPrepareTitle.setText(StringUtils.getUpperText("开始延时秒数"));
+        binding.tvPrepareHint.setText(StringUtils.getText("现在上床"));
+        binding.tvPrepareSeconds.setText(String.valueOf(prepareSeconds));
         if (DemoApp.getInstance().buildCompany) {
 
         } else {
@@ -121,6 +128,7 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
         super.onDestroy();
         if (handler != null) {
             handler.removeMessages(826);
+            handler.removeMessages(827);
         }
     }
 
@@ -155,6 +163,8 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
         // 减号按钮
         setupButton(binding.rlStartLeft, false);
         binding.rlStart.setOnClickListener(this);
+        binding.tvPrepareSeconds.setOnClickListener(this);
+        binding.ivPrepareBack.setOnClickListener(this);
         binding.ivFinish.setOnClickListener(this);
         binding.ivSetting.setOnClickListener(this);
         binding.ivRecord.setOnClickListener(this);
@@ -327,6 +337,10 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
                     jsonObject.put(PadSAttribute.Launch.getAttribute(), 0);
                 }
                 if (Launch == 2 || Launch == 0) {
+                    if (Launch == 2) {
+                        startPrepareCountdown();
+                        return;
+                    }
                     jsonObject.put(PadSAttribute.Launch.getAttribute(), 1);
                 }
 
@@ -347,10 +361,10 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
         }
         if (v == binding.fenshanJia) {
             if (Launch == 1) {
-                AirBlowerRun++;
-                if (AirBlowerRun > 5) {
+                if (AirBlowerRun >= 5) {
                     return;
                 }
+                AirBlowerRun++;
                 binding.seekbarFengshan.setProgress(AirBlowerRun);
                 try {
                     JSONObject jsonObject = new JSONObject();
@@ -364,10 +378,10 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
         }
         if (v == binding.fenshanJian) {
             if (Launch == 1) {
-                AirBlowerRun--;
-                if (AirBlowerRun < 0) {
+                if (AirBlowerRun <= 1) {
                     return;
                 }
+                AirBlowerRun--;
                 binding.seekbarFengshan.setProgress(AirBlowerRun);
                 try {
                     JSONObject jsonObject = new JSONObject();
@@ -381,6 +395,13 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
         }
         if (v == binding.ivBl) {
 //            ActivityUtils.startActivity(new Intent(mContext, BlStateActivity.class));
+        }
+        if (v == binding.tvPrepareSeconds) {
+            showPrepareSecondsDialog();
+        }
+        if (v == binding.ivPrepareBack) {
+            cancelPrepareCountdown();
+            finishThis();
         }
         if (v == binding.llDeviceName) {
             ActivityUtils.startActivity(new Intent(mContext, DeviceListActivity.class));
@@ -487,6 +508,12 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
             seconds = (int) map.get(PadSAttribute.DeviceTimeSecond.getAttribute());
             binding.tvSeconds.setText(getPointTwo(seconds));
         }
+        if (strings.contains(PadSAttribute.GetReadySecond.getAttribute())) {
+            prepareSeconds = DeviceValueUtils.coercePrepareSeconds((int) map.get(PadSAttribute.GetReadySecond.getAttribute()));
+            if (binding.prepareOverlay.getVisibility() != View.VISIBLE) {
+                binding.tvPrepareSeconds.setText(String.valueOf(prepareSeconds));
+            }
+        }
         if (strings.contains(PadSAttribute.Launch.getAttribute())) {
             int oLaunch = (int) map.get(PadSAttribute.Launch.getAttribute());
             if (Launch != oLaunch) {
@@ -500,7 +527,7 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
             }
         }
         if (strings.contains(PadSAttribute.AirBlowerRun.getAttribute())) {
-            AirBlowerRun = (int) map.get(PadSAttribute.AirBlowerRun.getAttribute());
+            AirBlowerRun = Math.max(1, Math.min(5, (int) map.get(PadSAttribute.AirBlowerRun.getAttribute())));
             binding.seekbarFengshan.setProgress(AirBlowerRun);
         }
         if (strings.contains(PadSAttribute.AirBlowerStop.getAttribute())) {
@@ -559,6 +586,7 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
             jsonObject.put(PadSAttribute.DeviceTimeSecond.getAttribute(), 1);
             jsonObject.put(PadSAttribute.Launch.getAttribute(), 1);
             jsonObject.put(PadSAttribute.PluseMode.getAttribute(), 1);
+            jsonObject.put(PadSAttribute.GetReadySecond.getAttribute(), 1);
 
             jsonObject.put(PadSAttribute.BtState.getAttribute(), 1);
             jsonObject.put(PadSAttribute.Language.getAttribute(), 1);
@@ -640,6 +668,15 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
                     handler.removeMessages(826);
                 }
             }
+            if (msg.what == 827) {
+                prepareRemainingSeconds--;
+                if (prepareRemainingSeconds > 0) {
+                    binding.tvPrepareSeconds.setText(String.valueOf(prepareRemainingSeconds));
+                    handler.sendEmptyMessageDelayed(827, 1000);
+                } else {
+                    finishPrepareCountdown();
+                }
+            }
         }
     };
 
@@ -669,6 +706,66 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
         }
         if (Launch != 1) {
             handler.removeMessages(826);
+        }
+        if (Launch != 2) {
+            cancelPrepareCountdown();
+        }
+    }
+
+    private void startPrepareCountdown() {
+        prepareSeconds = DeviceValueUtils.coercePrepareSeconds(prepareSeconds);
+        prepareRemainingSeconds = prepareSeconds;
+        binding.tvPrepareSeconds.setText(String.valueOf(prepareRemainingSeconds));
+        binding.prepareOverlay.setVisibility(View.VISIBLE);
+        handler.removeMessages(827);
+        handler.sendEmptyMessageDelayed(827, 1000);
+    }
+
+    private void cancelPrepareCountdown() {
+        handler.removeMessages(827);
+        binding.prepareOverlay.setVisibility(View.GONE);
+    }
+
+    private void finishPrepareCountdown() {
+        cancelPrepareCountdown();
+        try {
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put(PadSAttribute.Launch.getAttribute(), 1);
+            DemoApp.getInstance().getAppViewModel().setMQTT(jsonObject);
+            showLoading();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void showPrepareSecondsDialog() {
+        InputDialog dialog = new InputDialog(mContext);
+        dialog.setMaxInputValue(DeviceValueUtils.MAX_PREPARE_SECONDS);
+        dialog.setshow(String.valueOf(prepareSeconds));
+        dialog.setOnitemchildClicke((view, postion, obj) -> {
+            try {
+                prepareSeconds = DeviceValueUtils.coercePrepareSeconds(Integer.parseInt(String.valueOf(obj)));
+                prepareRemainingSeconds = prepareSeconds;
+                binding.tvPrepareSeconds.setText(String.valueOf(prepareSeconds));
+                setPrepareSeconds();
+                if (binding.prepareOverlay.getVisibility() == View.VISIBLE) {
+                    handler.removeMessages(827);
+                    handler.sendEmptyMessageDelayed(827, 1000);
+                }
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
+            }
+        });
+        dialog.showDialog();
+    }
+
+    private void setPrepareSeconds() {
+        try {
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put(PadSAttribute.GetReadySecond.getAttribute(), prepareSeconds);
+            DemoApp.getInstance().getAppViewModel().setMQTT(jsonObject);
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
     }
 } 

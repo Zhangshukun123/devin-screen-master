@@ -45,13 +45,13 @@ public class AirSettingActivity extends MqttBaseActivity<LayoutAirsettingactivit
     @Override
     protected void setUiText() {
         binding.tvSave.setText(DemoApp.getInstance().getAppViewModel().getLangText("保存"));
-        binding.tv1.setText(DemoApp.getInstance().getAppViewModel().getLangText("人体风扇设置"));
-        binding.tv3.setText(DemoApp.getInstance().getAppViewModel().getLangText("设备风扇设置"));
+        binding.tv1.setText(DemoApp.getInstance().getAppViewModel().getLangText("人体风机设置"));
+        binding.tv3.setText(DemoApp.getInstance().getAppViewModel().getLangText("设备风机设置"));
         binding.tvSet1.setText(DemoApp.getInstance().getAppViewModel().getLangText("开始温度"));
         binding.tvSet3.setText(DemoApp.getInstance().getAppViewModel().getLangText("报警温度"));
-        binding.tvChiLun.setText(DemoApp.getInstance().getAppViewModel().getLangText("齿轮"));
+        binding.tvChiLun.setText(DemoApp.getInstance().getAppViewModel().getLangText("档位"));
         binding.tvMineD.setText(DemoApp.getInstance().getAppViewModel().getLangText("分钟"));
-        binding.tv2.setText(DemoApp.getInstance().getAppViewModel().getLangText("延迟关门时间"));
+        binding.tv2.setText(DemoApp.getInstance().getAppViewModel().getLangText("延迟关闭时间"));
 
 
     }

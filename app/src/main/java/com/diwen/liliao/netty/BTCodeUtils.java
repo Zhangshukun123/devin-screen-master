@@ -73,4 +73,18 @@ public class BTCodeUtils {
         }
     }
 
+    public JSONObject queryPemfAttribute() {
+        try {
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put(PadSAttribute.PemfFrequncy.getAttribute(), 1);
+            jsonObject.put(PadSAttribute.PemfIntensity.getAttribute(), 1);
+            jsonObject.put(PadSAttribute.PemfTreatmentTime.getAttribute(), 1);
+            jsonObject.put(PadSAttribute.PemfState.getAttribute(), 1);
+            return jsonObject;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return new JSONObject();
+        }
+    }
+
 } 

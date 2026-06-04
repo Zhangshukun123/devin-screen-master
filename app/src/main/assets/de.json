@@ -77,5 +77,15 @@
   "开始播放": "Jetzt spielen",
   "剩余时间": "RESTZEIT",
   "设置": "Einstellungen",
-  "运行": "läuft"
+  "运行": "läuft",
+  "强度": "Intensität",
+  "治疗时间": "Behandlungszeit",
+  "启动": "Starten",
+  "停止": "Stoppen",
+  "开始延时秒数": "SITZUNG STARTET IN SEKUNDEN",
+  "现在上床": "Geh jetzt ins Bett",
+  "人体风机设置": "Gebläseeinstellung (Patient)",
+  "设备风机设置": "Geräteventilatoreinstellung",
+  "档位": "Drehzahlstufen",
+  "延迟关闭时间": "Ausschaltverzögerung"
 }

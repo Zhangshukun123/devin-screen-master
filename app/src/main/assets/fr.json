@@ -77,5 +77,15 @@
   "开始播放": "Jouer maintenant",
   "剩余时间": "TEMPS RESTANT",
   "设置": "Paramètres",
-  "运行": "Fonctionnement"
+  "运行": "Fonctionnement",
+  "强度": "Intensité",
+  "治疗时间": "Temps de traitement",
+  "启动": "Démarrer",
+  "停止": "Stopper",
+  "开始延时秒数": "SESSION DÉMARRE DANS QUELQUES SECONDES",
+  "现在上床": "Va au lit maintenant",
+  "人体风机设置": "Réglage ventilateur (corps humain)",
+  "设备风机设置": "Réglage du ventilateur de l'appareil",
+  "档位": "Vitesse",
+  "延迟关闭时间": "Temporisation de fermeture"
 }

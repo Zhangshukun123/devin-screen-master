@@ -77,5 +77,15 @@
   "开始播放": "Playing Now",
   "剩余时间": "REMAINING TIME",
   "设置": "setting",
-  "运行": "running"
+  "运行": "running",
+  "强度": "Intensity",
+  "治疗时间": "Treatment Time",
+  "启动": "Start",
+  "停止": "Stop",
+  "开始延时秒数": "SESSION STARTING IN SECONDS",
+  "现在上床": "Get in Bed Now",
+  "人体风机设置": "Human Body Fan Setting",
+  "设备风机设置": "Device Fan Setting",
+  "档位": "Gear",
+  "延迟关闭时间": "Delay Closing Time"
 }
