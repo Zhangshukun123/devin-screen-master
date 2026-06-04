@@ -15,6 +15,7 @@ import com.diwen.liliao.databinding.LayoutDevicesettingactivityBinding;
 import com.diwen.liliao.fragment.BluetoothFragment;
 import com.diwen.liliao.fragment.FansFragment;
 import com.diwen.liliao.fragment.LanguageFragment;
+import com.diwen.liliao.fragment.PemfFragment;
 import com.diwen.liliao.fragment.TimeFragment;
 import com.diwen.liliao.fragment.VersionFragment;
 import com.diwen.liliao.fragment.WifiFragment;
@@ -42,6 +43,7 @@ public class DeviceSettingActivity extends MqttBaseActivity<LayoutDevicesettinga
     private TimeFragment timeFragment;
     private LanguageFragment languageFragment;
     private FansFragment fansFragment;
+    private PemfFragment pemfFragment;
     private VersionFragment versionFragment;
 
     @Override
@@ -115,6 +117,7 @@ public class DeviceSettingActivity extends MqttBaseActivity<LayoutDevicesettinga
         binding.llTime.setOnClickListener(this);
         binding.llLanguage.setOnClickListener(this);
         binding.llFans.setOnClickListener(this);
+        binding.llPemf.setOnClickListener(this);
         binding.llVersion.setOnClickListener(this);
 
     }
@@ -173,6 +176,16 @@ public class DeviceSettingActivity extends MqttBaseActivity<LayoutDevicesettinga
             }
             switchFragment(fansFragment).commit();
         }
+        if (v == binding.llPemf) {
+            resetCheckView();
+            binding.llPemf.setBackgroundResource(R.drawable.bg_radius_4_white10);
+            binding.ivPemf.setImageResource(R.mipmap.ic_pemf_setting_check);
+            binding.tvPemf.setTypeface(Typeface.DEFAULT_BOLD);
+            if (pemfFragment == null) {
+                pemfFragment = PemfFragment.newInstance();
+            }
+            switchFragment(pemfFragment).commit();
+        }
         if (v == binding.llVersion) {
             resetCheckView();
             binding.llVersion.setBackgroundResource(R.drawable.bg_radius_4_white10);
@@ -206,6 +219,8 @@ public class DeviceSettingActivity extends MqttBaseActivity<LayoutDevicesettinga
         binding.ivLanguage.setImageResource(R.mipmap.ic_language_setting);
         binding.llFans.setBackgroundResource(R.drawable.bg_translate);
         binding.ivFans.setImageResource(R.mipmap.ic_fans_setting);
+        binding.llPemf.setBackgroundResource(R.drawable.bg_translate);
+        binding.ivPemf.setImageResource(R.mipmap.ic_pemf_setting);
         binding.llVersion.setBackgroundResource(R.drawable.bg_translate);
         binding.ivVersion.setImageResource(R.mipmap.ic_version_setting);
 
@@ -214,6 +229,7 @@ public class DeviceSettingActivity extends MqttBaseActivity<LayoutDevicesettinga
         binding.tvTime.setTypeface(Typeface.DEFAULT);
         binding.tvLanguage.setTypeface(Typeface.DEFAULT);
         binding.tvFans.setTypeface(Typeface.DEFAULT);
+        binding.tvPemf.setTypeface(Typeface.DEFAULT);
         binding.tvVersion.setTypeface(Typeface.DEFAULT);
     }
 

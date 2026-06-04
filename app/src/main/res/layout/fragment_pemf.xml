@@ -175,26 +175,6 @@
                         app:layout_constraintRight_toRightOf="parent" />
 
                     <EditText
-                        android:id="@+id/evStarTempF"
-                        style="@style/text_normal"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:background="@null"
-                        android:gravity="center|end"
-                        android:hint=" "
-                        android:inputType="numberSigned"
-                        android:textColorHint="#B9CCF9" />
-
-                    <com.hjq.shape.view.ShapeTextView
-                        style="@style/text_normal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:paddingStart="8dp"
-                        android:text="℉" />
-
-                    <EditText
                         android:id="@+id/evStarTemp"
                         style="@style/text_normal"
                         android:layout_width="0dp"
@@ -237,26 +217,6 @@
                         app:layout_constraintRight_toRightOf="parent" />
 
                     <EditText
-                        android:id="@+id/evCreTempF"
-                        style="@style/text_normal"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:background="@null"
-                        android:gravity="center|end"
-                        android:hint=" "
-                        android:inputType="numberSigned"
-                        android:textColorHint="#B9CCF9" />
-
-                    <com.hjq.shape.view.ShapeTextView
-                        style="@style/text_normal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:paddingStart="8dp"
-                        android:text="℉" />
-
-                    <EditText
                         android:id="@+id/evCreTemp"
                         style="@style/text_normal"
                         android:layout_width="0dp"
@@ -280,6 +240,22 @@
 
             </com.hjq.shape.layout.ShapeLinearLayout>
 
+
+            <com.hjq.shape.view.ShapeTextView
+                android:id="@+id/tvSave"
+                android:layout_width="match_parent"
+                android:layout_height="24.5dp"
+                android:layout_gravity="bottom|center_horizontal"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="20dp"
+                android:gravity="center"
+                android:text="保存"
+                android:textColor="@color/white"
+                android:textSize="9sp"
+                app:shape_endColor="#A202FF"
+                app:shape_radius="2dp"
+                app:shape_startColor="#10A5F9" />
+
             <com.hjq.shape.layout.ShapeLinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -291,10 +267,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:orientation="horizontal"
-                    android:paddingHorizontal="16dp"
-                    app:shape="rectangle"
-                    app:shape_radius="4dp"
-                    app:shape_solidColor="#14D5B7FF">
+                    android:paddingHorizontal="16dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -311,24 +284,6 @@
                             android:text="T1："
                             app:layout_constraintLeft_toRightOf="@id/tvFen"
                             app:layout_constraintRight_toRightOf="parent" />
-
-                        <TextView
-                            android:id="@+id/evStarTempT1F"
-                            style="@style/text_normal"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:background="@null"
-                            android:gravity="center|end"
-                            android:textColorHint="#B9CCF9" />
-
-                        <com.hjq.shape.view.ShapeTextView
-                            style="@style/text_normal"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:gravity="center"
-                            android:paddingStart="8dp"
-                            android:text="℉" />
 
                         <TextView
                             android:id="@+id/evStarTempT1"
@@ -359,10 +314,7 @@
                     android:layout_marginStart="@dimen/dp_10"
                     android:layout_weight="1"
                     android:orientation="horizontal"
-                    android:paddingHorizontal="16dp"
-                    app:shape="rectangle"
-                    app:shape_radius="4dp"
-                    app:shape_solidColor="#14D5B7FF">
+                    android:paddingHorizontal="16dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -379,24 +331,6 @@
                             android:text="T2："
                             app:layout_constraintLeft_toRightOf="@id/tvFen"
                             app:layout_constraintRight_toRightOf="parent" />
-
-                        <TextView
-                            android:id="@+id/evStarTempT2F"
-                            style="@style/text_normal"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:background="@null"
-                            android:gravity="center|end"
-                            android:textColorHint="#B9CCF9" />
-
-                        <com.hjq.shape.view.ShapeTextView
-                            style="@style/text_normal"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:gravity="center"
-                            android:paddingStart="8dp"
-                            android:text="℉" />
 
                         <TextView
                             android:id="@+id/evCreTempT2"
@@ -422,22 +356,6 @@
                 </com.hjq.shape.layout.ShapeLinearLayout>
 
             </com.hjq.shape.layout.ShapeLinearLayout>
-
-
-            <com.hjq.shape.view.ShapeTextView
-                android:id="@+id/tvSave"
-                android:layout_width="match_parent"
-                android:layout_height="24.5dp"
-                android:layout_gravity="bottom|center_horizontal"
-                android:layout_marginTop="12dp"
-                android:layout_marginBottom="20dp"
-                android:gravity="center"
-                android:text="保存"
-                android:textColor="@color/white"
-                android:textSize="9sp"
-                app:shape_endColor="#A202FF"
-                app:shape_radius="2dp"
-                app:shape_startColor="#10A5F9" />
 
         </com.hjq.shape.layout.ShapeLinearLayout>
     </androidx.core.widget.NestedScrollView>

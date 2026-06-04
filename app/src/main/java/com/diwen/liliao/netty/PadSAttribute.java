@@ -63,7 +63,11 @@ public enum PadSAttribute {
     SoftWareVer("SoftWareVer"),
     AirBlowerRun("AirBlowerRun"),
     Warning("Warning"),
-    HeartTimer("HeartTimer");
+    HeartTimer("HeartTimer"),
+    PemfFrequncy("PemfFrequncy"),
+    PemfIntensity("PemfIntensity"),
+    PemfTreatmentTime("PemfTreatmentTime"),
+    PemfState("PemfState");
 
     // 成员变量  
     private String Attribute;

@@ -140,7 +140,7 @@
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:paddingStart="@dimen/dp_10"
-                app:layout_constraintBottom_toTopOf="@id/llVersion"
+                app:layout_constraintBottom_toTopOf="@id/llPemf"
                 app:layout_constraintTop_toBottomOf="@id/llLanguage">
 
                 <ImageView
@@ -161,6 +161,33 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/llPemf"
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="@dimen/dp_10"
+                app:layout_constraintBottom_toTopOf="@id/llVersion"
+                app:layout_constraintTop_toBottomOf="@id/llFans">
+
+                <ImageView
+                    android:id="@+id/ivPemf"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:src="@mipmap/ic_pemf_setting" />
+
+                <TextView
+                    android:id="@+id/tvPemf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_4"
+                    android:text="PEMF"
+                    android:textColor="@color/white"
+                    android:textSize="9sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:id="@+id/llVersion"
                 android:layout_width="match_parent"
                 android:layout_height="36dp"
@@ -168,7 +195,7 @@
                 android:orientation="horizontal"
                 android:paddingStart="@dimen/dp_10"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/llFans">
+                app:layout_constraintTop_toBottomOf="@id/llPemf">
 
                 <ImageView
                     android:id="@+id/ivVersion"
