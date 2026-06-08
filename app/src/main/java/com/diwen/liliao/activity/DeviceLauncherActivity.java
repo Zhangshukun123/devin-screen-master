@@ -56,6 +56,8 @@ import java.util.Set;
  */
 @BindEventBus
 public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelauncheractivityBinding> {
+    public static final String EXTRA_AUTO_PREPARE_COUNTDOWN = "autoPrepareCountdown";
+
     private long AnimatorTime = 1000;
     private int mine = 10;
     private int seconds = 0;
@@ -64,6 +66,8 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
     private int AirBlowerRun = 3;
     private int prepareSeconds = 10;
     private int prepareRemainingSeconds = 10;
+    private boolean autoPrepareCountdown = false;
+    private boolean waitingForReadySecond = false;
     private ArrayList<SettingItem> settingItems;
     private int PluseMode = 0;
     private String deviceName;
@@ -72,7 +76,7 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
 
     @Override
     protected void handleIntent(Intent intent) {
-
+        autoPrepareCountdown = intent.getBooleanExtra(EXTRA_AUTO_PREPARE_COUNTDOWN, false);
     }
 
     @Override
@@ -206,6 +210,10 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
             }
             return true;
         });
+        if (autoPrepareCountdown) {
+            autoPrepareCountdown = false;
+            binding.prepareOverlay.post(this::requestAutoPrepareCountdown);
+        }
     }
 
 
@@ -400,8 +408,7 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
             showPrepareSecondsDialog();
         }
         if (v == binding.ivPrepareBack) {
-            cancelPrepareCountdown();
-            finishThis();
+            returnToModeSelection();
         }
         if (v == binding.llDeviceName) {
             ActivityUtils.startActivity(new Intent(mContext, DeviceListActivity.class));
@@ -510,7 +517,10 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
         }
         if (strings.contains(PadSAttribute.GetReadySecond.getAttribute())) {
             prepareSeconds = DeviceValueUtils.coercePrepareSeconds((int) map.get(PadSAttribute.GetReadySecond.getAttribute()));
-            if (binding.prepareOverlay.getVisibility() != View.VISIBLE) {
+            if (waitingForReadySecond && Launch == 2) {
+                waitingForReadySecond = false;
+                startPrepareCountdown();
+            } else if (binding.prepareOverlay.getVisibility() != View.VISIBLE) {
                 binding.tvPrepareSeconds.setText(String.valueOf(prepareSeconds));
             }
         }
@@ -713,6 +723,7 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
     }
 
     private void startPrepareCountdown() {
+        waitingForReadySecond = false;
         prepareSeconds = DeviceValueUtils.coercePrepareSeconds(prepareSeconds);
         prepareRemainingSeconds = prepareSeconds;
         binding.tvPrepareSeconds.setText(String.valueOf(prepareRemainingSeconds));
@@ -722,8 +733,17 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
     }
 
     private void cancelPrepareCountdown() {
+        waitingForReadySecond = false;
         handler.removeMessages(827);
         binding.prepareOverlay.setVisibility(View.GONE);
+    }
+
+    private void requestAutoPrepareCountdown() {
+        if (Launch != 2) {
+            return;
+        }
+        waitingForReadySecond = true;
+        getAllAttributes();
     }
 
     private void finishPrepareCountdown() {
@@ -736,6 +756,22 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    private void returnToModeSelection() {
+        cancelPrepareCountdown();
+        ActivityUtils.startActivity(new Intent(mContext, DeviceModelActivity.class)
+                .putExtra("name", MyMMKV.getDeviceName()));
+        finish();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (binding.prepareOverlay.getVisibility() == View.VISIBLE) {
+            returnToModeSelection();
+            return;
+        }
+        super.onBackPressed();
     }
 
     private void showPrepareSecondsDialog() {

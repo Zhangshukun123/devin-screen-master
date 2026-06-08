@@ -94,15 +94,20 @@ public class DeviceModelActivity extends MqttBaseActivity<LayoutDevicemodelactiv
                 return;
             }
             showLoading();
-            if (ActivityUtils.isActivityExistsInStack(DeviceLauncherActivity.class)) {
-                ActivityUtils.finishToActivity(DeviceLauncherActivity.class, false);
-            } else {
-                ActivityUtils.startActivity(new Intent(mContext, DeviceLauncherActivity.class));
-                ActivityUtils.finishActivity(DeviceModelActivity.class);
-            }
+            startPrepareLauncher();
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    private void startPrepareLauncher() {
+        if (ActivityUtils.isActivityExistsInStack(DeviceLauncherActivity.class)) {
+            ActivityUtils.finishActivity(DeviceLauncherActivity.class);
+        }
+        Intent intent = new Intent(mContext, DeviceLauncherActivity.class)
+                .putExtra(DeviceLauncherActivity.EXTRA_AUTO_PREPARE_COUNTDOWN, true);
+        ActivityUtils.startActivity(intent);
+        ActivityUtils.finishActivity(DeviceModelActivity.class);
     }
 
     @Override

@@ -11,10 +11,11 @@
         android:layout_height="match_parent">
 
         <com.hjq.shape.layout.ShapeLinearLayout
-            android:layout_width="match_parent"
+            android:id="@+id/pemfContent"
+            android:layout_width="220dp"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingTop="12dp"
+            android:paddingTop="6dp"
             app:shape="rectangle">
 
             <LinearLayout
@@ -25,12 +26,12 @@
                 android:orientation="horizontal">
 
                 <com.hjq.shape.layout.ShapeLinearLayout
-                    android:layout_width="0dp"
+                    android:id="@+id/pemfSettingsCard"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:orientation="vertical"
-                    android:paddingHorizontal="16dp"
-                    android:paddingVertical="8dp"
+                    android:paddingHorizontal="12dp"
+                    android:paddingVertical="7dp"
                     app:shape="rectangle"
                     app:shape_radius="4dp"
                     app:shape_solidColor="#14D5B7FF">
@@ -58,6 +59,9 @@
                             android:gravity="center|end"
                             android:hint=" "
                             android:inputType="numberSigned"
+                            android:minWidth="0dp"
+                            android:paddingStart="0dp"
+                            android:paddingEnd="0dp"
                             android:textColor="@color/white"
                             android:textColorHint="#B9CCF9"
                             android:textSize="11sp" />
@@ -80,6 +84,7 @@
                         android:background="@color/divide" />
 
                     <LinearLayout
+                        android:id="@+id/pemfIntensityRow"
                         android:layout_width="match_parent"
                         android:layout_height="36dp"
                         android:gravity="center_vertical"
@@ -93,11 +98,16 @@
                             android:textColor="@color/white"
                             android:textSize="10sp" />
 
+                        <View
+                            android:id="@+id/pemfIntensitySpacer"
+                            android:layout_width="0dp"
+                            android:layout_height="1dp"
+                            android:layout_weight="1" />
+
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/rectangle"
                             android:layout_width="wrap_content"
-                            android:layout_height="28dp"
-                            android:layout_marginStart="22dp"
+                            android:layout_height="24dp"
                             android:orientation="horizontal"
                             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                             tools:itemCount="5"
@@ -133,6 +143,9 @@
                             android:gravity="center|end"
                             android:hint=" "
                             android:inputType="numberSigned"
+                            android:minWidth="0dp"
+                            android:paddingStart="0dp"
+                            android:paddingEnd="0dp"
                             android:textColor="@color/white"
                             android:textColorHint="#B9CCF9"
                             android:textSize="11sp" />
@@ -151,91 +164,104 @@
 
                 </com.hjq.shape.layout.ShapeLinearLayout>
 
-                <com.hjq.shape.view.ShapeTextView
-                    android:id="@+id/tvSave"
-                    android:layout_width="72dp"
-                    android:layout_height="28dp"
-                    android:layout_marginStart="12dp"
-                    android:gravity="center"
-                    android:text="Save"
-                    android:textColor="@color/white"
-                    android:textSize="9sp"
-                    android:textStyle="bold"
-                    app:shape_endColor="#A202FF"
-                    app:shape_radius="2dp"
-                    app:shape_startColor="#10A5F9" />
-
-                <LinearLayout
-                    android:id="@+id/llPemfAuto"
-                    android:layout_width="96dp"
-                    android:layout_height="28dp"
-                    android:layout_marginStart="40dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/tvAutoLabel"
-                        android:layout_width="30dp"
-                        android:layout_height="28dp"
-                        android:gravity="center"
-                        android:text="AUTO"
-                        android:textColor="@color/white"
-                        android:textSize="6sp" />
-
-                    <com.hjq.shape.view.ShapeTextView
-                        android:id="@+id/tvPemfAutoState"
-                        android:layout_width="50dp"
-                        android:layout_height="28dp"
-                        android:gravity="center"
-                        android:text="ON"
-                        android:textColor="@color/white"
-                        android:textSize="9sp"
-                        android:textStyle="bold"
-                        app:shape_radius="2dp"
-                        app:shape_solidColor="#10A5F9" />
-
-                </LinearLayout>
-
             </LinearLayout>
 
             <ImageView
                 android:id="@+id/ivRunning"
-                android:layout_width="300dp"
-                android:layout_height="120dp"
-                android:layout_marginTop="14dp"
+                android:layout_width="220dp"
+                android:layout_height="88dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/bg_pemf_running_panel"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="8dp"
                 android:scaleType="fitCenter"
                 android:src="@mipmap/ic_running_false" />
 
-            <com.hjq.shape.layout.ShapeLinearLayout
-                android:id="@+id/btnPemfManual"
-                android:layout_width="210dp"
-                android:layout_height="34dp"
-                android:layout_marginTop="14dp"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:visibility="gone"
-                app:shape_endColor="#A202FF"
-                app:shape_radius="2dp"
-                app:shape_startColor="#10A5F9">
+            <RelativeLayout
+                android:id="@+id/pemfControlsRow"
+                android:layout_width="220dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center_vertical">
 
-                <ImageView
-                    android:id="@+id/ivPemfManual"
-                    android:layout_width="18dp"
-                    android:layout_height="18dp"
-                    android:layout_marginEnd="8dp"
-                    android:src="@mipmap/ic_pemf_start" />
-
-                <TextView
-                    android:id="@+id/tvPemfManual"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                <com.hjq.shape.layout.ShapeLinearLayout
+                    android:id="@+id/btnPemfManual"
+                    android:layout_width="88dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
                     android:gravity="center"
-                    android:text="START"
-                    android:textColor="@color/white"
-                    android:textSize="10sp"
-                    android:textStyle="bold" />
+                    android:orientation="horizontal"
+                    android:visibility="gone"
+                    app:shape_endColor="#A202FF"
+                    app:shape_radius="2dp"
+                    app:shape_startColor="#10A5F9">
 
-            </com.hjq.shape.layout.ShapeLinearLayout>
+                    <ImageView
+                        android:id="@+id/ivPemfManual"
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:src="@mipmap/ic_pemf_start" />
+
+                    <TextView
+                        android:id="@+id/tvPemfManual"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="START"
+                        android:textColor="@color/white"
+                        android:textSize="9sp"
+                        android:textStyle="bold"
+                        android:visibility="gone" />
+
+                </com.hjq.shape.layout.ShapeLinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/llPemfAuto"
+                    android:layout_width="88dp"
+                    android:layout_height="26dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <com.hjq.shape.view.ShapeTextView
+                        android:id="@+id/tvAutoLabel"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginEnd="6dp"
+                        android:gravity="center"
+                        android:text="AUTO"
+                        android:textColor="@color/white"
+                        android:textSize="5sp"
+                        app:shape_radius="12dp"
+                        app:shape_strokeColor="#FFFFFFFF"
+                        app:shape_strokeWidth="0.8dp" />
+
+                    <FrameLayout
+                        android:id="@+id/pemfAutoSwitchTrack"
+                        android:layout_width="58dp"
+                        android:layout_height="26dp"
+                        android:background="@drawable/bg_pemf_auto_track">
+
+                        <com.hjq.shape.view.ShapeTextView
+                            android:id="@+id/tvPemfAutoState"
+                            android:layout_width="40dp"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="end|center_vertical"
+                            android:gravity="center"
+                            android:text="ON"
+                            android:textColor="@color/white"
+                            android:textSize="8sp"
+                            android:textStyle="bold"
+                            app:shape_radius="2dp"
+                            app:shape_solidColor="#10A5F9" />
+
+                    </FrameLayout>
+
+                </LinearLayout>
+
+            </RelativeLayout>
 
         </com.hjq.shape.layout.ShapeLinearLayout>
     </androidx.core.widget.NestedScrollView>

@@ -5,7 +5,6 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.diwen.liliao.DemoApp;
@@ -100,7 +99,6 @@ public class FansFragment extends BaseFragment<FragmentFansBinding> {
                 if (strings.contains(PadSAttribute.AirBlowerStop.getAttribute())) {
                     int AirBlower = (int) map.get(PadSAttribute.AirBlowerStop.getAttribute());
                     selectFanGear(AirBlower);
-                    binding.seekbarFans.setProgress(AirBlower);
                 }
                 if (strings.contains(PadSAttribute.AirTime.getAttribute())) {
                     int AirTime = (int) map.get(PadSAttribute.AirTime.getAttribute());

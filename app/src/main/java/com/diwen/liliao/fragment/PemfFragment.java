@@ -2,7 +2,14 @@ package com.diwen.liliao.fragment;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.Gravity;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.diwen.liliao.DemoApp;
@@ -19,6 +26,8 @@ import com.diwen.liliao.netty.BTCodeUtils;
 import com.diwen.liliao.netty.MQTTCons;
 import com.diwen.liliao.netty.PadSAttribute;
 import com.diwen.liliao.utils.AtyUtils;
+import com.diwen.liliao.utils.PemfPayloadBuilder;
+import com.diwen.liliao.utils.UiTextUtils;
 import com.hjq.toast.ToastUtils;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -32,10 +41,19 @@ import java.util.Set;
 
 @BindEventBus
 public class PemfFragment extends BaseFragment<FragmentPemfBinding> {
+    private static final long AUTO_SAVE_DELAY_MS = 500L;
+    private final Handler autoSaveHandler = new Handler(Looper.getMainLooper());
+    private final Runnable autoSaveRunnable = new Runnable() {
+        @Override
+        public void run() {
+            savePemf();
+        }
+    };
     private ButtonAirListAdapter intensityAdapter;
     private ArrayList<SettingItem> intensityList;
     private int pemfState = 1;
     private boolean pemfRunning;
+    private boolean applyingDeviceValues;
 
     public static PemfFragment newInstance() {
         Bundle args = new Bundle();
@@ -46,10 +64,9 @@ public class PemfFragment extends BaseFragment<FragmentPemfBinding> {
 
     @Override
     protected void initView() {
-        binding.tvFrequency.setText(lang("频率", "Frequency"));
-        binding.tvIntensity.setText(lang("强度", "Intensity"));
-        binding.tvTreatmentTime.setText(lang("治疗时间", "Treatment Time"));
-        binding.tvSave.setText(lang("保存", "Save"));
+        binding.tvFrequency.setText(label("频率", "Frequency"));
+        binding.tvIntensity.setText(label("强度", "Intensity"));
+        binding.tvTreatmentTime.setText(label("治疗时间", "Treatment Time"));
         binding.tvAutoLabel.setText(lang("自动", "AUTO"));
         updateAutoUi();
         updateManualUi();
@@ -64,9 +81,9 @@ public class PemfFragment extends BaseFragment<FragmentPemfBinding> {
         intensityAdapter = new ButtonAirListAdapter(intensityList);
         binding.rectangle.setAdapter(intensityAdapter);
         selectIntensity(1);
+        setupAutoSave();
         queryPemfAttribute();
 
-        binding.tvSave.setOnClickListener(view -> savePemf());
         binding.llPemfAuto.setOnClickListener(view -> {
             pemfState = pemfState == 1 ? 0 : 1;
             if (pemfState == 1) {
@@ -74,6 +91,7 @@ public class PemfFragment extends BaseFragment<FragmentPemfBinding> {
             }
             updateAutoUi();
             updateManualUi();
+            savePemfNow();
         });
         binding.btnPemfManual.setOnClickListener(view -> {
             if (pemfState == 1) {
@@ -82,7 +100,10 @@ public class PemfFragment extends BaseFragment<FragmentPemfBinding> {
             pemfRunning = !pemfRunning;
             updateManualUi();
         });
-        intensityAdapter.setOnItemClickListener((adapter, view, position) -> selectIntensity(position + 1));
+        intensityAdapter.setOnItemClickListener((adapter, view, position) -> {
+            selectIntensity(position + 1);
+            savePemfNow();
+        });
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -98,6 +119,8 @@ public class PemfFragment extends BaseFragment<FragmentPemfBinding> {
             if (map == null || !DeviceId.equals(MyMMKV.getDeviceName())) {
                 return;
             }
+            applyingDeviceValues = true;
+            autoSaveHandler.removeCallbacks(autoSaveRunnable);
             Set<String> strings = map.keySet();
             if (strings.contains(PadSAttribute.onLineState.getAttribute())) {
                 Integer onLineState = getInt(map.get(PadSAttribute.onLineState.getAttribute()));
@@ -125,6 +148,8 @@ public class PemfFragment extends BaseFragment<FragmentPemfBinding> {
         } catch (Exception e) {
             ToastUtils.show(e.toString());
             e.printStackTrace();
+        } finally {
+            applyingDeviceValues = false;
         }
     }
 
@@ -136,18 +161,57 @@ public class PemfFragment extends BaseFragment<FragmentPemfBinding> {
     private void savePemf() {
         try {
             JSONObject jsonObject = new JSONObject();
-            if (AtyUtils.isStringEmpty(AtyUtils.getText(binding.evFrequency))) {
-                jsonObject.put(PadSAttribute.PemfFrequncy.getAttribute(), Integer.parseInt(AtyUtils.getText(binding.evFrequency)));
+            Map<String, Integer> payload = PemfPayloadBuilder.build(
+                    AtyUtils.getText(binding.evFrequency),
+                    getSelectedIntensity(),
+                    AtyUtils.getText(binding.evTreatmentTime),
+                    pemfState == 1 ? 1 : 0
+            );
+            for (Map.Entry<String, Integer> entry : payload.entrySet()) {
+                jsonObject.put(entry.getKey(), entry.getValue());
             }
-            jsonObject.put(PadSAttribute.PemfIntensity.getAttribute(), getSelectedIntensity());
-            if (AtyUtils.isStringEmpty(AtyUtils.getText(binding.evTreatmentTime))) {
-                jsonObject.put(PadSAttribute.PemfTreatmentTime.getAttribute(), Integer.parseInt(AtyUtils.getText(binding.evTreatmentTime)));
-            }
-            jsonObject.put(PadSAttribute.PemfState.getAttribute(), pemfState == 1 ? 1 : 0);
             DemoApp.getInstance().getAppViewModel().setMQTT(jsonObject);
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    private void setupAutoSave() {
+        addAutoSaveTextWatcher(binding.evFrequency);
+        addAutoSaveTextWatcher(binding.evTreatmentTime);
+    }
+
+    private void addAutoSaveTextWatcher(EditText source) {
+        source.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                scheduleSavePemf();
+            }
+        });
+    }
+
+    private void scheduleSavePemf() {
+        if (applyingDeviceValues) {
+            return;
+        }
+        autoSaveHandler.removeCallbacks(autoSaveRunnable);
+        autoSaveHandler.postDelayed(autoSaveRunnable, AUTO_SAVE_DELAY_MS);
+    }
+
+    private void savePemfNow() {
+        if (applyingDeviceValues) {
+            return;
+        }
+        autoSaveHandler.removeCallbacks(autoSaveRunnable);
+        savePemf();
     }
 
     private void selectIntensity(int intensity) {
@@ -174,8 +238,11 @@ public class PemfFragment extends BaseFragment<FragmentPemfBinding> {
         boolean auto = pemfState == 1;
         binding.btnPemfManual.setVisibility(auto ? View.GONE : View.VISIBLE);
         binding.tvPemfAutoState.setText(auto ? "ON" : "OFF");
+        FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) binding.tvPemfAutoState.getLayoutParams();
+        layoutParams.gravity = (auto ? Gravity.END : Gravity.START) | Gravity.CENTER_VERTICAL;
+        binding.tvPemfAutoState.setLayoutParams(layoutParams);
         binding.tvPemfAutoState.getShapeDrawableBuilder()
-                .setSolidColor(Color.parseColor(auto ? "#10A5F9" : "#3A2E67"))
+                .setSolidColor(Color.parseColor(auto ? "#10A5F9" : "#6A2ED8"))
                 .intoBackground();
     }
 
@@ -188,6 +255,10 @@ public class PemfFragment extends BaseFragment<FragmentPemfBinding> {
     private String lang(String key, String fallback) {
         String text = DemoApp.getInstance().getAppViewModel().getLangText(key);
         return AtyUtils.isStringEmpty(text) ? text : fallback;
+    }
+
+    private String label(String key, String fallback) {
+        return UiTextUtils.withoutTrailingColon(lang(key, fallback));
     }
 
     private int getIntValue(Object value) {
@@ -213,5 +284,11 @@ public class PemfFragment extends BaseFragment<FragmentPemfBinding> {
         if (!value.equals(AtyUtils.getText(view))) {
             view.setText(value);
         }
+    }
+
+    @Override
+    public void onDestroyView() {
+        autoSaveHandler.removeCallbacks(autoSaveRunnable);
+        super.onDestroyView();
     }
 }

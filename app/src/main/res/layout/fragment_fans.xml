@@ -35,6 +35,7 @@
                     android:textStyle="bold" />
 
                 <com.hjq.shape.layout.ShapeLinearLayout
+                    android:id="@+id/fanHumanCard"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
@@ -44,6 +45,7 @@
                     app:shape_solidColor="#14D5B7FF">
 
                     <LinearLayout
+                        android:id="@+id/fanGearRow"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
@@ -60,24 +62,11 @@
                             app:layout_constraintLeft_toRightOf="@id/tvFen"
                             app:layout_constraintRight_toRightOf="parent" />
 
-                        <SeekBar
-                            android:id="@+id/seekbar_fans"
-                            style="@android:style/Widget.SeekBar"
+                        <View
+                            android:id="@+id/fanGearSpacer"
                             android:layout_width="0dp"
-                            android:layout_height="28dp"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginStart="@dimen/dp_10"
-                            android:layout_weight="1"
-                            android:background="@null"
-                            android:max="5"
-                            android:min="0"
-                            android:paddingVertical="12dp"
-                            android:paddingStart="0dp"
-                            android:paddingEnd="0dp"
-                            android:progress="1"
-                            android:progressDrawable="@drawable/layer_list_progress_drawable_1"
-                            android:thumb="@drawable/shape_progressbar_thumb"
-                            android:visibility="gone" />
+                            android:layout_height="1dp"
+                            android:layout_weight="1" />
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/rectangle"

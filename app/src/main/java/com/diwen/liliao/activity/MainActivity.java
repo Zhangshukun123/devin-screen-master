@@ -100,7 +100,6 @@ public class MainActivity extends MqttBaseActivity<ActivityMainBinding> {
                 ActivityUtils.startActivity(new Intent(mContext, DeviceModelActivity.class));
             } else {
                 ToastUtils.show("No networking");
-                ActivityUtils.startActivity(new Intent(mContext, DeviceModelActivity.class));
             }
         });
     }

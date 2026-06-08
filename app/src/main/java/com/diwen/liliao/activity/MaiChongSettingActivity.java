@@ -307,10 +307,12 @@ public class MaiChongSettingActivity extends MqttBaseActivity<LayoutMaichongacti
             }
             DemoApp.getInstance().getAppViewModel().setMQTT(jsonObject);
             if (ActivityUtils.isActivityExistsInStack(DeviceLauncherActivity.class)) {
-//                ActivityUtils.finishToActivity(DeviceLauncherActivity.class, false);
-            } else {
-                ActivityUtils.startActivity(new Intent(mContext, DeviceLauncherActivity.class));
+                ActivityUtils.finishActivity(DeviceLauncherActivity.class);
             }
+            ActivityUtils.startActivity(new Intent(mContext, DeviceLauncherActivity.class)
+                    .putExtra(DeviceLauncherActivity.EXTRA_AUTO_PREPARE_COUNTDOWN, true));
+            ActivityUtils.finishActivity(MaiChongSettingActivity.class);
+            ActivityUtils.finishActivity(DeviceModelActivity.class);
         } catch (Exception e) {
             e.printStackTrace();
         }
