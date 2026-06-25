@@ -56,7 +56,6 @@ import java.util.Set;
  */
 @BindEventBus
 public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelauncheractivityBinding> {
-    public static final String EXTRA_AUTO_PREPARE_COUNTDOWN = "autoPrepareCountdown";
 
     private long AnimatorTime = 1000;
     private int mine = 10;
@@ -66,8 +65,6 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
     private int AirBlowerRun = 3;
     private int prepareSeconds = 10;
     private int prepareRemainingSeconds = 10;
-    private boolean autoPrepareCountdown = false;
-    private boolean waitingForReadySecond = false;
     private ArrayList<SettingItem> settingItems;
     private int PluseMode = 0;
     private String deviceName;
@@ -76,7 +73,6 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
 
     @Override
     protected void handleIntent(Intent intent) {
-        autoPrepareCountdown = intent.getBooleanExtra(EXTRA_AUTO_PREPARE_COUNTDOWN, false);
     }
 
     @Override
@@ -210,10 +206,6 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
             }
             return true;
         });
-        if (autoPrepareCountdown) {
-            autoPrepareCountdown = false;
-            binding.prepareOverlay.post(this::requestAutoPrepareCountdown);
-        }
     }
 
 
@@ -338,20 +330,17 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
         }
         if (v == binding.rlStart) {
             try {
-
                 JSONObject jsonObject = new JSONObject();
-                //1 启动 2停止   0 暂停
+                // 0 暂停 1 启动 2 停止 3 准备
                 if (Launch == 1) {
                     jsonObject.put(PadSAttribute.Launch.getAttribute(), 0);
-                }
-                if (Launch == 2 || Launch == 0) {
-                    if (Launch == 2) {
-                        startPrepareCountdown();
-                        return;
-                    }
+                } else if (Launch == 0) {
                     jsonObject.put(PadSAttribute.Launch.getAttribute(), 1);
+                } else if (Launch == 2) {
+                    // 停止状态点击启动：下发准备状态(3)，同时根据倒计时时间开始倒计时
+                    jsonObject.put(PadSAttribute.Launch.getAttribute(), 3);
+                    startPrepareCountdown();
                 }
-
                 DemoApp.getInstance().getAppViewModel().setMQTT(jsonObject);
                 showLoading();
             } catch (JSONException e) {
@@ -517,10 +506,7 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
         }
         if (strings.contains(PadSAttribute.GetReadySecond.getAttribute())) {
             prepareSeconds = DeviceValueUtils.coercePrepareSeconds((int) map.get(PadSAttribute.GetReadySecond.getAttribute()));
-            if (waitingForReadySecond && Launch == 2) {
-                waitingForReadySecond = false;
-                startPrepareCountdown();
-            } else if (binding.prepareOverlay.getVisibility() != View.VISIBLE) {
+            if (binding.prepareOverlay.getVisibility() != View.VISIBLE) {
                 binding.tvPrepareSeconds.setText(String.valueOf(prepareSeconds));
             }
         }
@@ -698,7 +684,7 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
     }
 
     public void setLaunch() {
-        // 0 暂停 1 启动 2 停止
+        // 0 暂停 1 启动 2 停止 3 准备
         if (Launch == 0) {
             binding.ivStart.setImageResource(R.mipmap.ic_stop);
             binding.tvStatus.setText(StringUtils.getUpperText("运行"));
@@ -714,16 +700,20 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
             binding.tvStatus.setText(StringUtils.getUpperText("设置"));
 //            binding.tvStart.setText(DemoApp.getInstance().getAppViewModel().getLangText("开始"));//Start
         }
+        if (Launch == 3) {
+            // 准备状态：正在进行启动倒计时
+            binding.ivStart.setImageResource(R.mipmap.ic_start);
+            binding.tvStatus.setText(StringUtils.getUpperText("准备"));
+        }
         if (Launch != 1) {
             handler.removeMessages(826);
         }
-        if (Launch != 2) {
+        if (Launch != 3) {
             cancelPrepareCountdown();
         }
     }
 
     private void startPrepareCountdown() {
-        waitingForReadySecond = false;
         prepareSeconds = DeviceValueUtils.coercePrepareSeconds(prepareSeconds);
         prepareRemainingSeconds = prepareSeconds;
         binding.tvPrepareSeconds.setText(String.valueOf(prepareRemainingSeconds));
@@ -733,17 +723,8 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
     }
 
     private void cancelPrepareCountdown() {
-        waitingForReadySecond = false;
         handler.removeMessages(827);
         binding.prepareOverlay.setVisibility(View.GONE);
-    }
-
-    private void requestAutoPrepareCountdown() {
-        if (Launch != 2) {
-            return;
-        }
-        waitingForReadySecond = true;
-        getAllAttributes();
     }
 
     private void finishPrepareCountdown() {

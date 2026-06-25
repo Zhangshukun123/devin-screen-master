@@ -4,10 +4,14 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.graphics.Rect;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.content.Context;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.TextView;
@@ -99,11 +103,67 @@ public class PemfFragment extends BaseFragment<FragmentPemfBinding> {
             }
             pemfRunning = !pemfRunning;
             updateManualUi();
+            sendPemfWorkState();
         });
         intensityAdapter.setOnItemClickListener((adapter, view, position) -> {
             selectIntensity(position + 1);
             savePemfNow();
         });
+
+        setupHideKeyboardOnTouch();
+    }
+
+    @SuppressWarnings("ClickableViewAccessibility")
+    private void setupHideKeyboardOnTouch() {
+        binding.getRoot().setOnTouchListener((view, event) -> {
+            if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                hideKeyboardIfOutside(event);
+            }
+            return false;
+        });
+    }
+
+    private void hideKeyboardIfOutside(MotionEvent event) {
+        if (binding == null) {
+            return;
+        }
+        EditText current = getFocusedEditText();
+        if (current == null) {
+            return;
+        }
+        if (isTouchOutside(current, event)) {
+            hideKeyboard(current);
+            current.clearFocus();
+        }
+    }
+
+    private EditText getFocusedEditText() {
+        if (binding.evFrequency.hasFocus()) {
+            return binding.evFrequency;
+        }
+        if (binding.evTreatmentTime.hasFocus()) {
+            return binding.evTreatmentTime;
+        }
+        return null;
+    }
+
+    private boolean isTouchOutside(View view, MotionEvent event) {
+        if (view == null) {
+            return false;
+        }
+        int[] location = new int[2];
+        view.getLocationOnScreen(location);
+        Rect rect = new Rect(location[0], location[1],
+                location[0] + view.getWidth(), location[1] + view.getHeight());
+        return !rect.contains((int) event.getRawX(), (int) event.getRawY());
+    }
+
+    private void hideKeyboard(View view) {
+        InputMethodManager imm = (InputMethodManager) view.getContext()
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (imm != null) {
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -145,6 +205,10 @@ public class PemfFragment extends BaseFragment<FragmentPemfBinding> {
                 updateAutoUi();
                 updateManualUi();
             }
+            if (strings.contains(PadSAttribute.PemfWorkState.getAttribute())) {
+                pemfRunning = getIntValue(map.get(PadSAttribute.PemfWorkState.getAttribute())) == 1;
+                updateManualUi();
+            }
         } catch (Exception e) {
             ToastUtils.show(e.toString());
             e.printStackTrace();
@@ -170,6 +234,19 @@ public class PemfFragment extends BaseFragment<FragmentPemfBinding> {
             for (Map.Entry<String, Integer> entry : payload.entrySet()) {
                 jsonObject.put(entry.getKey(), entry.getValue());
             }
+            DemoApp.getInstance().getAppViewModel().setMQTT(jsonObject);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void sendPemfWorkState() {
+        if (applyingDeviceValues) {
+            return;
+        }
+        try {
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put(PadSAttribute.PemfWorkState.getAttribute(), pemfRunning ? 1 : 0);
             DemoApp.getInstance().getAppViewModel().setMQTT(jsonObject);
         } catch (JSONException e) {
             e.printStackTrace();

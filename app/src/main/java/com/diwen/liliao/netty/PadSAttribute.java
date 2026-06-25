@@ -68,6 +68,8 @@ public enum PadSAttribute {
     PemfIntensity("PemfIntensity"),
     PemfTreatmentTime("PemfTreatmentTime"),
     PemfState("PemfState"),
+    PemfWorkState("PemfWorkState"),
+    PemfEnable("PemfEnable"),
     GetReadySecond("GetReadySecond");
 
     // 成员变量  

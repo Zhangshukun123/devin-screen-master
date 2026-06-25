@@ -80,6 +80,19 @@ public class BTCodeUtils {
             jsonObject.put(PadSAttribute.PemfIntensity.getAttribute(), 1);
             jsonObject.put(PadSAttribute.PemfTreatmentTime.getAttribute(), 1);
             jsonObject.put(PadSAttribute.PemfState.getAttribute(), 1);
+            jsonObject.put(PadSAttribute.PemfWorkState.getAttribute(), 1);
+            return jsonObject;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return new JSONObject();
+        }
+    }
+
+    //  查询设备是否具有 PEMF 功能
+    public JSONObject queryPemfEnable() {
+        try {
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put(PadSAttribute.PemfEnable.getAttribute(), 1);
             return jsonObject;
         } catch (JSONException e) {
             e.printStackTrace();

@@ -12,11 +12,11 @@ import static org.junit.Assert.assertTrue;
 public class DeviceStartFlowStructureTest {
 
     @Test
-    public void modeSelectionStartsLauncherInPrepareCountdownMode() throws Exception {
-        String source = readSource("src/main/java/com/diwen/liliao/activity/DeviceModelActivity.java");
+    public void stopStateStartButtonSendsPrepareLaunchState() throws Exception {
+        String source = readSource("src/main/java/com/diwen/liliao/activity/DeviceLauncherActivity.java");
 
-        assertTrue(source.contains("DeviceLauncherActivity.EXTRA_AUTO_PREPARE_COUNTDOWN"));
-        assertTrue(source.contains("putExtra(DeviceLauncherActivity.EXTRA_AUTO_PREPARE_COUNTDOWN, true)"));
+        assertTrue(source.contains("PadSAttribute.Launch.getAttribute(), 3"));
+        assertTrue(source.contains("startPrepareCountdown()"));
     }
 
     @Test
@@ -29,21 +29,15 @@ public class DeviceStartFlowStructureTest {
     }
 
     @Test
-    public void manualModeSaveStartsLauncherInPrepareCountdownMode() throws Exception {
-        String source = readSource("src/main/java/com/diwen/liliao/activity/MaiChongSettingActivity.java");
+    public void modeSelectionDoesNotAutoStartPrepareCountdown() throws Exception {
+        String modelSource = readSource("src/main/java/com/diwen/liliao/activity/DeviceModelActivity.java");
+        String maiChongSource = readSource("src/main/java/com/diwen/liliao/activity/MaiChongSettingActivity.java");
+        String launcherSource = readSource("src/main/java/com/diwen/liliao/activity/DeviceLauncherActivity.java");
 
-        assertTrue(source.contains("DeviceLauncherActivity.EXTRA_AUTO_PREPARE_COUNTDOWN"));
-        assertTrue(source.contains("putExtra(DeviceLauncherActivity.EXTRA_AUTO_PREPARE_COUNTDOWN, true)"));
-    }
-
-    @Test
-    public void autoPrepareCountdownWaitsForReadySecondFromDevice() throws Exception {
-        String source = readSource("src/main/java/com/diwen/liliao/activity/DeviceLauncherActivity.java");
-
-        assertTrue(source.contains("requestAutoPrepareCountdown()"));
-        assertTrue(source.contains("waitingForReadySecond = true"));
-        assertTrue(source.contains("if (waitingForReadySecond && Launch == 2)"));
-        assertTrue(source.contains("waitingForReadySecond = false"));
+        assertFalse(modelSource.contains("EXTRA_AUTO_PREPARE_COUNTDOWN"));
+        assertFalse(maiChongSource.contains("EXTRA_AUTO_PREPARE_COUNTDOWN"));
+        assertFalse(launcherSource.contains("requestAutoPrepareCountdown"));
+        assertFalse(launcherSource.contains("waitingForReadySecond"));
     }
 
     @Test

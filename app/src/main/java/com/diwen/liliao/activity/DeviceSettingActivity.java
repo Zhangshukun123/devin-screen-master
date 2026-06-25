@@ -10,6 +10,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.diwen.liliao.DemoApp;
 import com.diwen.liliao.R;
 import com.diwen.liliao.adapter.SettingListAdapter;
+import com.diwen.liliao.base.BindEventBus;
 import com.diwen.liliao.base.MqttBaseActivity;
 import com.diwen.liliao.databinding.LayoutDevicesettingactivityBinding;
 import com.diwen.liliao.fragment.BluetoothFragment;
@@ -20,20 +21,28 @@ import com.diwen.liliao.fragment.TimeFragment;
 import com.diwen.liliao.fragment.VersionFragment;
 import com.diwen.liliao.fragment.WifiFragment;
 import com.diwen.liliao.mmkv.MyMMKV;
+import com.diwen.liliao.model.MessageEvent;
+import com.diwen.liliao.model.MqttParseOverModel;
 import com.diwen.liliao.model.SettingItem;
 import com.diwen.liliao.netty.BTCodeUtils;
+import com.diwen.liliao.netty.MQTTCons;
 import com.diwen.liliao.netty.PadSAttribute;
 import com.diwen.liliao.utils.ActivityUtils;
 
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Created By  tian on 2024/7/16
  * Describe:  设备设置
  */
+@BindEventBus
 public class DeviceSettingActivity extends MqttBaseActivity<LayoutDevicesettingactivityBinding> {
     private ArrayList<SettingItem> settingItems;
     private SettingListAdapter settingListAdapter;
@@ -45,6 +54,7 @@ public class DeviceSettingActivity extends MqttBaseActivity<LayoutDevicesettinga
     private FansFragment fansFragment;
     private PemfFragment pemfFragment;
     private VersionFragment versionFragment;
+    private boolean pemfEnable = true;
 
     @Override
     protected void handleIntent(Intent intent) {
@@ -107,6 +117,51 @@ public class DeviceSettingActivity extends MqttBaseActivity<LayoutDevicesettinga
     @Override
     protected void config() {
         binding.tvName.setText(MyMMKV.getDeviceName());
+        pemfEnable = MyMMKV.getBoolean(MyMMKV.PemfEnable, true);
+        applyPemfEnableUi();
+        queryPemfEnable();
+    }
+
+    //  连接成功后下发 PEMF 询问指令，查询是否具有 PEMF 功能
+    private void queryPemfEnable() {
+        JSONObject jsonObject = BTCodeUtils.getInstance().queryPemfEnable();
+        DemoApp.getInstance().getAppViewModel().sendInquiryMQTT(jsonObject);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEventMainThread(MessageEvent event) {
+        if (MQTTCons.ACTION_DATA_AVAILABLE.equals(event.getMessage())) {
+            MqttParseOverModel model = event.getMqttParseOverModel();
+            MqttMessage(model.getDeviceId(), model.getMap());
+        }
+    }
+
+    @Override
+    protected void MqttMessage(String DeviceId, Map<String, Object> map) {
+        if (map == null || !DeviceId.equals(MyMMKV.getDeviceName())) {
+            return;
+        }
+        Set<String> strings = map.keySet();
+        if (strings.contains(PadSAttribute.onLineState.getAttribute())) {
+            Object value = map.get(PadSAttribute.onLineState.getAttribute());
+            if (value instanceof Number && ((Number) value).intValue() == 1) {
+                queryPemfEnable();
+            }
+        }
+        if (strings.contains(PadSAttribute.PemfEnable.getAttribute())) {
+            Object value = map.get(PadSAttribute.PemfEnable.getAttribute());
+            if (value instanceof Number) {
+                pemfEnable = ((Number) value).intValue() == 1;
+                MyMMKV.putBoolean(MyMMKV.PemfEnable, pemfEnable);
+                applyPemfEnableUi();
+            }
+        }
+    }
+
+    //  根据是否具有 PEMF 功能，置灰/恢复 PEMF 入口
+    private void applyPemfEnableUi() {
+        binding.llPemf.setEnabled(pemfEnable);
+        binding.llPemf.setAlpha(pemfEnable ? 1f : 0.4f);
     }
 
     @Override
@@ -177,6 +232,9 @@ public class DeviceSettingActivity extends MqttBaseActivity<LayoutDevicesettinga
             switchFragment(fansFragment).commit();
         }
         if (v == binding.llPemf) {
+            if (!pemfEnable) {
+                return;
+            }
             resetCheckView();
             binding.llPemf.setBackgroundResource(R.drawable.bg_radius_4_white10);
             binding.ivPemf.setImageResource(R.mipmap.ic_pemf_setting_check);

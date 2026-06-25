@@ -104,8 +104,7 @@ public class DeviceModelActivity extends MqttBaseActivity<LayoutDevicemodelactiv
         if (ActivityUtils.isActivityExistsInStack(DeviceLauncherActivity.class)) {
             ActivityUtils.finishActivity(DeviceLauncherActivity.class);
         }
-        Intent intent = new Intent(mContext, DeviceLauncherActivity.class)
-                .putExtra(DeviceLauncherActivity.EXTRA_AUTO_PREPARE_COUNTDOWN, true);
+        Intent intent = new Intent(mContext, DeviceLauncherActivity.class);
         ActivityUtils.startActivity(intent);
         ActivityUtils.finishActivity(DeviceModelActivity.class);
     }

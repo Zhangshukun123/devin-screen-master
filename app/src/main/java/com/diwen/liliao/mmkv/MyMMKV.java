@@ -11,6 +11,7 @@ public class MyMMKV {
     public static final String hostIp = "hostIp";
     public static final String Language = "Language";
     public static final String SoftWareVer = "SoftWareVer";
+    public static final String PemfEnable = "PemfEnable";
 
 
     public static MMKV get() {

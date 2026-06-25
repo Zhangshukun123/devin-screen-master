@@ -309,8 +309,7 @@ public class MaiChongSettingActivity extends MqttBaseActivity<LayoutMaichongacti
             if (ActivityUtils.isActivityExistsInStack(DeviceLauncherActivity.class)) {
                 ActivityUtils.finishActivity(DeviceLauncherActivity.class);
             }
-            ActivityUtils.startActivity(new Intent(mContext, DeviceLauncherActivity.class)
-                    .putExtra(DeviceLauncherActivity.EXTRA_AUTO_PREPARE_COUNTDOWN, true));
+            ActivityUtils.startActivity(new Intent(mContext, DeviceLauncherActivity.class));
             ActivityUtils.finishActivity(MaiChongSettingActivity.class);
             ActivityUtils.finishActivity(DeviceModelActivity.class);
         } catch (Exception e) {
