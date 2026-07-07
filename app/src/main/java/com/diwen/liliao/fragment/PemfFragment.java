@@ -141,9 +141,6 @@ public class PemfFragment extends BaseFragment<FragmentPemfBinding> {
         if (binding.evFrequency.hasFocus()) {
             return binding.evFrequency;
         }
-        if (binding.evTreatmentTime.hasFocus()) {
-            return binding.evTreatmentTime;
-        }
         return null;
     }
 
@@ -189,7 +186,9 @@ public class PemfFragment extends BaseFragment<FragmentPemfBinding> {
                 }
             }
             if (strings.contains(PadSAttribute.PemfFrequncy.getAttribute())) {
-                setTextIfChanged(binding.evFrequency, String.valueOf(getIntValue(map.get(PadSAttribute.PemfFrequncy.getAttribute()))));
+                setTextIfChanged(binding.evFrequency,
+                        PemfPayloadBuilder.formatFrequencyForDisplay(
+                                getIntValue(map.get(PadSAttribute.PemfFrequncy.getAttribute()))));
             }
             if (strings.contains(PadSAttribute.PemfIntensity.getAttribute())) {
                 selectIntensity(getIntValue(map.get(PadSAttribute.PemfIntensity.getAttribute())));
@@ -228,7 +227,7 @@ public class PemfFragment extends BaseFragment<FragmentPemfBinding> {
             Map<String, Integer> payload = PemfPayloadBuilder.build(
                     AtyUtils.getText(binding.evFrequency),
                     getSelectedIntensity(),
-                    AtyUtils.getText(binding.evTreatmentTime),
+                    "",
                     pemfState == 1 ? 1 : 0
             );
             for (Map.Entry<String, Integer> entry : payload.entrySet()) {
@@ -255,7 +254,6 @@ public class PemfFragment extends BaseFragment<FragmentPemfBinding> {
 
     private void setupAutoSave() {
         addAutoSaveTextWatcher(binding.evFrequency);
-        addAutoSaveTextWatcher(binding.evTreatmentTime);
     }
 
     private void addAutoSaveTextWatcher(EditText source) {

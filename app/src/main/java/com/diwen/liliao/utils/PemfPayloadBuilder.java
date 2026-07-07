@@ -3,9 +3,13 @@ package com.diwen.liliao.utils;
 import com.diwen.liliao.netty.PadSAttribute;
 
 import java.util.LinkedHashMap;
+import java.util.Locale;
 import java.util.Map;
 
 public final class PemfPayloadBuilder {
+    private static final int MIN_FREQUENCY_TENTHS = 5;
+    private static final int MAX_FREQUENCY_TENTHS = 720;
+
     private PemfPayloadBuilder() {
     }
 
@@ -16,21 +20,24 @@ public final class PemfPayloadBuilder {
             int state
     ) {
         Map<String, Integer> payload = new LinkedHashMap<>();
-        putIfNumber(payload, PadSAttribute.PemfFrequncy.getAttribute(), frequency);
+        putIfFrequency(payload, frequency);
         payload.put(PadSAttribute.PemfIntensity.getAttribute(), intensity);
-        putIfNumber(payload, PadSAttribute.PemfTreatmentTime.getAttribute(), treatmentTime);
         payload.put(PadSAttribute.PemfState.getAttribute(), state);
         return payload;
     }
 
-    private static void putIfNumber(Map<String, Integer> payload, String key, String value) {
-        Integer parsedValue = parseInteger(value);
+    public static String formatFrequencyForDisplay(int deviceFrequencyTenths) {
+        return String.format(Locale.US, "%.1f", coerceFrequencyTenths(deviceFrequencyTenths) / 10f);
+    }
+
+    private static void putIfFrequency(Map<String, Integer> payload, String value) {
+        Integer parsedValue = parseFrequencyTenths(value);
         if (parsedValue != null) {
-            payload.put(key, parsedValue);
+            payload.put(PadSAttribute.PemfFrequncy.getAttribute(), parsedValue);
         }
     }
 
-    private static Integer parseInteger(String value) {
+    private static Integer parseFrequencyTenths(String value) {
         if (value == null) {
             return null;
         }
@@ -39,9 +46,19 @@ public final class PemfPayloadBuilder {
             return null;
         }
         try {
-            return Integer.parseInt(trimmedValue);
+            return coerceFrequencyTenths(Math.round(Float.parseFloat(trimmedValue) * 10f));
         } catch (NumberFormatException e) {
             return null;
         }
+    }
+
+    private static int coerceFrequencyTenths(int frequencyTenths) {
+        if (frequencyTenths < MIN_FREQUENCY_TENTHS) {
+            return MIN_FREQUENCY_TENTHS;
+        }
+        if (frequencyTenths > MAX_FREQUENCY_TENTHS) {
+            return MAX_FREQUENCY_TENTHS;
+        }
+        return frequencyTenths;
     }
 }

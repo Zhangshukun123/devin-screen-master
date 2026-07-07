@@ -61,7 +61,7 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
     private int mine = 10;
     private int seconds = 0;
     private int MusicalState = 1;
-    private int Launch = 2;//
+    private int Launch = DeviceLaunchStateController.LAUNCH_UNKNOWN;//
     private int AirBlowerRun = 3;
     private int prepareSeconds = 10;
     private int prepareRemainingSeconds = 10;
@@ -331,14 +331,12 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
         if (v == binding.rlStart) {
             try {
                 JSONObject jsonObject = new JSONObject();
-                // 0 暂停 1 启动 2 停止 3 准备
-                if (Launch == 1) {
-                    jsonObject.put(PadSAttribute.Launch.getAttribute(), 0);
-                } else if (Launch == 0) {
-                    jsonObject.put(PadSAttribute.Launch.getAttribute(), 1);
-                } else if (Launch == 2) {
-                    // 停止状态点击启动：下发准备状态(3)，同时根据倒计时时间开始倒计时
-                    jsonObject.put(PadSAttribute.Launch.getAttribute(), 3);
+                int nextLaunch = DeviceLaunchStateController.nextLaunchForStartButton(Launch);
+                if (nextLaunch == DeviceLaunchStateController.NO_LAUNCH_COMMAND) {
+                    return;
+                }
+                jsonObject.put(PadSAttribute.Launch.getAttribute(), nextLaunch);
+                if (nextLaunch == DeviceLaunchStateController.LAUNCH_PREPARING) {
                     startPrepareCountdown();
                 }
                 DemoApp.getInstance().getAppViewModel().setMQTT(jsonObject);
@@ -448,8 +446,9 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
         } else if (MQTTCons.NETWORK_ERROR.equals(event.getMessage())) {
             binding.ivWifi.setImageResource(R.mipmap.icon_wificonnectdis);
         } else if (MQTTCons.ACTION_DEVICE_CHANGE.equals(event.getMessage())) {
-            Launch = 2;
+            Launch = DeviceLaunchStateController.LAUNCH_UNKNOWN;
             setLaunch();
+            getAllAttributes();
         }
     }
 
@@ -685,6 +684,10 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
 
     public void setLaunch() {
         // 0 暂停 1 启动 2 停止 3 准备
+        if (Launch == DeviceLaunchStateController.LAUNCH_UNKNOWN) {
+            binding.ivStart.setImageResource(R.mipmap.ic_start);
+            binding.tvStatus.setText(StringUtils.getUpperText("设置"));
+        }
         if (Launch == 0) {
             binding.ivStart.setImageResource(R.mipmap.ic_stop);
             binding.tvStatus.setText(StringUtils.getUpperText("运行"));

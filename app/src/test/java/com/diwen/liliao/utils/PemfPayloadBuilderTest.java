@@ -13,12 +13,36 @@ public class PemfPayloadBuilderTest {
 
     @Test
     public void buildsPayloadFromCurrentPemfSettings() {
-        Map<String, Integer> payload = PemfPayloadBuilder.build("12", 3, "20", 1);
+        Map<String, Integer> payload = PemfPayloadBuilder.build("12.3", 3, "20", 1);
 
-        assertEquals(Integer.valueOf(12), payload.get(PadSAttribute.PemfFrequncy.getAttribute()));
+        assertEquals(Integer.valueOf(123), payload.get(PadSAttribute.PemfFrequncy.getAttribute()));
         assertEquals(Integer.valueOf(3), payload.get(PadSAttribute.PemfIntensity.getAttribute()));
-        assertEquals(Integer.valueOf(20), payload.get(PadSAttribute.PemfTreatmentTime.getAttribute()));
+        assertFalse(payload.containsKey(PadSAttribute.PemfTreatmentTime.getAttribute()));
         assertEquals(Integer.valueOf(1), payload.get(PadSAttribute.PemfState.getAttribute()));
+    }
+
+    @Test
+    public void scalesPemfFrequencyBetweenDisplayedHzAndDeviceTenths() {
+        assertEquals("0.5", PemfPayloadBuilder.formatFrequencyForDisplay(5));
+        assertEquals("12.3", PemfPayloadBuilder.formatFrequencyForDisplay(123));
+        assertEquals("72.0", PemfPayloadBuilder.formatFrequencyForDisplay(720));
+
+        Map<String, Integer> minPayload = PemfPayloadBuilder.build("0.5", 1, "15", 1);
+        Map<String, Integer> maxPayload = PemfPayloadBuilder.build("72.0", 1, "15", 1);
+
+        assertEquals(Integer.valueOf(5), minPayload.get(PadSAttribute.PemfFrequncy.getAttribute()));
+        assertEquals(Integer.valueOf(720), maxPayload.get(PadSAttribute.PemfFrequncy.getAttribute()));
+        assertFalse(minPayload.containsKey(PadSAttribute.PemfTreatmentTime.getAttribute()));
+        assertFalse(maxPayload.containsKey(PadSAttribute.PemfTreatmentTime.getAttribute()));
+    }
+
+    @Test
+    public void coercesPemfFrequencyToSupportedRange() {
+        Map<String, Integer> lowPayload = PemfPayloadBuilder.build("0.1", 1, "15", 1);
+        Map<String, Integer> highPayload = PemfPayloadBuilder.build("99.9", 1, "15", 1);
+
+        assertEquals(Integer.valueOf(5), lowPayload.get(PadSAttribute.PemfFrequncy.getAttribute()));
+        assertEquals(Integer.valueOf(720), highPayload.get(PadSAttribute.PemfFrequncy.getAttribute()));
     }
 
     @Test

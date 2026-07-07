@@ -3,19 +3,51 @@ package com.diwen.liliao.activity;
 import org.junit.Test;
 
 import java.io.File;
+import java.lang.reflect.Method;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class DeviceStartFlowStructureTest {
 
     @Test
+    public void startButtonOnlyPreparesWhenLaunchStateIsConfirmedStopped() throws Exception {
+        Class<?> controllerClass = Class.forName("com.diwen.liliao.activity.DeviceLaunchStateController");
+        Method nextLaunchForStartButton = controllerClass.getDeclaredMethod("nextLaunchForStartButton", int.class);
+
+        int unknown = controllerClass.getDeclaredField("LAUNCH_UNKNOWN").getInt(null);
+        int paused = controllerClass.getDeclaredField("LAUNCH_PAUSED").getInt(null);
+        int running = controllerClass.getDeclaredField("LAUNCH_RUNNING").getInt(null);
+        int stopped = controllerClass.getDeclaredField("LAUNCH_STOPPED").getInt(null);
+        int preparing = controllerClass.getDeclaredField("LAUNCH_PREPARING").getInt(null);
+        int noCommand = controllerClass.getDeclaredField("NO_LAUNCH_COMMAND").getInt(null);
+
+        assertEquals(paused, nextLaunchForStartButton.invoke(null, running));
+        assertEquals(running, nextLaunchForStartButton.invoke(null, paused));
+        assertEquals(preparing, nextLaunchForStartButton.invoke(null, stopped));
+        assertEquals(noCommand, nextLaunchForStartButton.invoke(null, preparing));
+        assertEquals(noCommand, nextLaunchForStartButton.invoke(null, unknown));
+    }
+
+    @Test
+    public void launcherDoesNotTreatUnknownDeviceLaunchAsStopped() throws Exception {
+        String source = readSource("src/main/java/com/diwen/liliao/activity/DeviceLauncherActivity.java");
+
+        assertTrue(source.contains("private int Launch = DeviceLaunchStateController.LAUNCH_UNKNOWN;"));
+        assertTrue(source.contains("DeviceLaunchStateController.nextLaunchForStartButton(Launch)"));
+        assertTrue(source.contains("Launch = DeviceLaunchStateController.LAUNCH_UNKNOWN;"));
+        assertFalse(source.contains("Launch = 2;\n            setLaunch();"));
+    }
+
+    @Test
     public void stopStateStartButtonSendsPrepareLaunchState() throws Exception {
         String source = readSource("src/main/java/com/diwen/liliao/activity/DeviceLauncherActivity.java");
 
-        assertTrue(source.contains("PadSAttribute.Launch.getAttribute(), 3"));
+        assertTrue(source.contains("jsonObject.put(PadSAttribute.Launch.getAttribute(), nextLaunch);"));
+        assertTrue(source.contains("nextLaunch == DeviceLaunchStateController.LAUNCH_PREPARING"));
         assertTrue(source.contains("startPrepareCountdown()"));
     }
 

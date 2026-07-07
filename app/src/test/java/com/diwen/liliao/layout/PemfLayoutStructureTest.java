@@ -54,6 +54,22 @@ public class PemfLayoutStructureTest {
     }
 
     @Test
+    public void frequencyAcceptsDecimalHzAndTreatmentTimeIsDeviceReportedOnly() throws Exception {
+        Document document = readPemfLayout();
+        Element frequency = findById(document.getDocumentElement(), "@+id/evFrequency");
+        Element treatmentTime = findById(document.getDocumentElement(), "@+id/evTreatmentTime");
+
+        assertNotNull(frequency);
+        assertNotNull(treatmentTime);
+        assertEquals("numberDecimal", frequency.getAttribute("android:inputType"));
+        assertEquals("none", treatmentTime.getAttribute("android:inputType"));
+        assertEquals("false", treatmentTime.getAttribute("android:focusable"));
+        assertEquals("false", treatmentTime.getAttribute("android:focusableInTouchMode"));
+        assertEquals("false", treatmentTime.getAttribute("android:cursorVisible"));
+        assertEquals("false", treatmentTime.getAttribute("android:longClickable"));
+    }
+
+    @Test
     public void intensityButtonsAreCompactEnoughForPemfCard() throws Exception {
         Document document = readIntensityButtonLayout();
         Element button = findById(document.getDocumentElement(), "@+id/tvButton");
