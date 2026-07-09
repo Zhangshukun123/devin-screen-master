@@ -61,17 +61,28 @@ public class DeviceStartFlowStructureTest {
     }
 
     @Test
-    public void modeSelectionOnlyChangesModeAndOpensLauncher() throws Exception {
+    public void modeSelectionSendsPrepareLaunchAndOpensLauncher() throws Exception {
         String modelSource = readSource("src/main/java/com/diwen/liliao/activity/DeviceModelActivity.java");
         String maiChongSource = readSource("src/main/java/com/diwen/liliao/activity/MaiChongSettingActivity.java");
         String launcherSource = readSource("src/main/java/com/diwen/liliao/activity/DeviceLauncherActivity.java");
 
-        assertFalse(modelSource.contains("jsonObject.put(PadSAttribute.Launch.getAttribute(), DeviceLaunchStateController.LAUNCH_PREPARING);"));
-        assertFalse(modelSource.contains("intent.putExtra(DeviceLauncherActivity.EXTRA_START_PREPARE_COUNTDOWN, true);"));
+        assertTrue(modelSource.contains("jsonObject.put(PadSAttribute.Launch.getAttribute(), DeviceLaunchStateController.LAUNCH_PREPARING);"));
+        assertTrue(modelSource.contains("intent.putExtra(DeviceLauncherActivity.EXTRA_START_PREPARE_COUNTDOWN, true);"));
         assertFalse(maiChongSource.contains("jsonObject.put(PadSAttribute.Launch.getAttribute(), DeviceLaunchStateController.LAUNCH_PREPARING);"));
         assertFalse(maiChongSource.contains("intent.putExtra(DeviceLauncherActivity.EXTRA_START_PREPARE_COUNTDOWN, true);"));
-        assertFalse(launcherSource.contains("EXTRA_START_PREPARE_COUNTDOWN"));
+        assertTrue(launcherSource.contains("static final String EXTRA_START_PREPARE_COUNTDOWN"));
+        assertTrue(launcherSource.contains("Launch = DeviceLaunchStateController.LAUNCH_PREPARING;"));
         assertTrue(launcherSource.contains("startPrepareCountdown();"));
+    }
+
+    @Test
+    public void modeSelectionLauncherEntrySkipsInitialStatusQuerySpam() throws Exception {
+        String source = readSource("src/main/java/com/diwen/liliao/activity/DeviceLauncherActivity.java");
+
+        assertTrue(source.contains("private boolean skipNextOnlineAttributeQuery;"));
+        assertTrue(source.contains("if (startPrepareCountdownFromModeSelection) {"));
+        assertTrue(source.contains("} else {\n            getAllAttributes();\n        }"));
+        assertTrue(source.contains("if (skipNextOnlineAttributeQuery) {"));
     }
 
     @Test

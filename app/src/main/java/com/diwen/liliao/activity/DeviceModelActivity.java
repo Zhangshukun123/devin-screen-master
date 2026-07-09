@@ -89,6 +89,7 @@ public class DeviceModelActivity extends MqttBaseActivity<LayoutDevicemodelactiv
         try {
             JSONObject jsonObject = new JSONObject();
             jsonObject.put(PadSAttribute.PluseMode.getAttribute(), PluseMode);
+            jsonObject.put(PadSAttribute.Launch.getAttribute(), DeviceLaunchStateController.LAUNCH_PREPARING);
             DemoApp.getInstance().getAppViewModel().setMQTT(jsonObject);
             if (!finish) {
                 return;
@@ -105,6 +106,7 @@ public class DeviceModelActivity extends MqttBaseActivity<LayoutDevicemodelactiv
             ActivityUtils.finishActivity(DeviceLauncherActivity.class);
         }
         Intent intent = new Intent(mContext, DeviceLauncherActivity.class);
+        intent.putExtra(DeviceLauncherActivity.EXTRA_START_PREPARE_COUNTDOWN, true);
         ActivityUtils.startActivity(intent);
         ActivityUtils.finishActivity(DeviceModelActivity.class);
     }
