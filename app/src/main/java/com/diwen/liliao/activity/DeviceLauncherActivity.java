@@ -57,8 +57,6 @@ import java.util.Set;
 @BindEventBus
 public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelauncheractivityBinding> {
 
-    static final String EXTRA_START_PREPARE_COUNTDOWN = "extra_start_prepare_countdown";
-
     private long AnimatorTime = 1000;
     private int mine = 10;
     private int seconds = 0;
@@ -72,17 +70,9 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
     private String deviceName;
     private List<String> mMsgList;
     private MsgAdapter mMsgAdapter;
-    private boolean startPrepareCountdownFromModeSelection;
-    private boolean skipNextOnlineAttributeQuery;
 
     @Override
     protected void handleIntent(Intent intent) {
-        startPrepareCountdownFromModeSelection = intent != null
-                && intent.getBooleanExtra(EXTRA_START_PREPARE_COUNTDOWN, false);
-        if (startPrepareCountdownFromModeSelection) {
-            Launch = DeviceLaunchStateController.LAUNCH_PREPARING;
-            skipNextOnlineAttributeQuery = true;
-        }
     }
 
     @Override
@@ -125,11 +115,7 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void config() {
-        if (startPrepareCountdownFromModeSelection) {
-            startPrepareCountdown();
-        } else {
-            getAllAttributes();
-        }
+        getAllAttributes();
         mMsgList = new ArrayList<>();
         mMsgAdapter = new MsgAdapter();
         binding.mesreList.setAdapter(mMsgAdapter);
@@ -479,11 +465,7 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
         if (strings.contains(PadSAttribute.onLineState.getAttribute())) {
             int onLineState = (int) map.get(PadSAttribute.onLineState.getAttribute());
             if (onLineState == 1) {
-                if (skipNextOnlineAttributeQuery) {
-                    skipNextOnlineAttributeQuery = false;
-                } else {
-                    getAllAttributes();
-                }
+                getAllAttributes();
                 binding.ivPhone.setImageResource(R.mipmap.icon_phoneline);
             } else {
                 binding.ivPhone.setImageResource(R.mipmap.icon_phoneunline);
