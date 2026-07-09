@@ -198,7 +198,8 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
         binding.rlStart.setOnLongClickListener(v -> {
             try {
                 JSONObject jsonObject = new JSONObject();
-                jsonObject.put(PadSAttribute.Launch.getAttribute(), 2);
+                int nextLaunch = DeviceLaunchStateController.nextLaunchForLongPress(Launch);
+                jsonObject.put(PadSAttribute.Launch.getAttribute(), nextLaunch);
                 DemoApp.getInstance().getAppViewModel().setMQTT(jsonObject);
                 showLoading();
             } catch (JSONException e) {
