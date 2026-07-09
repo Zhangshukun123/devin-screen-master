@@ -51,13 +51,12 @@ public class DeviceStartFlowStructureTest {
     }
 
     @Test
-    public void launcherDoesNotTreatUnknownDeviceLaunchAsStopped() throws Exception {
+    public void launcherDefaultsToStoppedBeforeDeviceStateArrives() throws Exception {
         String source = readSource("src/main/java/com/diwen/liliao/activity/DeviceLauncherActivity.java");
 
-        assertTrue(source.contains("private int Launch = DeviceLaunchStateController.LAUNCH_UNKNOWN;"));
+        assertTrue(source.contains("private int Launch = DeviceLaunchStateController.LAUNCH_STOPPED;"));
         assertTrue(source.contains("DeviceLaunchStateController.nextLaunchForStartButton(Launch)"));
-        assertTrue(source.contains("Launch = DeviceLaunchStateController.LAUNCH_UNKNOWN;"));
-        assertFalse(source.contains("Launch = 2;\n            setLaunch();"));
+        assertTrue(source.contains("Launch = DeviceLaunchStateController.LAUNCH_STOPPED;"));
     }
 
     @Test

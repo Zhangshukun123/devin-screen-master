@@ -61,7 +61,7 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
     private int mine = 10;
     private int seconds = 0;
     private int MusicalState = 1;
-    private int Launch = DeviceLaunchStateController.LAUNCH_UNKNOWN;//
+    private int Launch = DeviceLaunchStateController.LAUNCH_STOPPED;//
     private int AirBlowerRun = 3;
     private int prepareSeconds = 10;
     private int prepareRemainingSeconds = 10;
@@ -447,7 +447,7 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
         } else if (MQTTCons.NETWORK_ERROR.equals(event.getMessage())) {
             binding.ivWifi.setImageResource(R.mipmap.icon_wificonnectdis);
         } else if (MQTTCons.ACTION_DEVICE_CHANGE.equals(event.getMessage())) {
-            Launch = DeviceLaunchStateController.LAUNCH_UNKNOWN;
+            Launch = DeviceLaunchStateController.LAUNCH_STOPPED;
             setLaunch();
             getAllAttributes();
         }
