@@ -16,9 +16,6 @@ final class DeviceLaunchStateController {
             return LAUNCH_PAUSED;
         }
         if (launch == LAUNCH_PAUSED) {
-            return LAUNCH_RUNNING;
-        }
-        if (launch == LAUNCH_STOPPED) {
             return LAUNCH_PREPARING;
         }
         return NO_LAUNCH_COMMAND;

@@ -14,7 +14,7 @@ import static org.junit.Assert.assertTrue;
 public class DeviceStartFlowStructureTest {
 
     @Test
-    public void startButtonOnlyPreparesWhenLaunchStateIsConfirmedStopped() throws Exception {
+    public void startButtonOnlyPreparesWhenLaunchStateIsConfirmedPaused() throws Exception {
         Class<?> controllerClass = Class.forName("com.diwen.liliao.activity.DeviceLaunchStateController");
         Method nextLaunchForStartButton = controllerClass.getDeclaredMethod("nextLaunchForStartButton", int.class);
 
@@ -26,8 +26,8 @@ public class DeviceStartFlowStructureTest {
         int noCommand = controllerClass.getDeclaredField("NO_LAUNCH_COMMAND").getInt(null);
 
         assertEquals(paused, nextLaunchForStartButton.invoke(null, running));
-        assertEquals(running, nextLaunchForStartButton.invoke(null, paused));
-        assertEquals(preparing, nextLaunchForStartButton.invoke(null, stopped));
+        assertEquals(preparing, nextLaunchForStartButton.invoke(null, paused));
+        assertEquals(noCommand, nextLaunchForStartButton.invoke(null, stopped));
         assertEquals(noCommand, nextLaunchForStartButton.invoke(null, preparing));
         assertEquals(noCommand, nextLaunchForStartButton.invoke(null, unknown));
     }
@@ -43,7 +43,7 @@ public class DeviceStartFlowStructureTest {
     }
 
     @Test
-    public void stopStateStartButtonSendsPrepareLaunchState() throws Exception {
+    public void pausedStateStartButtonSendsPrepareLaunchState() throws Exception {
         String source = readSource("src/main/java/com/diwen/liliao/activity/DeviceLauncherActivity.java");
 
         assertTrue(source.contains("jsonObject.put(PadSAttribute.Launch.getAttribute(), nextLaunch);"));
@@ -61,15 +61,17 @@ public class DeviceStartFlowStructureTest {
     }
 
     @Test
-    public void modeSelectionDoesNotAutoStartPrepareCountdown() throws Exception {
+    public void modeSelectionOnlyChangesModeAndOpensLauncher() throws Exception {
         String modelSource = readSource("src/main/java/com/diwen/liliao/activity/DeviceModelActivity.java");
         String maiChongSource = readSource("src/main/java/com/diwen/liliao/activity/MaiChongSettingActivity.java");
         String launcherSource = readSource("src/main/java/com/diwen/liliao/activity/DeviceLauncherActivity.java");
 
-        assertFalse(modelSource.contains("EXTRA_AUTO_PREPARE_COUNTDOWN"));
-        assertFalse(maiChongSource.contains("EXTRA_AUTO_PREPARE_COUNTDOWN"));
-        assertFalse(launcherSource.contains("requestAutoPrepareCountdown"));
-        assertFalse(launcherSource.contains("waitingForReadySecond"));
+        assertFalse(modelSource.contains("jsonObject.put(PadSAttribute.Launch.getAttribute(), DeviceLaunchStateController.LAUNCH_PREPARING);"));
+        assertFalse(modelSource.contains("intent.putExtra(DeviceLauncherActivity.EXTRA_START_PREPARE_COUNTDOWN, true);"));
+        assertFalse(maiChongSource.contains("jsonObject.put(PadSAttribute.Launch.getAttribute(), DeviceLaunchStateController.LAUNCH_PREPARING);"));
+        assertFalse(maiChongSource.contains("intent.putExtra(DeviceLauncherActivity.EXTRA_START_PREPARE_COUNTDOWN, true);"));
+        assertFalse(launcherSource.contains("EXTRA_START_PREPARE_COUNTDOWN"));
+        assertTrue(launcherSource.contains("startPrepareCountdown();"));
     }
 
     @Test
