@@ -12,6 +12,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 public class LauncherLayoutStructureTest {
 
@@ -27,15 +28,37 @@ public class LauncherLayoutStructureTest {
     }
 
     @Test
-    public void modelNameIsHiddenOutsideBottomBar() throws Exception {
+    public void modelNameLivesInsideBottomBar() throws Exception {
         Document document = readLauncherLayout();
         Element llBottom = findById(document.getDocumentElement(), "@+id/ll_bottom");
         Element modelName = findById(document.getDocumentElement(), "@+id/modelName");
 
         assertNotNull(llBottom);
         assertNotNull(modelName);
-        assertEquals("gone", modelName.getAttribute("android:visibility"));
-        assertEquals(false, containsId(llBottom, "@+id/modelName"));
+        assertTrue(containsId(llBottom, "@+id/modelName"));
+    }
+
+    @Test
+    public void preparationCountdownAppearsBesideTreatmentTime() throws Exception {
+        Document document = readLauncherLayout();
+        Element compactCountdown = findById(document.getDocumentElement(), "@+id/prepareCompactCountdown");
+        Element hourglass = findById(document.getDocumentElement(), "@+id/ivPrepareHourglass");
+
+        assertNotNull(compactCountdown);
+        assertNotNull(hourglass);
+        assertEquals("@id/tvSeconds", compactCountdown.getAttribute("app:layout_constraintStart_toEndOf"));
+        assertEquals("gone", compactCountdown.getAttribute("android:visibility"));
+        assertEquals("@mipmap/ic_prepare_hourglass", hourglass.getAttribute("android:src"));
+    }
+
+    @Test
+    public void holdToStopHintAppearsBelowMainControl() throws Exception {
+        Document document = readLauncherLayout();
+        Element stopHint = findById(document.getDocumentElement(), "@+id/tvHoldToStopHint");
+
+        assertNotNull(stopHint);
+        assertEquals("@id/rl_start", stopHint.getAttribute("app:layout_constraintTop_toBottomOf"));
+        assertEquals("@id/ll_bottom", stopHint.getAttribute("app:layout_constraintBottom_toTopOf"));
     }
 
     private Document readLauncherLayout() throws Exception {

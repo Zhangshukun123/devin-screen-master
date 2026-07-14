@@ -70,6 +70,16 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
     private String deviceName;
     private List<String> mMsgList;
     private MsgAdapter mMsgAdapter;
+    private static final long STOP_HOLD_DURATION_MS = 3000L;
+    private boolean stopHoldEligible;
+    private boolean stopHoldTriggered;
+    private final Runnable stopHoldRunnable = () -> {
+        if (!stopHoldEligible) {
+            return;
+        }
+        stopHoldTriggered = true;
+        sendStopCommand();
+    };
 
     @Override
     protected void handleIntent(Intent intent) {
@@ -84,6 +94,7 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
         binding.tvPrepareTitle.setText(StringUtils.getUpperText("开始延时秒数"));
         binding.tvPrepareHint.setText(StringUtils.getText("现在上床"));
         binding.tvPrepareSeconds.setText(String.valueOf(prepareSeconds));
+        binding.tvHoldToStopHint.setText(StringUtils.getUpperText("长按3秒停止"));
         if (DemoApp.getInstance().buildCompany) {
 
         } else {
@@ -127,7 +138,7 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
     protected void onDestroy() {
         super.onDestroy();
         if (handler != null) {
-            handler.removeMessages(826);
+            handler.removeCallbacks(stopHoldRunnable);
             handler.removeMessages(827);
         }
     }
@@ -138,9 +149,6 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
         deviceName = MyMMKV.getDeviceName();
         if (AtyUtils.isStringEmpty(AtyUtils.getText(binding.tvDeviceName))) {
             if (!AtyUtils.getText(binding.tvDeviceName).equals(deviceName)) {
-                if (handler != null) {
-                    handler.removeMessages(826);
-                }
                 binding.tvDeviceName.setText(deviceName);
                 getAllAttributes();
 
@@ -163,6 +171,38 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
         // 减号按钮
         setupButton(binding.rlStartLeft, false);
         binding.rlStart.setOnClickListener(this);
+        binding.rlStart.setOnTouchListener((v, event) -> {
+            if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                stopHoldEligible = true;
+                stopHoldTriggered = false;
+                handler.removeCallbacks(stopHoldRunnable);
+                handler.postDelayed(stopHoldRunnable, STOP_HOLD_DURATION_MS);
+                return true;
+            }
+            if (event.getAction() == MotionEvent.ACTION_MOVE) {
+                if (stopHoldEligible && !isTouchInsideView(v, event)) {
+                    handler.removeCallbacks(stopHoldRunnable);
+                    stopHoldEligible = false;
+                }
+                return true;
+            }
+            if (event.getAction() == MotionEvent.ACTION_UP) {
+                handler.removeCallbacks(stopHoldRunnable);
+                if (stopHoldEligible && !stopHoldTriggered) {
+                    v.performClick();
+                }
+                stopHoldEligible = false;
+                stopHoldTriggered = false;
+                return true;
+            }
+            if (event.getAction() == MotionEvent.ACTION_CANCEL) {
+                handler.removeCallbacks(stopHoldRunnable);
+                stopHoldEligible = false;
+                stopHoldTriggered = false;
+                return true;
+            }
+            return true;
+        });
         binding.tvPrepareSeconds.setOnClickListener(this);
         binding.ivPrepareBack.setOnClickListener(this);
         binding.ivFinish.setOnClickListener(this);
@@ -195,18 +235,25 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
                 }
             }
         });
-        binding.rlStart.setOnLongClickListener(v -> {
-            try {
-                JSONObject jsonObject = new JSONObject();
-                int nextLaunch = DeviceLaunchStateController.nextLaunchForLongPress(Launch);
-                jsonObject.put(PadSAttribute.Launch.getAttribute(), nextLaunch);
-                DemoApp.getInstance().getAppViewModel().setMQTT(jsonObject);
-                showLoading();
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            return true;
-        });
+    }
+
+    private boolean isTouchInsideView(View view, MotionEvent event) {
+        return event.getX() >= 0
+                && event.getX() <= view.getWidth()
+                && event.getY() >= 0
+                && event.getY() <= view.getHeight();
+    }
+
+    private void sendStopCommand() {
+        try {
+            JSONObject jsonObject = new JSONObject();
+            int nextLaunch = DeviceLaunchStateController.nextLaunchForLongPress(Launch);
+            jsonObject.put(PadSAttribute.Launch.getAttribute(), nextLaunch);
+            DemoApp.getInstance().getAppViewModel().setMQTT(jsonObject);
+            showLoading();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -337,9 +384,6 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
                     return;
                 }
                 jsonObject.put(PadSAttribute.Launch.getAttribute(), nextLaunch);
-                if (nextLaunch == DeviceLaunchStateController.LAUNCH_PREPARING) {
-                    startPrepareCountdown();
-                }
                 DemoApp.getInstance().getAppViewModel().setMQTT(jsonObject);
                 showLoading();
             } catch (JSONException e) {
@@ -396,7 +440,7 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
             showPrepareSecondsDialog();
         }
         if (v == binding.ivPrepareBack) {
-            returnToModeSelection();
+            hidePrepareOverlay();
         }
         if (v == binding.llDeviceName) {
             ActivityUtils.startActivity(new Intent(mContext, DeviceListActivity.class));
@@ -501,6 +545,8 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
         if (strings.contains(PadSAttribute.DeviceTimeMin.getAttribute())) {
             mine = (int) map.get(PadSAttribute.DeviceTimeMin.getAttribute());
             binding.tvMine.setText(getPointTwo(mine));
+        }
+        if (strings.contains(PadSAttribute.DeviceTimeSecond.getAttribute())) {
             seconds = (int) map.get(PadSAttribute.DeviceTimeSecond.getAttribute());
             binding.tvSeconds.setText(getPointTwo(seconds));
         }
@@ -515,11 +561,6 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
             if (Launch != oLaunch) {
                 Launch = oLaunch;
                 setLaunch();
-                if (Launch == 1) {
-                    allTime = mine * 60 + seconds;
-                    handler.removeMessages(826);
-                    handler.sendEmptyMessage(826);
-                }
             }
         }
         if (strings.contains(PadSAttribute.AirBlowerRun.getAttribute())) {
@@ -651,23 +692,13 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
         }
     }
 
-    private int allTime = 10 * 60;
     Handler handler = new Handler(Looper.myLooper()) {
         @Override
         public void handleMessage(@NonNull Message msg) {
-            if (msg.what == 826) {
-                allTime--;
-                if (allTime >= 0) {
-                    handler.sendEmptyMessageDelayed(826, 1000);
-                    setTime();
-                } else {
-                    handler.removeMessages(826);
-                }
-            }
             if (msg.what == 827) {
                 prepareRemainingSeconds--;
                 if (prepareRemainingSeconds > 0) {
-                    binding.tvPrepareSeconds.setText(String.valueOf(prepareRemainingSeconds));
+                    updatePrepareCountdownUi(prepareRemainingSeconds);
                     handler.sendEmptyMessageDelayed(827, 1000);
                 } else {
                     finishPrepareCountdown();
@@ -675,13 +706,6 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
             }
         }
     };
-
-    public void setTime() {
-        int mine = allTime / 60;
-        int seconds = allTime % 60;
-        binding.tvMine.setText(getPointTwo(mine));
-        binding.tvSeconds.setText(getPointTwo(seconds));
-    }
 
     public void setLaunch() {
         // 0 暂停 1 启动 2 停止 3 准备
@@ -704,15 +728,15 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
             binding.tvStatus.setText(StringUtils.getUpperText("设置"));
 //            binding.tvStart.setText(DemoApp.getInstance().getAppViewModel().getLangText("开始"));//Start
         }
-        if (Launch == 3) {
+        if (Launch == DeviceLaunchStateController.LAUNCH_PREPARING) {
             // 准备状态：正在进行启动倒计时
             binding.ivStart.setImageResource(R.mipmap.ic_start);
             binding.tvStatus.setText(StringUtils.getUpperText("准备"));
+            if (!handler.hasMessages(827)) {
+                startPrepareCountdown();
+            }
         }
-        if (Launch != 1) {
-            handler.removeMessages(826);
-        }
-        if (Launch != 3) {
+        if (Launch != DeviceLaunchStateController.LAUNCH_PREPARING) {
             cancelPrepareCountdown();
         }
     }
@@ -720,15 +744,27 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
     private void startPrepareCountdown() {
         prepareSeconds = DeviceValueUtils.coercePrepareSeconds(prepareSeconds);
         prepareRemainingSeconds = prepareSeconds;
-        binding.tvPrepareSeconds.setText(String.valueOf(prepareRemainingSeconds));
+        updatePrepareCountdownUi(prepareRemainingSeconds);
         binding.prepareOverlay.setVisibility(View.VISIBLE);
         handler.removeMessages(827);
         handler.sendEmptyMessageDelayed(827, 1000);
     }
 
+    private void updatePrepareCountdownUi(int remainingSeconds) {
+        String value = String.valueOf(remainingSeconds);
+        binding.tvPrepareSeconds.setText(value);
+        binding.tvPrepareMainSeconds.setText(value);
+        binding.prepareCompactCountdown.setVisibility(View.VISIBLE);
+    }
+
+    private void hidePrepareOverlay() {
+        binding.prepareOverlay.setVisibility(View.GONE);
+    }
+
     private void cancelPrepareCountdown() {
         handler.removeMessages(827);
-        binding.prepareOverlay.setVisibility(View.GONE);
+        hidePrepareOverlay();
+        binding.prepareCompactCountdown.setVisibility(View.GONE);
     }
 
     private void finishPrepareCountdown() {
@@ -743,17 +779,10 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
         }
     }
 
-    private void returnToModeSelection() {
-        cancelPrepareCountdown();
-        ActivityUtils.startActivity(new Intent(mContext, DeviceModelActivity.class)
-                .putExtra("name", MyMMKV.getDeviceName()));
-        finish();
-    }
-
     @Override
     public void onBackPressed() {
         if (binding.prepareOverlay.getVisibility() == View.VISIBLE) {
-            returnToModeSelection();
+            hidePrepareOverlay();
             return;
         }
         super.onBackPressed();
@@ -767,7 +796,11 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
             try {
                 prepareSeconds = DeviceValueUtils.coercePrepareSeconds(Integer.parseInt(String.valueOf(obj)));
                 prepareRemainingSeconds = prepareSeconds;
-                binding.tvPrepareSeconds.setText(String.valueOf(prepareSeconds));
+                if (handler.hasMessages(827)) {
+                    updatePrepareCountdownUi(prepareRemainingSeconds);
+                } else {
+                    binding.tvPrepareSeconds.setText(String.valueOf(prepareSeconds));
+                }
                 setPrepareSeconds();
                 if (binding.prepareOverlay.getVisibility() == View.VISIBLE) {
                     handler.removeMessages(827);

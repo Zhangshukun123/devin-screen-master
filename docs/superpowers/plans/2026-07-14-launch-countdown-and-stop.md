@@ -140,9 +140,9 @@ public void onBackPressed() {
 
 Remove `returnToModeSelection()` because the preparation overlay no longer changes activities.
 
-- [ ] **Step 4: Initialize preparation when device state enters `Launch=3`**
+- [ ] **Step 4: Wait for device preparation confirmation and enforce a three-second hold**
 
-Track whether message `827` is active and start the countdown only when needed:
+Do not start the countdown from the short-click handler. Start it only after MQTT updates `Launch` to the preparation state:
 
 ```java
 if (Launch == DeviceLaunchStateController.LAUNCH_PREPARING
@@ -151,7 +151,7 @@ if (Launch == DeviceLaunchStateController.LAUNCH_PREPARING
 }
 ```
 
-Keep short press returning `NO_LAUNCH_COMMAND` for preparation. Preserve the existing controller change that returns `LAUNCH_STOPPED` for every long press.
+Keep short press returning `NO_LAUNCH_COMMAND` for preparation. Replace Android's default long-click callback with touch handling that posts the STOP command after `3000L`, cancels it on early release or cancellation, and invalidates both gestures if the pointer leaves the control bounds. Preserve the existing controller change that returns `LAUNCH_STOPPED` for every completed hold.
 
 - [ ] **Step 5: Run behavior tests and confirm GREEN**
 

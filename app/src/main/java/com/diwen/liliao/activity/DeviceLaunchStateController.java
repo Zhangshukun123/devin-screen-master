@@ -25,6 +25,6 @@ final class DeviceLaunchStateController {
     }
 
     static int nextLaunchForLongPress(int launch) {
-        return LAUNCH_PAUSED;
+        return LAUNCH_STOPPED;
     }
 }

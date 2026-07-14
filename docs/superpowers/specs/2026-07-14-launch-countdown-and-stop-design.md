@@ -16,7 +16,7 @@ The change covers `DeviceLauncherActivity`, its launcher layout, the launch-stat
 
 ### Preparation countdown
 
-Starting from `Launch=2` sends `Launch=3` and starts the existing preparation countdown. The full-screen preparation overlay displays the countdown first.
+Starting from `Launch=2` sends `Launch=3`. The app starts the preparation countdown only after the device confirms `Launch=3`, so a rejected preparation command cannot later trigger `Launch=1`. The full-screen preparation overlay displays the countdown first.
 
 Pressing either the overlay back button or the Android back button hides only the overlay. The countdown handler continues running, and a compact countdown beside the main treatment time shows the same remaining value. The compact view contains the supplied hourglass icon.
 
@@ -26,7 +26,7 @@ When the countdown reaches zero, the app hides both countdown views and sends `L
 
 A short press follows the existing state controller. It does nothing during `Launch=3`.
 
-A long press sends `Launch=2` from every state. This matches the permanent instruction below the control and includes the required preparation-state stop behavior.
+Holding the control for 3000 milliseconds sends `Launch=2` from every state. Releasing or canceling the touch before three seconds preserves the normal short-click behavior. This matches the permanent instruction below the control and includes the required preparation-state stop behavior.
 
 ### Stop instruction
 
@@ -58,7 +58,8 @@ This separation fixes the current back-navigation bug without creating another t
 
 Tests will verify:
 
-- Short press returns no command for `Launch=3` and long press returns `Launch=2`.
+- Short press returns no command for `Launch=3`, and a full 3000-millisecond hold returns `Launch=2`.
+- Preparation countdown starts only after the device reports `Launch=3`.
 - Launcher source no longer schedules or decrements the treatment-time handler.
 - Overlay back actions hide the overlay without opening the mode-selection screen or finishing the launcher.
 - The layout contains the compact countdown, hourglass resource, and stop instruction below the main control.
