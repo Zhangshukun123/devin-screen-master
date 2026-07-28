@@ -41,10 +41,10 @@ public class BluetoothFragment extends BaseFragment<FragmentBluetoothBinding> im
 
     @Override
     protected void initView() {
-        binding.tvBluetooth.setText(StringUtils.getText("设置蓝牙"));
+        binding.tvBluetooth.setText(StringUtils.getText("蓝牙"));
         binding.tvRename.setText(StringUtils.getText("重命名"));
         binding.tvSave.setText(StringUtils.getText("保存"));
-        binding.tvBtLeftName.setText(StringUtils.getText("蓝牙名称"));
+        binding.tvBtLeftName.setText(StringUtils.getText("设备名称"));
         binding.tvBtLeftPwd.setText(StringUtils.getText("密码"));
 
     }
@@ -128,6 +128,7 @@ public class BluetoothFragment extends BaseFragment<FragmentBluetoothBinding> im
         try {
             JSONObject jsonObject = new JSONObject();
             jsonObject.put(PadSAttribute.BtName.getAttribute(), 1);
+            jsonObject.put(PadSAttribute.PemfEnable.getAttribute(), 1);
             DemoApp.getInstance().getAppViewModel().sendInquiryMQTT(jsonObject);
         } catch (JSONException e) {
             e.printStackTrace();

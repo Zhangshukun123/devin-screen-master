@@ -107,7 +107,7 @@ public class MaiChongSettingActivity extends MqttBaseActivity<LayoutMaichongacti
             inputDialog.setMaxInputValue(100);
             inputDialog.showDialog();
         });
-        binding.tv1.setText(StringUtils.getUpperText("全部"));
+        binding.tv1.setText(StringUtils.getUpperText("全部的"));
         binding.tv2.setText(DemoApp.getInstance().getAppViewModel().getLangText("频率"));
         binding.tv3.setText(DemoApp.getInstance().getAppViewModel().getLangText("占空比"));
 

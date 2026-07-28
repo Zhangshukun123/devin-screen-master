@@ -49,7 +49,7 @@ public class TimeFragment extends BaseFragment<FragmentTimeBinding> implements V
 
     @Override
     protected void initView() {
-        binding.tvTime.setText(StringUtils.getText("设置时间"));
+        binding.tvTime.setText(StringUtils.getText("时间"));
         binding.tvDateSetting.setText(StringUtils.getText("日期设置"));
         binding.tvTimeSetting.setText(StringUtils.getText("时间设置"));
         binding.tvSave.setText(StringUtils.getText("保存"));

@@ -51,6 +51,9 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 @BindEventBus
 public class MainActivity extends MqttBaseActivity<ActivityMainBinding> {
+    private static final int MSG_SCAN_DEVICES = 31;
+    private static final int MSG_QUERY_DEVICE_STATES = 32;
+    private static final long DEVICE_STATE_QUERY_INTERVAL_MS = 5000L;
     private NetworkMonitor networkMonitor;
     private DeviceListAdapter deviceListAdapter;
     private DoubleClickExitDetector exitDetector;
@@ -87,17 +90,28 @@ public class MainActivity extends MqttBaseActivity<ActivityMainBinding> {
 
     @Override
     protected void setListener() {
-        handler.sendEmptyMessage(31);
+        handler.sendEmptyMessage(MSG_SCAN_DEVICES);
+        handler.sendEmptyMessage(MSG_QUERY_DEVICE_STATES);
         deviceListAdapter.setOnItemClickListener((adapter, view, position) -> {
-            if (deviceListAdapter.getItem(position).isConnectTcp()) {
-                MyMMKV.get().putString("deviceName", deviceListAdapter.getItem(position).getDeviceName());//点击的设备   判读设备是否在线
-                MyMMKV.get().putString("deviceIp", deviceListAdapter.getItem(position).getDeviceIp());//点击的设备   判读设备是否在线
-                DemoApp.getInstance().getAppViewModel().connectNetty(deviceListAdapter.getItem(position).getDeviceName(), deviceListAdapter.getItem(position).getDeviceIp());
+            DeviceModel device = deviceListAdapter.getItem(position);
+            if (device.isConnectTcp()) {
+                if (!DeviceLaunchStateController.isKnown(device.getLaunch())) {
+                    queryDeviceState(device.getDeviceName());
+                    ToastUtils.show("Loading device status");
+                    return;
+                }
+                MyMMKV.get().putString("deviceName", device.getDeviceName());//点击的设备   判读设备是否在线
+                MyMMKV.get().putString("deviceIp", device.getDeviceIp());//点击的设备   判读设备是否在线
+                DemoApp.getInstance().getAppViewModel().connectNetty(device.getDeviceName(), device.getDeviceIp());
                 if (DemoApp.getInstance().buildCompany) {
                     ActivityUtils.startActivity(new Intent(mContext, DeviceLauncherActivity.class));
                     return;
                 }
-                ActivityUtils.startActivity(new Intent(mContext, DeviceModelActivity.class));
+                if (DeviceLaunchStateController.opensModeSelection(device.getLaunch())) {
+                    ActivityUtils.startActivity(new Intent(mContext, DeviceModelActivity.class));
+                } else {
+                    ActivityUtils.startActivity(new Intent(mContext, DeviceLauncherActivity.class));
+                }
             } else {
                 ToastUtils.show("No networking");
             }
@@ -169,7 +183,8 @@ public class MainActivity extends MqttBaseActivity<ActivityMainBinding> {
         super.onDestroy();
         if (handler != null) {
             handler.removeMessages(30);
-            handler.removeMessages(31);
+            handler.removeMessages(MSG_SCAN_DEVICES);
+            handler.removeMessages(MSG_QUERY_DEVICE_STATES);
         }
         networkMonitor.stop();
     }
@@ -273,7 +288,10 @@ public class MainActivity extends MqttBaseActivity<ActivityMainBinding> {
                 if (model.getDeviceName().equals(DeviceId)) {
                     model.setConnectTcp(onLineState == 1);
                     if (onLineState == 1) {
-                        //   getAllAttributes();
+                        queryDeviceState(DeviceId);
+                    } else {
+                        model.setLaunch(DeviceLaunchStateController.LAUNCH_UNKNOWN);
+                        model.setPluseMode(0);
                     }
                 }
             }
@@ -295,15 +313,23 @@ public class MainActivity extends MqttBaseActivity<ActivityMainBinding> {
             }
         }
         if (strings.contains(PadSAttribute.Launch.getAttribute())) {
-            int Launch = (int) map.get(PadSAttribute.Launch.getAttribute());
-            if (Launch == 2) {
-                //选中当前停机的设备
-                if (MyMMKV.getDeviceName().equals(DeviceId)) {
-                    return;
+            int launch = ((Number) map.get(PadSAttribute.Launch.getAttribute())).intValue();
+            for (DeviceModel model : DemoApp.getInstance().getAppViewModel().device.getValue()) {
+                if (model.getDeviceName().equals(DeviceId)) {
+                    model.setLaunch(launch);
+                    break;
                 }
-                MyMMKV.get().putString("deviceName", DeviceId);//点击的设备   判读设备是否在线
-                ActivityUtils.finishToActivity(MainActivity.class, false);
-                ActivityUtils.startActivity(new Intent(mContext, DeviceLauncherActivity.class));
+            }
+            deviceListAdapter.notifyDataSetChanged();
+            DemoApp.getInstance().getAppViewModel().device.postValue(DemoApp.getInstance().getAppViewModel().device.getValue());
+        }
+        if (strings.contains(PadSAttribute.PluseMode.getAttribute())) {
+            int pluseMode = ((Number) map.get(PadSAttribute.PluseMode.getAttribute())).intValue();
+            for (DeviceModel model : DemoApp.getInstance().getAppViewModel().device.getValue()) {
+                if (model.getDeviceName().equals(DeviceId)) {
+                    model.setPluseMode(pluseMode);
+                    break;
+                }
             }
         }
     }
@@ -332,16 +358,39 @@ public class MainActivity extends MqttBaseActivity<ActivityMainBinding> {
                     e.printStackTrace();
                 }
             }
-            if (msg.what == 31) {
+            if (msg.what == MSG_SCAN_DEVICES) {
                 for (DeviceModel model : DemoApp.getInstance().getAppViewModel().device.getValue()) {
                     model.setConnectUdp(false);
                 }
                 deviceListAdapter.notifyDataSetChanged();
                 getDeviceList();
-                handler.sendEmptyMessageDelayed(31, 10 * 1000);
+                handler.sendEmptyMessageDelayed(MSG_SCAN_DEVICES, 10 * 1000);
+            }
+            if (msg.what == MSG_QUERY_DEVICE_STATES) {
+                queryConnectedDeviceStates();
+                handler.sendEmptyMessageDelayed(MSG_QUERY_DEVICE_STATES, DEVICE_STATE_QUERY_INTERVAL_MS);
             }
         }
     };
+
+    private void queryConnectedDeviceStates() {
+        for (DeviceModel model : DemoApp.getInstance().getAppViewModel().device.getValue()) {
+            if (model.isConnectTcp()) {
+                queryDeviceState(model.getDeviceName());
+            }
+        }
+    }
+
+    private void queryDeviceState(String deviceName) {
+        try {
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put(PadSAttribute.Launch.getAttribute(), 1);
+            jsonObject.put(PadSAttribute.PluseMode.getAttribute(), 1);
+            DemoApp.getInstance().getAppViewModel().sendInquiryMQTT(jsonObject, deviceName);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
 
     public void getAllAttributes() {
         try {

@@ -6,6 +6,7 @@ import android.graphics.Color;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.diwen.liliao.R;
+import com.diwen.liliao.activity.DeviceLaunchStateController;
 import com.diwen.liliao.model.DeviceModel;
 import com.hjq.shape.layout.ShapeLinearLayout;
 import com.hjq.shape.layout.ShapeRelativeLayout;
@@ -44,5 +45,17 @@ public class DeviceListAdapter extends BaseQuickAdapter<DeviceModel, BaseViewHol
             helper.setImageResource(R.id.wifiState, R.mipmap.icon_wificonnectdis);
         }
         helper.setText(R.id.tvName, item.getDeviceName());
+        if (!item.isConnectTcp() || !DeviceLaunchStateController.isKnown(item.getLaunch())) {
+            helper.setGone(R.id.launchState, false);
+        } else {
+            helper.setGone(R.id.launchState, true);
+            if (item.getLaunch() == DeviceLaunchStateController.LAUNCH_STOPPED) {
+                helper.setImageResource(R.id.launchState, R.mipmap.ic_device_state_stopped);
+            } else if (item.getLaunch() == DeviceLaunchStateController.LAUNCH_PAUSED) {
+                helper.setImageResource(R.id.launchState, R.mipmap.ic_device_state_paused);
+            } else {
+                helper.setImageResource(R.id.launchState, R.mipmap.ic_device_state_active);
+            }
+        }
     }
 }

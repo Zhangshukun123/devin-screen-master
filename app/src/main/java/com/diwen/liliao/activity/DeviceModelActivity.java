@@ -48,11 +48,11 @@ public class DeviceModelActivity extends MqttBaseActivity<LayoutDevicemodelactiv
         binding.tvTitle.setText(StringUtils.getUpperText("工作模式"));
         settingItems = new ArrayList<>();
         settingItems.add(new SettingItem(R.mipmap.icon_model1, "肌肉恢复"));
-        settingItems.add(new SettingItem(R.mipmap.icon_model2, "疼痛缓解"));
-        settingItems.add(new SettingItem(R.mipmap.icon_model3, "瘦身"));
-        settingItems.add(new SettingItem(R.mipmap.icon_model4, "胶原蛋白增生"));
-        settingItems.add(new SettingItem(R.mipmap.icon_model6, "自动调节"));
-        settingItems.add(new SettingItem(R.mipmap.icon_model5, "手动调节"));
+        settingItems.add(new SettingItem(R.mipmap.icon_model2, "缓解疼痛"));
+        settingItems.add(new SettingItem(R.mipmap.icon_model3, "减重"));
+        settingItems.add(new SettingItem(R.mipmap.icon_model4, "促进胶原蛋白"));
+        settingItems.add(new SettingItem(R.mipmap.icon_model6, "智能模式"));
+        settingItems.add(new SettingItem(R.mipmap.icon_model5, "手动模式"));
         modelListAdapter = new ModelListAdapter(settingItems);
         binding.setTingList.setAdapter(modelListAdapter);
         modelListAdapter.setOnItemClickListener((adapter, view, position) -> {

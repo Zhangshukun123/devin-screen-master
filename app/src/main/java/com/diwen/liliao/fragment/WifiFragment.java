@@ -34,13 +34,13 @@ public class WifiFragment extends BaseFragment<FragmentWifiBinding> {
 
     @Override
     protected void initView() {
-        binding.tvWifi.setText(StringUtils.getText("设置WiFi"));
-        binding.tvTop.setText(StringUtils.getText("设置WiFi"));
-        binding.tvTop1.setText(StringUtils.getText("设置WiFi"));
+        binding.tvWifi.setText(StringUtils.getText("Wi-Fi"));
+        binding.tvTop.setText(StringUtils.getText("Wi-Fi"));
+        binding.tvTop1.setText(StringUtils.getText("Wi-Fi"));
         binding.tvDisWifi.setText(StringUtils.getText("断开"));
         binding.tvSaveWifi.setText(StringUtils.getText("保存"));
-        binding.tvBottom.setText(StringUtils.getText("本地配置"));
-        binding.tvBottom1.setText(StringUtils.getText("本地配置"));
+        binding.tvBottom.setText(StringUtils.getText("本地设置"));
+        binding.tvBottom1.setText(StringUtils.getText("本地设置"));
         binding.tvSaveLocal.setText(StringUtils.getText("保存"));
         binding.tvDisLocal.setText(StringUtils.getText("断开"));
 

@@ -63,12 +63,12 @@ public class DeviceSettingActivity extends MqttBaseActivity<LayoutDevicesettinga
 
     @Override
     protected void setUiText() {
-        binding.tvBluetooth.setText(DemoApp.getInstance().getAppViewModel().getLangText("设置蓝牙"));
-        binding.tvWifi.setText(DemoApp.getInstance().getAppViewModel().getLangText("设置WiFi"));
-        binding.tvTime.setText(DemoApp.getInstance().getAppViewModel().getLangText("设置时间"));
-        binding.tvLanguage.setText(DemoApp.getInstance().getAppViewModel().getLangText("设置语言"));
-        binding.tvFans.setText(DemoApp.getInstance().getAppViewModel().getLangText("设置风扇"));
-        binding.tvVersion.setText(DemoApp.getInstance().getAppViewModel().getLangText("设置版本"));
+        binding.tvBluetooth.setText(DemoApp.getInstance().getAppViewModel().getLangText("蓝牙"));
+        binding.tvWifi.setText(DemoApp.getInstance().getAppViewModel().getLangText("Wi-Fi"));
+        binding.tvTime.setText(DemoApp.getInstance().getAppViewModel().getLangText("时间"));
+        binding.tvLanguage.setText(DemoApp.getInstance().getAppViewModel().getLangText("语言"));
+        binding.tvFans.setText(DemoApp.getInstance().getAppViewModel().getLangText("风扇"));
+        binding.tvVersion.setText(DemoApp.getInstance().getAppViewModel().getLangText("版本"));
         binding.llBlueTooth.setBackgroundResource(R.drawable.bg_radius_4_white10);
         binding.ivBluetooth.setImageResource(R.mipmap.ic_bluetooth_setting_check);
         settingItems = new ArrayList<>();
@@ -119,13 +119,6 @@ public class DeviceSettingActivity extends MqttBaseActivity<LayoutDevicesettinga
         binding.tvName.setText(MyMMKV.getDeviceName());
         pemfEnable = MyMMKV.getBoolean(MyMMKV.PemfEnable, true);
         applyPemfEnableUi();
-        queryPemfEnable();
-    }
-
-    //  连接成功后下发 PEMF 询问指令，查询是否具有 PEMF 功能
-    private void queryPemfEnable() {
-        JSONObject jsonObject = BTCodeUtils.getInstance().queryPemfEnable();
-        DemoApp.getInstance().getAppViewModel().sendInquiryMQTT(jsonObject);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -142,12 +135,6 @@ public class DeviceSettingActivity extends MqttBaseActivity<LayoutDevicesettinga
             return;
         }
         Set<String> strings = map.keySet();
-        if (strings.contains(PadSAttribute.onLineState.getAttribute())) {
-            Object value = map.get(PadSAttribute.onLineState.getAttribute());
-            if (value instanceof Number && ((Number) value).intValue() == 1) {
-                queryPemfEnable();
-            }
-        }
         if (strings.contains(PadSAttribute.PemfEnable.getAttribute())) {
             Object value = map.get(PadSAttribute.PemfEnable.getAttribute());
             if (value instanceof Number) {

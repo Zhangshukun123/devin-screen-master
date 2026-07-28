@@ -14,4 +14,6 @@ public class DeviceModel {
     private boolean connectUdp;
     private boolean connectTcp;
     private boolean connectWifi = true;
+    private int launch = -1;
+    private int pluseMode;
 }

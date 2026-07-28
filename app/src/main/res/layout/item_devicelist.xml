@@ -57,6 +57,17 @@
             app:shape_radius="10dp"
             app:shape_solidColor="@color/wight20" />
 
+        <ImageView
+            android:id="@+id/launchState"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:layout_gravity="end|bottom"
+            android:layout_margin="4dp"
+            android:contentDescription="@null"
+            android:scaleType="fitXY"
+            android:src="@mipmap/ic_device_state_stopped"
+            android:visibility="gone" />
+
 
     </FrameLayout>
 </FrameLayout>

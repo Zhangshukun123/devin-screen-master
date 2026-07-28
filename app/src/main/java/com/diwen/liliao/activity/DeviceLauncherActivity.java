@@ -57,6 +57,8 @@ import java.util.Set;
 @BindEventBus
 public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelauncheractivityBinding> {
 
+    private static final int MSG_TREATMENT_TICK = 826;
+    private static final int MSG_PREPARE_TICK = 827;
     private long AnimatorTime = 1000;
     private int mine = 10;
     private int seconds = 0;
@@ -73,6 +75,8 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
     private static final long STOP_HOLD_DURATION_MS = 3000L;
     private boolean stopHoldEligible;
     private boolean stopHoldTriggered;
+    private final TreatmentCountdown treatmentCountdown = new TreatmentCountdown(10, 0);
+    private boolean leavingForOffline;
     private final Runnable stopHoldRunnable = () -> {
         if (!stopHoldEligible) {
             return;
@@ -91,8 +95,8 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
         binding.tvRemainingTime.setText(StringUtils.getText("剩余时间"));
         binding.tvMusic.setText(StringUtils.getUpperText("音乐"));
         binding.tvPlayingNow.setText(StringUtils.getText("开始播放"));
-        binding.tvPrepareTitle.setText(StringUtils.getUpperText("开始延时秒数"));
-        binding.tvPrepareHint.setText(StringUtils.getText("现在上床"));
+        binding.tvPrepareTitle.setText(StringUtils.getUpperText("几秒后执行"));
+        binding.tvPrepareHint.setText(StringUtils.getText("进入仓内"));
         binding.tvPrepareSeconds.setText(String.valueOf(prepareSeconds));
         binding.tvHoldToStopHint.setText(StringUtils.getUpperText("长按3秒停止"));
         if (DemoApp.getInstance().buildCompany) {
@@ -100,11 +104,11 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
         } else {
             settingItems = new ArrayList<>();
             settingItems.add(new SettingItem(R.mipmap.icon_model1, "肌肉恢复", 1));
-            settingItems.add(new SettingItem(R.mipmap.icon_model2, "疼痛缓解", 2));
-            settingItems.add(new SettingItem(R.mipmap.icon_model3, "瘦身", 3));
-            settingItems.add(new SettingItem(R.mipmap.icon_model4, "胶原蛋白增生", 4));
-            settingItems.add(new SettingItem(R.mipmap.icon_model5, "手动调节", 5));
-            settingItems.add(new SettingItem(R.mipmap.icon_model6, "自动调节", 6));
+            settingItems.add(new SettingItem(R.mipmap.icon_model2, "缓解疼痛", 2));
+            settingItems.add(new SettingItem(R.mipmap.icon_model3, "减重", 3));
+            settingItems.add(new SettingItem(R.mipmap.icon_model4, "促进胶原蛋白", 4));
+            settingItems.add(new SettingItem(R.mipmap.icon_model5, "手动模式", 5));
+            settingItems.add(new SettingItem(R.mipmap.icon_model6, "智能模式", 6));
             if (PluseMode != 0) {
                 for (SettingItem item : settingItems) {
                     if (item.getDeviceModel() == PluseMode) {
@@ -139,7 +143,8 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
         super.onDestroy();
         if (handler != null) {
             handler.removeCallbacks(stopHoldRunnable);
-            handler.removeMessages(827);
+            handler.removeMessages(MSG_TREATMENT_TICK);
+            handler.removeMessages(MSG_PREPARE_TICK);
         }
     }
 
@@ -507,6 +512,11 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
         }
         closeLoading();
         Set<String> strings = map.keySet();
+        int incomingLaunch = Launch;
+        Object incomingLaunchValue = map.get(PadSAttribute.Launch.getAttribute());
+        if (incomingLaunchValue instanceof Number) {
+            incomingLaunch = ((Number) incomingLaunchValue).intValue();
+        }
         if (strings.contains(PadSAttribute.onLineState.getAttribute())) {
             int onLineState = (int) map.get(PadSAttribute.onLineState.getAttribute());
             if (onLineState == 1) {
@@ -514,6 +524,8 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
                 binding.ivPhone.setImageResource(R.mipmap.icon_phoneline);
             } else {
                 binding.ivPhone.setImageResource(R.mipmap.icon_phoneunline);
+                handleDeviceOffline();
+                return;
             }
         }
         if (strings.contains(PadSAttribute.SoftWareVer.getAttribute())) {
@@ -542,13 +554,19 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
                 binding.ivSong2.setImageResource(R.mipmap.icon_playing);
             }
         }
-        if (strings.contains(PadSAttribute.DeviceTimeMin.getAttribute())) {
-            mine = (int) map.get(PadSAttribute.DeviceTimeMin.getAttribute());
-            binding.tvMine.setText(getPointTwo(mine));
-        }
-        if (strings.contains(PadSAttribute.DeviceTimeSecond.getAttribute())) {
-            seconds = (int) map.get(PadSAttribute.DeviceTimeSecond.getAttribute());
-            binding.tvSeconds.setText(getPointTwo(seconds));
+        boolean hasDeviceMinutes = strings.contains(PadSAttribute.DeviceTimeMin.getAttribute());
+        boolean hasDeviceSeconds = strings.contains(PadSAttribute.DeviceTimeSecond.getAttribute());
+        if (hasDeviceMinutes || hasDeviceSeconds) {
+            int deviceMinutes = hasDeviceMinutes
+                    ? ((Number) map.get(PadSAttribute.DeviceTimeMin.getAttribute())).intValue()
+                    : mine;
+            int deviceSeconds = hasDeviceSeconds
+                    ? ((Number) map.get(PadSAttribute.DeviceTimeSecond.getAttribute())).intValue()
+                    : seconds;
+            if (treatmentCountdown.updateFromDevice(
+                    deviceMinutes, deviceSeconds, hasDeviceMinutes, hasDeviceSeconds, incomingLaunch)) {
+                syncTreatmentTimeFromController();
+            }
         }
         if (strings.contains(PadSAttribute.GetReadySecond.getAttribute())) {
             prepareSeconds = DeviceValueUtils.coercePrepareSeconds((int) map.get(PadSAttribute.GetReadySecond.getAttribute()));
@@ -557,9 +575,8 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
             }
         }
         if (strings.contains(PadSAttribute.Launch.getAttribute())) {
-            int oLaunch = (int) map.get(PadSAttribute.Launch.getAttribute());
-            if (Launch != oLaunch) {
-                Launch = oLaunch;
+            if (Launch != incomingLaunch) {
+                Launch = incomingLaunch;
                 setLaunch();
             }
         }
@@ -645,6 +662,7 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
             jsonObject.put(PadSAttribute.DeviceTimeMin.getAttribute(), M);
             jsonObject.put(PadSAttribute.DeviceTimeSecond.getAttribute(), +S);
             DemoApp.getInstance().getAppViewModel().setMQTT(jsonObject);
+            treatmentCountdown.setFromUser(M, S);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -695,11 +713,14 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
     Handler handler = new Handler(Looper.myLooper()) {
         @Override
         public void handleMessage(@NonNull Message msg) {
-            if (msg.what == 827) {
+            if (msg.what == MSG_TREATMENT_TICK) {
+                tickTreatmentCountdown();
+            }
+            if (msg.what == MSG_PREPARE_TICK) {
                 prepareRemainingSeconds--;
                 if (prepareRemainingSeconds > 0) {
                     updatePrepareCountdownUi(prepareRemainingSeconds);
-                    handler.sendEmptyMessageDelayed(827, 1000);
+                    handler.sendEmptyMessageDelayed(MSG_PREPARE_TICK, 1000);
                 } else {
                     finishPrepareCountdown();
                 }
@@ -732,13 +753,50 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
             // 准备状态：正在进行启动倒计时
             binding.ivStart.setImageResource(R.mipmap.ic_start);
             binding.tvStatus.setText(StringUtils.getUpperText("准备"));
-            if (!handler.hasMessages(827)) {
+            if (!handler.hasMessages(MSG_PREPARE_TICK)) {
                 startPrepareCountdown();
             }
         }
         if (Launch != DeviceLaunchStateController.LAUNCH_PREPARING) {
             cancelPrepareCountdown();
         }
+        if (Launch == DeviceLaunchStateController.LAUNCH_RUNNING) {
+            startTreatmentCountdown();
+        } else {
+            cancelTreatmentCountdown();
+        }
+    }
+
+    private void startTreatmentCountdown() {
+        handler.removeMessages(MSG_TREATMENT_TICK);
+        if (treatmentCountdown.getRemainingSeconds() > 0) {
+            handler.sendEmptyMessageDelayed(MSG_TREATMENT_TICK, 1000);
+        }
+    }
+
+    private void cancelTreatmentCountdown() {
+        handler.removeMessages(MSG_TREATMENT_TICK);
+    }
+
+    private void tickTreatmentCountdown() {
+        if (!treatmentCountdown.tick(Launch)) {
+            return;
+        }
+        syncTreatmentTimeFromController();
+        if (treatmentCountdown.getRemainingSeconds() > 0) {
+            handler.sendEmptyMessageDelayed(MSG_TREATMENT_TICK, 1000);
+        }
+    }
+
+    private void syncTreatmentTimeFromController() {
+        mine = treatmentCountdown.getMinutes();
+        seconds = treatmentCountdown.getSeconds();
+        updateTreatmentTimeUi();
+    }
+
+    private void updateTreatmentTimeUi() {
+        binding.tvMine.setText(getPointTwo(mine));
+        binding.tvSeconds.setText(getPointTwo(seconds));
     }
 
     private void startPrepareCountdown() {
@@ -746,8 +804,8 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
         prepareRemainingSeconds = prepareSeconds;
         updatePrepareCountdownUi(prepareRemainingSeconds);
         binding.prepareOverlay.setVisibility(View.VISIBLE);
-        handler.removeMessages(827);
-        handler.sendEmptyMessageDelayed(827, 1000);
+        handler.removeMessages(MSG_PREPARE_TICK);
+        handler.sendEmptyMessageDelayed(MSG_PREPARE_TICK, 1000);
     }
 
     private void updatePrepareCountdownUi(int remainingSeconds) {
@@ -762,7 +820,7 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
     }
 
     private void cancelPrepareCountdown() {
-        handler.removeMessages(827);
+        handler.removeMessages(MSG_PREPARE_TICK);
         hidePrepareOverlay();
         binding.prepareCompactCountdown.setVisibility(View.GONE);
     }
@@ -796,15 +854,15 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
             try {
                 prepareSeconds = DeviceValueUtils.coercePrepareSeconds(Integer.parseInt(String.valueOf(obj)));
                 prepareRemainingSeconds = prepareSeconds;
-                if (handler.hasMessages(827)) {
+                if (handler.hasMessages(MSG_PREPARE_TICK)) {
                     updatePrepareCountdownUi(prepareRemainingSeconds);
                 } else {
                     binding.tvPrepareSeconds.setText(String.valueOf(prepareSeconds));
                 }
                 setPrepareSeconds();
                 if (binding.prepareOverlay.getVisibility() == View.VISIBLE) {
-                    handler.removeMessages(827);
-                    handler.sendEmptyMessageDelayed(827, 1000);
+                    handler.removeMessages(MSG_PREPARE_TICK);
+                    handler.sendEmptyMessageDelayed(MSG_PREPARE_TICK, 1000);
                 }
             } catch (NumberFormatException e) {
                 e.printStackTrace();
@@ -822,4 +880,17 @@ public class DeviceLauncherActivity extends MqttBaseActivity<LayoutDevicelaunche
             e.printStackTrace();
         }
     }
-} 
+
+    private void handleDeviceOffline() {
+        if (leavingForOffline) {
+            return;
+        }
+        leavingForOffline = true;
+        cancelTreatmentCountdown();
+        cancelPrepareCountdown();
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        startActivity(intent);
+        finish();
+    }
+}

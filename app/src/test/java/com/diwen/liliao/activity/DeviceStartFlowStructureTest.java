@@ -97,13 +97,23 @@ public class DeviceStartFlowStructureTest {
     }
 
     @Test
-    public void treatmentTimeComesOnlyFromDeviceMessages() throws Exception {
+    public void treatmentTimeRunsLocallyAndStopsOutsideRunningState() throws Exception {
         String source = readSource("src/main/java/com/diwen/liliao/activity/DeviceLauncherActivity.java");
 
-        assertFalse(source.contains("handler.sendEmptyMessage(826)"));
-        assertFalse(source.contains("allTime--"));
+        assertTrue(source.contains("MSG_TREATMENT_TICK = 826"));
+        assertTrue(source.contains("treatmentCountdown.tick(Launch)"));
+        assertTrue(source.contains("cancelTreatmentCountdown()"));
         assertTrue(source.contains("PadSAttribute.DeviceTimeMin.getAttribute()"));
         assertTrue(source.contains("PadSAttribute.DeviceTimeSecond.getAttribute()"));
+    }
+
+    @Test
+    public void offlineDeviceReturnsToMainPage() throws Exception {
+        String source = readSource("src/main/java/com/diwen/liliao/activity/DeviceLauncherActivity.java");
+
+        assertTrue(source.contains("handleDeviceOffline();"));
+        assertTrue(source.contains("new Intent(this, MainActivity.class)"));
+        assertTrue(source.contains("Intent.FLAG_ACTIVITY_CLEAR_TOP"));
     }
 
     @Test
